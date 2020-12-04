@@ -58,7 +58,7 @@ getMAFdataTCGA<-function(tcga_dataset="ACC",save_folder=file.path("data"), varia
 #' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #t <- getMAFDashboard(file = MAFfilePath)
 #'
-make_tcga_clinical_annotation <- function(tcga_maf_obj, plotdata=NULL) {
+getTCGAClinicalAnnotation <- function(tcga_maf_obj, plotdata=NULL) {
   require(maftools)
   require(RColorBrewer)
   require(ComplexHeatmap)
