@@ -162,7 +162,7 @@ div(
 ### Oncoplot
 ``` {r make-oncoplot, fig.width=12, fig.height=6 }
 # source("scripts/helper_functions/helper_functions.oncoplot.R")
-onco <- make_oncoplot(maf)
+onco <- generateOncoplot(maf)
 draw(onco)
 ```
 

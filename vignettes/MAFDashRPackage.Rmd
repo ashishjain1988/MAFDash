@@ -1,3 +1,36 @@
+---
+title: "MAF Dash"
+author: |
+    | Mayank Tandon, Ashish Jain
+    | Frederick National Laboratory
+    | Frederick, Maryland
+    | 
+date: "`r format(Sys.Date(), '%m/%d/%Y')`"
+output: 
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    #number_sections: true  ## if you want number sections at each table header
+    #theme: united  # many options for theme, this one is my favorite.
+fig_width: 8 
+fig_height: 5 
+vignette: >
+  %\VignetteIndexEntry{MAFDashRPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width=8, fig.height=5
+)
+```
+
 #### View on [github.io](https://mtandon09.github.io/MAFDash/)
 # MAFDashRPackage
 *Cuz once you've called the variants, it's a MAF dash to the finish line*
