@@ -1,7 +1,5 @@
 #' A function to detect MAF genome
 #' @description A function to detect MAF genome
-#' @NoRd
-#' @keywords internal
 #' @export
 detect_maf_genome<-function(maf){
   if (! "NCBI_Build" %in% colnames(maf@data)) {
@@ -31,8 +29,6 @@ detect_maf_genome<-function(maf){
 ### Adapted from maftools: https://github.com/PoisonAlien/maftools/blob/master/R/oncomatrix.R
 #' Creates matrix for oncoplot from maf file
 #' @description Cretaes matrix for oncoplot from maf file
-#' @NoRd
-#' @keywords internal
 #' @export
 createOncoMatrix = function(m, g = NULL, chatty = TRUE, add_missing = FALSE){
 
@@ -159,8 +155,6 @@ createOncoMatrix = function(m, g = NULL, chatty = TRUE, add_missing = FALSE){
 
 #' Make variant table from maf file
 #' @description Make variant table from maf file
-#' @NoRd
-#' @keywords internal
 #' @export
 make_variant_table <- function(maf.filter, use_syn=F, extra_cols=c()) {
 
