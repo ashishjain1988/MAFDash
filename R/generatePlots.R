@@ -46,15 +46,18 @@ generateOncoplot<-function(maf.filtered, cohort_freq_thresh = 0.01, auto_adjust_
   reasons <- paste0("Cohort Freq > ",cohort_freq_thresh)
 
   ### Collect genes to plot
-  genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), reason=c())
+  ##AJ: Optimized the code
+  #genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), reason=c())
+  genes_for_oncoplot_list<-list()
   for (i in 1:length(gene_list)) {
     if (is.na(gene_list[[i]][1])) {
       next
     }
-    genes_for_oncoplot <- rbind(genes_for_oncoplot,
-                                data.frame(Hugo_Symbol=gene_list[[i]],
-                                           reason=reasons[i]))
+    genes_for_oncoplot_list[[i]]<-data.frame(Hugo_Symbol=gene_list[[i]],
+                                             reason=reasons[i],stringsAsFactors = TRUE)
+    #genes_for_oncoplot <- rbind(genes_for_oncoplot,data.frame(Hugo_Symbol=gene_list[[i]],reason=reasons[i]))
   }
+  genes_for_oncoplot <-do.call("rbind",genes_for_oncoplot_list)
   genes_for_oncoplot <- cbind(genes_for_oncoplot,
                               frac=frac_mut$frac_mut[match(genes_for_oncoplot$Hugo_Symbol, frac_mut$Hugo_Symbol)])
 
@@ -64,6 +67,7 @@ generateOncoplot<-function(maf.filtered, cohort_freq_thresh = 0.01, auto_adjust_
   ###   Here, we're only picked based on the frequency
   ###   But this framework is useful for plotting genes picked using various criteria
   split_idx=genes_for_oncoplot$reason
+  ##AJ: Updated the code here
   split_colors <- rainbow(length(levels(split_idx)))
   names(split_colors) <- as.character(genes_for_oncoplot$reason[!duplicated(genes_for_oncoplot$reason)])
   split_colors <- list(Reason=split_colors)
