@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #t <- getMAFDashboard(file = MAFfilePath)
 #'
 getMAFDashboard<-function(filePath,outputFilePath,outputFileName="output",outputFileTitle="MAF Dash"){
