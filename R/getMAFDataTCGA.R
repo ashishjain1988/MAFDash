@@ -1,27 +1,28 @@
-#' Function to generate a dashboard from a MAF file.
-#' @description This function created an HTML file containing the
-#' different figures and plots explaining the MAF dataset.
+#' Function to extract the mutation data in MAF format from TCGA
+#' @description This function download and extract the mutation
+#'  data in MAF format from TCGA.
 #' @author Mayank Tondon, Ashish Jain
-#' @param file The path of the file containing the mutation
+#' @param cancerCode The TCGA cancer code
+#' @param outputFolder The path of the file containing the mutation
 #' information in the MAF format
 #' @export
-#' @return The output is the html file.
+#' @return The mutation annotation in the MAF object
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#' #t <- getMAFDashboard(file = MAFfilePath)
-#'
-getMAFdataTCGA<-function(tcga_dataset="ACC",save_folder=file.path("data"), variant_caller="mutect2"){
-  # tcga_dataset="STAD"
-  save_folder=file.path(save_folder,paste0("TCGA_",tcga_dataset),variant_caller)
-  tcga_maf_file=file.path(save_folder,paste0("TCGA_",tcga_dataset,".",variant_caller,".maf"))
+#' cancerCode <- "ACC"
+#' outputFolderPath <- "."
+#' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+
+getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data")){
+
+  variant_caller="mutect2"
+  outputFolder=file.path(outputFolder,paste0("TCGA_",cancerCode),variant_caller)
+  tcga_maf_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".",variant_caller,".maf"))
 
   if (!file.exists(tcga_maf_file)) {
-    if(!dir.exists(save_folder)) {dir.create(save_folder, recursive = T)}
-    tcga_maf <- GDCquery_Maf(gsub("TCGA-","",tcga_dataset),
-                             pipelines = variant_caller,
-                             directory = save_folder)
+    if(!dir.exists(outputFolder)) {dir.create(outputFolder, recursive = T)}
+    tcga_maf <- GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
     tcga_maf$Tumor_Sample_Barcode_original <- tcga_maf$Tumor_Sample_Barcode
     tcga_maf$Tumor_Sample_Barcode <-unlist(lapply(strsplit(tcga_maf$Tumor_Sample_Barcode, "-"), function(x) {paste0(x[1:3], collapse="-")}))
     tcga_maf$caller <- variant_caller
@@ -29,10 +30,10 @@ getMAFdataTCGA<-function(tcga_dataset="ACC",save_folder=file.path("data"), varia
   }
 
 
-  tcga_clinical_file=file.path(save_folder,paste0("TCGA_",tcga_dataset,".clinical.txt"))
+  tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
   if (! file.exists(tcga_clinical_file)) {
     if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
-    tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",tcga_dataset), type = "clinical")
+    tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
     write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
   }
 
@@ -44,34 +45,41 @@ getMAFdataTCGA<-function(tcga_dataset="ACC",save_folder=file.path("data"), varia
 }
 
 
-#' Function to generate a dashboard from a MAF file.
-#' @description This function created an HTML file containing the
-#' different figures and plots explaining the MAF dataset.
+#' Function to extract the clinical annotations from TCGA
+#' @description This function download and extract the clinical
+#' annotations from TCGA.
 #' @author Mayank Tondon, Ashish Jain
-#' @param file The path of the file containing the mutation
-#' information in the MAF format
+#' @param cancerCode The TCGA cancer code
+#' @param outputFolder The path of the file containing the clinical
+#' annotations from TCGA
+#' @param plotdata Flag to plot the annotations
 #' @export
-#' @return The output is the html file.
+#' @return List containing the TCGA clinical annotations
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#' #t <- getMAFDashboard(file = MAFfilePath)
-#'
-getTCGAClinicalAnnotation <- function(tcga_maf_obj, plotdata=NULL) {
-  require(maftools)
-  require(RColorBrewer)
-  require(ComplexHeatmap)
-  require(circlize)
-  tcga_clin_data <- tcga_maf_obj@clinical.data
+#' cancerCode <- "ACC"
+#' outputFolderPath <- "."
+#' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("data"), plotdata=NULL) {
+
+  tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
+  if (! file.exists(tcga_clinical_file)) {
+    if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
+    tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
+    write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
+  }
+  tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = T,stringsAsFactors = F)
+  tcga_clin_data$Tumor_Sample_Barcode <- tcga_clin_data$bcr_patient_barcode
+  #tcga_clin_data <- tcga_maf_obj@clinical.data
   tcga_pheno_columns <- c("Tumor_Sample_Barcode","ajcc_pathologic_stage","age_at_diagnosis","gender","race","vital_status","tissue_or_organ_of_origin")
   matched_order=1:nrow(tcga_clin_data)
   if (!is.null(plotdata)) {
     matched_order=match(colnames(plotdata), tcga_clin_data$Tumor_Sample_Barcode, nomatch=0)
   }
   tcga_anno_data <- tcga_clin_data[matched_order,..tcga_pheno_columns]
-  tcga_dataset <- paste0(unique(tcga_clin_data$disease), collapse=",")
-  tcga_anno_data$Dataset <- tcga_dataset
+  cancerCode <- paste0(unique(tcga_clin_data$disease), collapse=",")
+  tcga_anno_data$Dataset <- cancerCode
 
   anno_data <- tcga_anno_data
 
@@ -98,7 +106,7 @@ getTCGAClinicalAnnotation <- function(tcga_maf_obj, plotdata=NULL) {
 
   # dataset_colors <- setNames(c("mediumorchid1","darkolivegreen1"),
   dataset_colors <- setNames(c("grey30","darkolivegreen1"),
-                             c(tcga_dataset, "Other"))
+                             c(cancerCode, "Other"))
 
   anno_colors <- setNames(list(stage_colors, age_colors, gender_colors, race_colors, vitstat_colors, tissue_colors, dataset_colors),
                           setdiff(colnames(anno_data),"Tumor_Sample_Barcode"))
