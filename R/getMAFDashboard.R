@@ -1,5 +1,5 @@
 #' Function to generate a dashboard from a MAF file.
-#' @description This function created an HTML file containing the
+#' @description This function creates an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
 #' @author Mayank Tondon, Ashish Jain
 #' @param filePath The path of the file containing the mutation
