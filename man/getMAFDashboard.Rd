@@ -33,7 +33,7 @@ different figures and plots explaining the MAF dataset.
 }
 \examples{
 library(MAFDashRPackage)
-MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #t <- getMAFDashboard(file = MAFfilePath)
 
 }

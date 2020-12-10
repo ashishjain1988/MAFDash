@@ -9,4 +9,3 @@ make_variant_table(maf.filter, use_syn = F, extra_cols = c())
 \description{
 Make variant table from maf file
 }
-\keyword{internal}

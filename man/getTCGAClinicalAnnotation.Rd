@@ -2,26 +2,34 @@
 % Please edit documentation in R/getMAFDataTCGA.R
 \name{getTCGAClinicalAnnotation}
 \alias{getTCGAClinicalAnnotation}
-\title{Function to generate a dashboard from a MAF file.}
+\title{Function to extract the clinical annotations from TCGA}
 \usage{
-getTCGAClinicalAnnotation(tcga_maf_obj, plotdata = NULL)
+getTCGAClinicalAnnotation(
+  cancerCode = "ACC",
+  outputFolder = file.path("data"),
+  plotdata = NULL
+)
 }
 \arguments{
-\item{file}{The path of the file containing the mutation
-information in the MAF format}
+\item{cancerCode}{The TCGA cancer code}
+
+\item{outputFolder}{The path of the file containing the clinical
+annotations from TCGA}
+
+\item{plotdata}{Flag to plot the annotations}
 }
 \value{
-The output is the html file.
+List containing the TCGA clinical annotations
 }
 \description{
-This function created an HTML file containing the
-different figures and plots explaining the MAF dataset.
+This function download and extract the clinical
+annotations from TCGA.
 }
 \examples{
 library(MAFDashRPackage)
-MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#t <- getMAFDashboard(file = MAFfilePath)
-
+cancerCode <- "ACC"
+outputFolderPath <- "."
+#maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 }
 \author{
 Mayank Tondon, Ashish Jain

@@ -9,4 +9,3 @@ createOncoMatrix(m, g = NULL, chatty = TRUE, add_missing = FALSE)
 \description{
 Cretaes matrix for oncoplot from maf file
 }
-\keyword{internal}

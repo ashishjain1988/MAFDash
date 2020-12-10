@@ -9,4 +9,3 @@ detect_maf_genome(maf)
 \description{
 A function to detect MAF genome
 }
-\keyword{internal}

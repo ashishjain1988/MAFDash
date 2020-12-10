@@ -2,10 +2,10 @@
 % Please edit documentation in R/filterMAF.R
 \name{filterMAF}
 \alias{filterMAF}
-\title{Function to generate a dashboard from a MAF file.}
+\title{Function to filter the mutations}
 \usage{
 filterMAF(
-  maf_file,
+  mafFilePath,
   flag_genes = "default",
   save_name = NULL,
   no_filter = F,
@@ -22,21 +22,21 @@ filterMAF(
 )
 }
 \arguments{
-\item{file}{The path of the file containing the mutation
+\item{mafFilePath}{The path of the file containing the mutation
 information in the MAF format}
+
+\item{variant_caller}{}
 }
 \value{
-The output is the html file.
+The filtered MAF object
 }
 \description{
-This function created an HTML file containing the
-different figures and plots explaining the MAF dataset.
+This function filter the mutations in the MAF format using thresholds on various features
 }
 \examples{
 library(MAFDashRPackage)
-MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#t <- getMAFDashboard(file = MAFfilePath)
-
+#MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#filteredMAF <- filterMAF(mafFilePath = MAFfilePath)
 }
 \author{
 Mayank Tondon, Ashish Jain
