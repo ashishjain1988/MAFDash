@@ -1,18 +1,31 @@
-#' Function to generate a dashboard from a MAF file.
-#' @description This function created an HTML file containing the
-#' different figures and plots explaining the MAF dataset.
+#' Function to filter the mutations
+#' @description This function filter the mutations in the MAF format using thresholds on various features
 #' @author Mayank Tondon, Ashish Jain
-#' @param file The path of the file containing the mutation
+#' @param mafFilePath The path of the file containing the mutation
 #' information in the MAF format
+#' @param flag_genes
+#' @param save_name
+#' @param no_filter
+#' @param norm_alt_max
+#' @param t_alt_min
+#' @param t_depth_min
+#' @param tumor_freq_min
+#' @param norm_freq_max
+#' @param gnomAD_AF_max
+#' @param AF_max
+#' @param ExAC_AF_max
+#' @param n_callers
+#' @param variant_caller
+#'
 #' @export
-#' @return The output is the html file.
+#' @return The filtered MAF object
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#' #t <- getMAFDashboard(file = MAFfilePath)
-#'
-filterMAF<-function(maf_file, flag_genes="default",save_name=NULL,no_filter=F,
+#' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#' #filteredMAF <- filterMAF(mafFilePath = MAFfilePath)
+
+filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F,
                     norm_alt_max=1,t_alt_min=1,t_depth_min=20,
                     tumor_freq_min=0.05, norm_freq_max=0.02,
                     gnomAD_AF_max=0.001, AF_max=0.001, ExAC_AF_max=0.001,
@@ -24,7 +37,7 @@ filterMAF<-function(maf_file, flag_genes="default",save_name=NULL,no_filter=F,
   } else if (flag_genes[1]=="default") {
     flag_genes <- c("TTN","MUC16","OBSCN","AHNAK2","SYNE1","FLG","MUC5B","DNAH17","PLEC","DST","SYNE2","NEB","HSPG2","LAMA5","AHNAK","HMCN1","USH2A","DNAH11","MACF1","MUC17","DNAH5","GPR98","FAT1","PKD1","MDN1","RNF213","RYR1","DNAH2","DNAH3","DNAH8","DNAH1","DNAH9","ABCA13","SRRM2","CUBN","SPTBN5","PKHD1","LRP2","FBN3","CDH23","DNAH10","FAT4","RYR3","PKHD1L1","FAT2","CSMD1","PCNT","COL6A3","FRAS1","FCGBP","RYR2","HYDIN","XIRP2","LAMA1")
   }
-  maf_df.raw <- read.table(maf_file, sep="\t", header=T, fill = T, quote="\"", stringsAsFactors = F)
+  maf_df.raw <- read.table(mafFilePath, sep="\t", header=T, fill = T, quote="\"", stringsAsFactors = F)
   maf_df.raw <- maf_df.raw[maf_df.raw$Hugo_Symbol != "Hugo_Symbol",]
   filter_genes=!maf_df.raw$Hugo_Symbol %in% flag_genes
   maf_df.raw <- maf_df.raw[filter_genes,]
