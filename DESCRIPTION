@@ -11,7 +11,7 @@ Description: Mutation Annotation Format (MAF) is a tabular data format used for 
 License: GPL
 VignetteBuilder: knitr
 Depends:
-    R (>= 4.0.0),
+    R (>= 3.5.0),
     rmarkdown (>= 1.0.0),
     knitr (>= 1.3.0),
     flexdashboard (>= 0.5.2),
