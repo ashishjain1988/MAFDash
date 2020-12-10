@@ -32,5 +32,5 @@ getMAFDashboard<-function(filePath,outputFilePath,outputFileName="output",output
   ### rmarkdown::render doesn't let you select output destination (it uses the path of the Rmd file)
   ##  So this bit will move the report to the path in the 'out_dir' variable
   if (!dir.exists(outputFilePath)) { outputFilePath = getwd()}#dir.create(outputFilePath, recursive = T) }
-  file.rename(file.path(dirname(MAFRmdfile),outputFileName), file.path(outputFilePath,outputFileName))
+  file.rename(file.path(dirname(MAFRmdfile),html_filename), file.path(outputFilePath,html_filename))
 }
