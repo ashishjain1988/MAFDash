@@ -4,7 +4,11 @@
 \alias{getMAFdataTCGA}
 \title{Function to extract the mutation data in MAF format from TCGA}
 \usage{
-getMAFdataTCGA(cancerCode = "ACC", outputFolder = file.path("data"))
+getMAFdataTCGA(
+  cancerCode = "ACC",
+  outputFolder = file.path("data"),
+  variant_caller = "mutect2"
+)
 }
 \arguments{
 \item{cancerCode}{The TCGA cancer code}
@@ -13,7 +17,7 @@ getMAFdataTCGA(cancerCode = "ACC", outputFolder = file.path("data"))
 information in the MAF format}
 }
 \value{
-The mutation annotation in the MAF object
+A list containing path of mutation annotation file
 }
 \description{
 This function download and extract the mutation

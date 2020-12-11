@@ -28,7 +28,7 @@ file}
 The dashboard html file
 }
 \description{
-This function created an HTML file containing the
+This function creates an HTML file containing the
 different figures and plots explaining the MAF dataset.
 }
 \examples{

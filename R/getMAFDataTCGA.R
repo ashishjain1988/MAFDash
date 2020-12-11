@@ -6,7 +6,7 @@
 #' @param outputFolder The path of the file containing the mutation
 #' information in the MAF format
 #' @export
-#' @return The mutation annotation in the MAF object
+#' @return A list containing path of mutation annotation file
 #'
 #' @examples
 #' library(MAFDashRPackage)
@@ -14,9 +14,8 @@
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 
-getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data")){
+getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant_caller="mutect2"){
 
-  variant_caller="mutect2"
   outputFolder=file.path(outputFolder,paste0("TCGA_",cancerCode),variant_caller)
   tcga_maf_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".",variant_caller,".maf"))
 
@@ -28,20 +27,19 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data")){
     tcga_maf$caller <- variant_caller
     write.table(tcga_maf, file=tcga_maf_file, quote=F, sep="\t", row.names = F, col.names = T)
   }
-
-
-  tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
-  if (! file.exists(tcga_clinical_file)) {
-    if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
-    tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
-    write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
-  }
-
-
-  tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = T,stringsAsFactors = F)
-  tcga_clin_data$Tumor_Sample_Barcode <- tcga_clin_data$bcr_patient_barcode
-  tcga_maf <- read.maf(tcga_maf_file, clinicalData = tcga_clin_data)
-  return(tcga_maf)
+  # tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
+  # if (! file.exists(tcga_clinical_file)) {
+  #   if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
+  #   tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
+  #   write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
+  # }
+  #
+  #
+  # tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = T,stringsAsFactors = F)
+  # tcga_clin_data$Tumor_Sample_Barcode <- tcga_clin_data$bcr_patient_barcode
+  # tcga_maf <- read.maf(tcga_maf_file, clinicalData = tcga_clin_data)
+  #return(list("MAFFilePath"=tcga_maf_file,"MAFObject"=tcga_maf))
+  return(tcga_maf_file)
 }
 
 
