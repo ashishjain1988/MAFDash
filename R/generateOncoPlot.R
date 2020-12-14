@@ -1,28 +1,32 @@
-#' Function to generate a dashboard from a MAF file.
+#' Function to generate a dashboard from a MAF file
 #' @description This function created an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
 #' @author Mayank Tondon, Ashish Jain
-#' @param file The path of the file containing the mutation
-#' information in the MAF format
+#' @param maf The MAF object
+#' @param cohort_freq_thresh Cohort Frequency Threshold
+#' @param auto_adjust_threshold Auto Adjusted Threshold flag
+#' @param oncomat_only Oncomat only flag
+#' @param clin_data Clinical data
+#' @param clin_data_colors Clinical data colors
 #' @export
-#' @return The output is the html file.
+#' @return The onco plot object.
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#' #t <- getMAFDashboard(file = MAFfilePath)
+#' #g <- generateOncoPlot(maf)
+#' #g
 #'
-generateOncoPlot<-function(maf.filtered, cohort_freq_thresh = 0.01, auto_adjust_threshold=T,
+generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_threshold=T,
                            oncomat_only=F,
                            clin_data=NULL, clin_data_colors=NULL){
 
   require(ComplexHeatmap)
   ### Read in MAF file
-  # maf.filtered <- read.maf(maf_file)
+  # maf <- read.maf(maf_file)
 
   ### Structure info about the fraction of the cohort that has each gene mutated
-  frac_mut <- data.frame(Hugo_Symbol=maf.filtered@gene.summary$Hugo_Symbol,
-                         frac_mut=(maf.filtered@gene.summary$MutatedSamples/as.numeric(maf.filtered@summary$summary[3])),
+  frac_mut <- data.frame(Hugo_Symbol=maf@gene.summary$Hugo_Symbol,
+                         frac_mut=(maf@gene.summary$MutatedSamples/as.numeric(maf@summary$summary[3])),
                          stringsAsFactors = F)
 
   ngene_max=25
@@ -74,7 +78,7 @@ generateOncoPlot<-function(maf.filtered, cohort_freq_thresh = 0.01, auto_adjust_
 
   # source("scripts/helper_functions.oncoplot.R")
   ### Make matrix to plot, and order it correctly
-  oncomat <- createOncoMatrix(maf.filtered, g=genes_for_oncoplot$Hugo_Symbol, add_missing = F)$oncoMatrix
+  oncomat <- createOncoMatrix(maf, g=genes_for_oncoplot$Hugo_Symbol, add_missing = F)$oncoMatrix
   oncomat <- oncomat[match(genes_for_oncoplot$Hugo_Symbol,rownames(oncomat)), ]
   onco_genes <- rownames(oncomat)
 
@@ -109,7 +113,7 @@ generateOncoPlot<-function(maf.filtered, cohort_freq_thresh = 0.01, auto_adjust_
   }
 
   ## Show total burden for top annotation
-  variant_type_data <- data.frame(maf.filtered@variant.classification.summary)
+  variant_type_data <- data.frame(maf@variant.classification.summary)
   rownames(variant_type_data) <- variant_type_data$Tumor_Sample_Barcode
   colnames(variant_type_data) <- gsub("_"," ",colnames(variant_type_data))
   variant_type_data <- variant_type_data[,c(-1,-ncol(variant_type_data))]
