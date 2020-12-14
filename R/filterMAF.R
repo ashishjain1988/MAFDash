@@ -3,19 +3,19 @@
 #' @author Mayank Tondon, Ashish Jain
 #' @param mafFilePath The path of the file containing the mutation
 #' information in the MAF format
-#' @param flag_genes
-#' @param save_name
-#' @param no_filter
-#' @param norm_alt_max
-#' @param t_alt_min
-#' @param t_depth_min
-#' @param tumor_freq_min
-#' @param norm_freq_max
-#' @param gnomAD_AF_max
-#' @param AF_max
-#' @param ExAC_AF_max
-#' @param n_callers
-#' @param variant_caller
+#' @param flag_genes The list of genes used as flag genes
+#' @param save_name The name of the filtered MAF object
+#' @param no_filter Flag to filter the MAF (Default no_filter=FALSE)
+#' @param norm_alt_max Alt norm max (norm_alt_max=1)
+#' @param t_alt_min Alt t min (t_alt_min=1)
+#' @param t_depth_min Depth t min (t_depth_min=20)
+#' @param tumor_freq_min Tumor Frequency Minimum (tumor_freq_min=0.05)
+#' @param norm_freq_max norm_freq_max (norm_freq_max=0.02)
+#' @param gnomAD_AF_max gnomAD_AF_max (gnomAD_AF_max=0.001)
+#' @param AF_max AF_max (AF_max=0.001)
+#' @param ExAC_AF_max ExAC_AF_max (ExAC_AF_max=0.01)
+#' @param n_callers n_callers (n_callers=2)
+#' @param variant_caller variant_caller
 #'
 #' @export
 #' @return The filtered MAF object
@@ -25,7 +25,7 @@
 #' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #filteredMAF <- filterMAF(mafFilePath = MAFfilePath)
 
-filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F,
+filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=FALSE,
                     norm_alt_max=1,t_alt_min=1,t_depth_min=20,
                     tumor_freq_min=0.05, norm_freq_max=0.02,
                     gnomAD_AF_max=0.001, AF_max=0.001, ExAC_AF_max=0.001,

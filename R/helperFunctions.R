@@ -1,7 +1,13 @@
 #' A function to detect MAF genome
 #' @description A function to detect MAF genome
+#' @param maf The MAF object
 #' @export
-detect_maf_genome<-function(maf){
+#' @return The list of object containing the genome
+#' information
+#' @examples
+#' library(MAFDashRPackage)
+#' #g<-detectMAFGenome(maf)
+detectMAFGenome<-function(maf){
   if (! "NCBI_Build" %in% colnames(maf@data)) {
     warning("No genome information in MAF obj.")
     return(NA)
@@ -27,26 +33,34 @@ detect_maf_genome<-function(maf){
 
 ### Cretaes matrix for oncoplot from maf file
 ### Adapted from maftools: https://github.com/PoisonAlien/maftools/blob/master/R/oncomatrix.R
-#' Creates matrix for oncoplot from maf file
-#' @description Cretaes matrix for oncoplot from maf file
+#' Creates matrix for oncoplot
+#' @description Creates matrix for oncoplot from maf file
+#' @param maf The MAF object
+#' @param g g
+#' @param chatty chatty
+#' @param add_missing add_missing
 #' @export
-createOncoMatrix = function(m, g = NULL, chatty = TRUE, add_missing = FALSE){
+#' @return The list of objects required for oncoplot function
+#' @examples
+#' library(MAFDashRPackage)
+#' #g<-createOncoMatrix(maf)
+createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
 
   if(is.null(g)){
     stop("Please provde atleast two genes!")
   }
 
-  subMaf = subsetMaf(maf = m, genes = g, includeSyn = FALSE, mafObj = FALSE)
+  subMaf = subsetMaf(maf = maf, genes = g, includeSyn = FALSE, mafObj = FALSE)
 
   if(nrow(subMaf) == 0){
     if(add_missing){
-      numericMatrix = matrix(data = 0, nrow = length(g), ncol = length(levels(getSampleSummary(x = m)[,Tumor_Sample_Barcode])))
+      numericMatrix = matrix(data = 0, nrow = length(g), ncol = length(levels(getSampleSummary(x = maf)[,Tumor_Sample_Barcode])))
       rownames(numericMatrix) = g
-      colnames(numericMatrix) = levels(getSampleSummary(x = m)[,Tumor_Sample_Barcode])
+      colnames(numericMatrix) = levels(getSampleSummary(x = maf)[,Tumor_Sample_Barcode])
 
-      oncoMatrix = matrix(data = "", nrow = length(g), ncol = length(levels(getSampleSummary(x = m)[,Tumor_Sample_Barcode])))
+      oncoMatrix = matrix(data = "", nrow = length(g), ncol = length(levels(getSampleSummary(x = maf)[,Tumor_Sample_Barcode])))
       rownames(oncoMatrix) = g
-      colnames(oncoMatrix) = levels(getSampleSummary(x = m)[,Tumor_Sample_Barcode])
+      colnames(oncoMatrix) = levels(getSampleSummary(x = maf)[,Tumor_Sample_Barcode])
 
       vc = c("")
       names(vc) = 0
@@ -155,8 +169,15 @@ createOncoMatrix = function(m, g = NULL, chatty = TRUE, add_missing = FALSE){
 
 #' Make variant table from maf file
 #' @description Make variant table from maf file
+#' @param maf.filter The MAF object
+#' @param use_syn use_syn
+#' @param extra_cols extra_cols
 #' @export
-make_variant_table <- function(maf.filter, use_syn=F, extra_cols=c()) {
+#' @return Data table containing the variant information
+#' @examples
+#' library(MAFDashRPackage)
+#' #g<-generateVariantTable(maf)
+generateVariantTable <- function(maf.filter, use_syn=F, extra_cols=c()) {
 
   output_data <- maf.filter@data
   if (use_syn) {
