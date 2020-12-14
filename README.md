@@ -1,8 +1,45 @@
-#### View on [github.io](https://mtandon09.github.io/MAFDash/)
-# MAFDashRPackage
-*Cuz once you've called the variants, it's a MAF dash to the finish line*
+#### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
 
-##Installation
+## Getting started
+### Installation from Github
+```
+install.packages(devtools)
+library(devtools)
+devtools::install_github("ashishjain1988/MAFDashRPackage")
+```
+<!--
+* Install Dependencies
+* `install.packages(c("dplyr","ensurer","ggplot2","tidyr","DT","rmarkdown","knitr","flexdashboard","htmltools","data.table","ggbeeswarm","RColorBrewer","plotly","circlize","canvasXpress","crosstalk","bsplus"))`
+* `install.packages("BiocManager","maftools","ComplexHeatmap")`
+* `BiocManager::install(c("TCGAbiolinks",))`
+* Now install the `devtools` package
+* `install.packages(devtools)`
+* `library(devtools)`
+* Run command `install_github("ashishjain1988/MAFDashRPackage")`-->
+
+### Get some mutation data in MAF format
+See [this page](https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/tcga-study-abbreviations) for a list of TCGA codes
+```
+library("MAFDashRPackage")
+
+# Download MAF data from TCGA
+CancerCode <- "ACC"
+inputFolderPath <- "tcga_data" ## This folder will be created if it doesn't exist 
+maf <- getMAFdataTCGA(cancerCode = CancerCode, outputFolder = inputFolderPath)
+```
+
+### Make the dashboard
+```
+getMAFDashboard(maf, outputFilePath = ".", outputFileName="output", outputFileTitle=paste0("MAF Dashboard - TCGA-",CancerCode))
+```
+### Details
+- The `getMAFdataTCGA` function is a wrapper around `TCGABiolinks`, and can be used to download MAF data from TCGA website.
+- The first argument of `getMAFDashboard` can be anything that's accepted by maftools's [`read.maf`](https://rdrr.io/bioc/maftools/man/read.maf.html) function (path to a file, or a `MAF` , `data.frame`, or `data.table` object)
+
+
+
+## Installing Dependencies
+A lot of this should be handled during package installation, but here's a complete list of required packages and some code to install them.
 
 **Required libraries**
 Here's some code that will try to install required libraries that are not already installed (from [my Gist](https://gist.github.com/mtandon09/4a870bf4addbe46e784059bce0e5d8d6) about this)
@@ -44,22 +81,6 @@ print(paste0("Installing ",length(cran_packages), " new packages from CRAN..."))
 if(length(cran_packages)) install.packages(cran_packages, repos="https://cloud.r-project.org")
 ```
 
-**Installation from Github**
-```
-install.packages(devtools)
-library(devtools)
-devtools::install_github("ashishjain1988/MAFDashRPackage")
-```
-<!--
-* Install Dependencies
-* `install.packages(c("dplyr","ensurer","ggplot2","tidyr","DT","rmarkdown","knitr","flexdashboard","htmltools","data.table","ggbeeswarm","RColorBrewer","plotly","circlize","canvasXpress","crosstalk","bsplus"))`
-* `install.packages("BiocManager","maftools","ComplexHeatmap")`
-* `BiocManager::install(c("TCGAbiolinks",))`
-* Now install the `devtools` package
-* `install.packages(devtools)`
-* `library(devtools)`
-* Run command `install_github("ashishjain1988/MAFDashRPackage")`-->
-
 ## Example
 Here are some example dashboards created using TCGA data:
 - [TCGA-UVM](https://mtandon09.github.io/MAFDash/output/TCGA-UVM.MAFDash.html)
@@ -70,28 +91,8 @@ Here are some example dashboards created using TCGA data:
 
 This repo -- **MAFDash** -- contains a set of R tools to easily create an HTML dashboard to summarize and visualize data from MAF file.
 
-The resulting HTML file serves as a self-contained report that can be used to explore the result.  Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information. I hope to add more interactivity 
+The resulting HTML file serves as a self-contained report that can be used to explore the result.  Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information. 
 
-This repo is a companion to a Shiny app I made, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard is an attempt to try some of those things using client-side javascript functionality.
+This repo is a companion to the Shiny app, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard is an attempt to try some of those things using client-side javascript functionality.
 
-## Making a MAF Dashboard
-The `MAFDash.Rmd` file can be rendered in R using the `rmarkdown` library like this:
 
-```
-# MAF data
-maf_file="/path/to/maf/file"
-
-library("MAFDashRPackage")
-getMAFDashboard(maf_file,outputFilePath = ".",outputFileName="output" ,outputFileTitle="MAF Dashboard")
-
-```
-### Details
-- `maf_file` can be anything that's accepted by maftools's [`read.maf`](https://rdrr.io/bioc/maftools/man/read.maf.html) function (path to a file, or a `MAF` , `data.frame`, or `data.table` object)
-- The `getMAFdataTCGA` function can be used to download MAF data from TCGA website.
-
-```
-#Download MAF data from TCGA
-CancerCode <- "ACC"
-outputFolderPath <- "data"
-maf <- getMAFdataTCGA(tcga_dataset = CancerCode,save_folder = outputFolderPath)
-```
