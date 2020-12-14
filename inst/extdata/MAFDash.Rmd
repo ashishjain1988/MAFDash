@@ -109,8 +109,7 @@ hm_width=paste0(
         min(c(maxsize, max(c(minsize,ngenes*px_per_gene)))),
         "px")
 
-require(canvasXpress)
-
+#require(canvasXpress)
 ### Render plot
 canvasXpress(
   data = mat1,
@@ -139,12 +138,12 @@ canvasXpress(
 ### Burden Plots {data-orientation=columns}
 ```{r make-burden-plot-dot }
 # source("scripts/helper_functions/helper_functions.oncoplot.R")
-burden_plot <- make_burden_plot(maf, plotType = "Dotplot")
+burden_plot <- generateBurdenPlot(maf, plotType = "Dotplot")
 
 dotplotly <- ggplotly(burden_plot,tooltip = "text", width=500, height=600) %>%
       layout(yaxis=list(autorange = T,fixedrange= F))
 
-burden_plot <- make_burden_plot(maf, plotType = "Barplot")
+burden_plot <- generateBurdenPlot(maf, plotType = "Barplot")
 
 barplotly <- ggplotly(burden_plot,tooltip = "text", width=800, height=600) %>%
       layout(yaxis=list(autorange = T,fixedrange= F))
@@ -162,7 +161,7 @@ div(
 ### Oncoplot
 ``` {r make-oncoplot, fig.width=12, fig.height=6 }
 # source("scripts/helper_functions/helper_functions.oncoplot.R")
-onco <- generateOncoplot(maf)
+onco <- generateOncoPlot(maf)
 draw(onco)
 ```
 
@@ -173,7 +172,7 @@ pval_low=0.05
 pval_high=0.01
 
 #source("~/Documents/helper_functions/helper_functions.oncoplot.R")
-make_single_ribbon_plot(maf,
+generateSingleRibbonPlot(maf,
                         pval_low = pval_low, pval_high = pval_high, 
                         gene_colors = "grey50",
                         shrink_factor=1.5)
@@ -183,7 +182,7 @@ make_single_ribbon_plot(maf,
 Variant Table
 =======================================================================
 ```{r make-data-table, results="hide" }
-mydf <- make_variant_table(maf)
+mydf <- generateVariantTable(maf)
 column_labels <- setNames(colnames(mydf), make.names(colnames(mydf)))
 colnames(mydf) <- names(column_labels)
 
