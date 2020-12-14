@@ -2,10 +2,26 @@
 % Please edit documentation in R/helperFunctions.R
 \name{createOncoMatrix}
 \alias{createOncoMatrix}
-\title{Creates matrix for oncoplot from maf file}
+\title{Creates matrix for oncoplot}
 \usage{
-createOncoMatrix(m, g = NULL, chatty = TRUE, add_missing = FALSE)
+createOncoMatrix(maf, g = NULL, chatty = TRUE, add_missing = FALSE)
+}
+\arguments{
+\item{maf}{The MAF object}
+
+\item{g}{g}
+
+\item{chatty}{chatty}
+
+\item{add_missing}{add_missing}
+}
+\value{
+The list of objects required for oncoplot function
 }
 \description{
-Cretaes matrix for oncoplot from maf file
+Creates matrix for oncoplot from maf file
+}
+\examples{
+library(MAFDashRPackage)
+#g<-createOncoMatrix(maf)
 }

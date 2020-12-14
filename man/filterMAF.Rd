@@ -8,7 +8,7 @@ filterMAF(
   mafFilePath,
   flag_genes = "default",
   save_name = NULL,
-  no_filter = F,
+  no_filter = FALSE,
   norm_alt_max = 1,
   t_alt_min = 1,
   t_depth_min = 20,
@@ -25,7 +25,31 @@ filterMAF(
 \item{mafFilePath}{The path of the file containing the mutation
 information in the MAF format}
 
-\item{variant_caller}{}
+\item{flag_genes}{The list of genes used as flag genes}
+
+\item{save_name}{The name of the filtered MAF object}
+
+\item{no_filter}{Flag to filter the MAF (Default no_filter=FALSE)}
+
+\item{norm_alt_max}{Alt norm max (norm_alt_max=1)}
+
+\item{t_alt_min}{Alt t min (t_alt_min=1)}
+
+\item{t_depth_min}{Depth t min (t_depth_min=20)}
+
+\item{tumor_freq_min}{Tumor Frequency Minimum (tumor_freq_min=0.05)}
+
+\item{norm_freq_max}{norm_freq_max (norm_freq_max=0.02)}
+
+\item{gnomAD_AF_max}{gnomAD_AF_max (gnomAD_AF_max=0.001)}
+
+\item{AF_max}{AF_max (AF_max=0.001)}
+
+\item{ExAC_AF_max}{ExAC_AF_max (ExAC_AF_max=0.01)}
+
+\item{n_callers}{n_callers (n_callers=2)}
+
+\item{variant_caller}{variant_caller}
 }
 \value{
 The filtered MAF object
