@@ -20,11 +20,32 @@ generateSingleRibbonPlot(
 )
 }
 \arguments{
-\item{file}{The path of the file containing the mutation
-information in the MAF format}
+\item{maf}{The MAF object}
+
+\item{onco_genes}{List of onco genes to be plotted}
+
+\item{save_name}{Name of the output plot file}
+
+\item{ribbon_color}{Colors of the ribbon in the plots}
+
+\item{pval_high}{All interactions with less than this p-value will be shown}
+
+\item{pval_low}{Links with p-value less than this will be highlighted with a dashed border}
+
+\item{plot_frac_mut_axis}{Whether or not to draw a numerical axis on the perimeter}
+
+\item{rotate_plot_degrees}{For custom rotation}
+
+\item{shrink_factor}{Higher = more shrinkage; Control whitespaces (or lack thereof) around figure}
+
+\item{scale_ribbon_to_fracmut}{Flag to scale ribbon widths to their frequency}
+
+\item{sig_colors}{Vector of 4 colors for coloring significance}
+
+\item{gene_colors}{color(s) for gene blocks}
 }
 \value{
-The output is the html file.
+Plot saved in an output file.
 }
 \description{
 This function created an HTML file containing the
@@ -32,7 +53,7 @@ different figures and plots explaining the MAF dataset.
 }
 \examples{
 library(MAFDashRPackage)
-MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #t <- getMAFDashboard(file = MAFfilePath)
 
 }

@@ -15,6 +15,8 @@ getMAFdataTCGA(
 
 \item{outputFolder}{The path of the file containing the mutation
 information in the MAF format}
+
+\item{variant_caller}{The type of variant caller in TCGA}
 }
 \value{
 A list containing path of mutation annotation file

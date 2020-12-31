@@ -31,23 +31,23 @@ information in the MAF format}
 
 \item{no_filter}{Flag to filter the MAF (Default no_filter=FALSE)}
 
-\item{norm_alt_max}{Alt norm max (norm_alt_max=1)}
+\item{norm_alt_max}{Alt norm max (Default norm_alt_max=1)}
 
-\item{t_alt_min}{Alt t min (t_alt_min=1)}
+\item{t_alt_min}{Alt t min (Default t_alt_min=1)}
 
-\item{t_depth_min}{Depth t min (t_depth_min=20)}
+\item{t_depth_min}{Depth t min (Default t_depth_min=20)}
 
-\item{tumor_freq_min}{Tumor Frequency Minimum (tumor_freq_min=0.05)}
+\item{tumor_freq_min}{Tumor Frequency Minimum (Default tumor_freq_min=0.05)}
 
-\item{norm_freq_max}{norm_freq_max (norm_freq_max=0.02)}
+\item{norm_freq_max}{norm_freq_max (Default norm_freq_max=0.02)}
 
-\item{gnomAD_AF_max}{gnomAD_AF_max (gnomAD_AF_max=0.001)}
+\item{gnomAD_AF_max}{gnomAD_AF_max (Default gnomAD_AF_max=0.001)}
 
-\item{AF_max}{AF_max (AF_max=0.001)}
+\item{AF_max}{AF_max (Default AF_max=0.001)}
 
-\item{ExAC_AF_max}{ExAC_AF_max (ExAC_AF_max=0.01)}
+\item{ExAC_AF_max}{ExAC_AF_max (Default ExAC_AF_max=0.01)}
 
-\item{n_callers}{n_callers (n_callers=2)}
+\item{n_callers}{n_callers (Default n_callers=2)}
 
 \item{variant_caller}{variant_caller}
 }
