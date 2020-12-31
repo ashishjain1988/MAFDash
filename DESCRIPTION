@@ -30,7 +30,8 @@ Depends:
     TCGAbiolinks (>= 2.14.1),
     ggplot2 (>= 2.3.3),
     ensurer (>= 1.1.0),
-    data.table (>= 1.13.2)
+    data.table (>= 1.13.2),
+    reshape2 (>= 1.4.4)
 Suggests: jsonlite
 Encoding: UTF-8
 LazyData: true
