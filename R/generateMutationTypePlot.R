@@ -17,6 +17,13 @@
 #' #g
 #'
 generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
+  ### Add checks for the conditions
+  mymaf <- ensurer::ensure_that(mymaf,
+                                !is.null(.) && (class(.) == "MAF"),
+                                err_desc = "Please enter correct MAF object")
+  returndata <- ensurer::ensure_that(returndata,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the returndata flag in correct format.")
 
   nonsilent_summary <- mymaf@variant.classification.summary[,c("Tumor_Sample_Barcode","total")]
   nonsilent_summary$type <- "Non-Silent"

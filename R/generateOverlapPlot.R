@@ -25,6 +25,28 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
                             savename="overlap_plot.pdf",
                             savewidth=8, saveheight=8){
 
+  ### Add checks for the conditions
+  mymaf <- ensurer::ensure_that(mymaf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  use_silent_mutations <- ensurer::ensure_that(use_silent_mutations,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the use_silent_mutations flag in correct format.")
+  summarize_by <- ensurer::ensure_that(summarize_by,
+                                     !is.null(.) && ((. == "gene") || (. == "mutation")),
+                                     err_desc = "Please enter the summarize_by in correct format.")
+  plotType <- ensurer::ensure_that(plotType,
+                                       !is.null(.) && (class(.) == "character"),
+                                       err_desc = "Please enter the plotType in correct format.")
+  savename <- ensurer::ensure_that(savename,
+                                   !is.null(.) && (class(.) == "character"),
+                                   err_desc = "Please enter the plot name in correct format.")
+  savewidth <- ensurer::ensure_that(savewidth,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the savewidth in correct format.")
+  saveheight <- ensurer::ensure_that(saveheight,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the saveheight in correct format.")
   # browser()
   mafdata <- mymaf@data
   if (use_silent_mutations) {

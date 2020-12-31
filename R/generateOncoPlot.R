@@ -20,7 +20,20 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_threshold
                            oncomat_only=F,
                            clin_data=NULL, clin_data_colors=NULL){
 
-  require(ComplexHeatmap)
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                                !is.null(.) && (class(.) == "MAF"),
+                                err_desc = "Please enter correct MAF object")
+  cohort_freq_thresh <- ensurer::ensure_that(cohort_freq_thresh,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the cohort_freq_thresh in correct format.")
+  auto_adjust_threshold <- ensurer::ensure_that(auto_adjust_threshold,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the auto_adjust_threshold flag in correct format.")
+  oncomat_only <- ensurer::ensure_that(oncomat_only,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the oncomat_only flag in correct format.")
+  #require(ComplexHeatmap)
   ### Read in MAF file
   # maf <- read.maf(maf_file)
 

@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c("%>%"))
+
 #' Function to filter the mutations
 #' @description This function filter the mutations in the MAF format using thresholds on various features
 #' @author Mayank Tondon, Ashish Jain
@@ -6,15 +9,15 @@
 #' @param flag_genes The list of genes used as flag genes
 #' @param save_name The name of the filtered MAF object
 #' @param no_filter Flag to filter the MAF (Default no_filter=FALSE)
-#' @param norm_alt_max Alt norm max (norm_alt_max=1)
-#' @param t_alt_min Alt t min (t_alt_min=1)
-#' @param t_depth_min Depth t min (t_depth_min=20)
-#' @param tumor_freq_min Tumor Frequency Minimum (tumor_freq_min=0.05)
-#' @param norm_freq_max norm_freq_max (norm_freq_max=0.02)
-#' @param gnomAD_AF_max gnomAD_AF_max (gnomAD_AF_max=0.001)
-#' @param AF_max AF_max (AF_max=0.001)
-#' @param ExAC_AF_max ExAC_AF_max (ExAC_AF_max=0.01)
-#' @param n_callers n_callers (n_callers=2)
+#' @param norm_alt_max Alt norm max (Default norm_alt_max=1)
+#' @param t_alt_min Alt t min (Default t_alt_min=1)
+#' @param t_depth_min Depth t min (Default t_depth_min=20)
+#' @param tumor_freq_min Tumor Frequency Minimum (Default tumor_freq_min=0.05)
+#' @param norm_freq_max norm_freq_max (Default norm_freq_max=0.02)
+#' @param gnomAD_AF_max gnomAD_AF_max (Default gnomAD_AF_max=0.001)
+#' @param AF_max AF_max (Default AF_max=0.001)
+#' @param ExAC_AF_max ExAC_AF_max (Default ExAC_AF_max=0.01)
+#' @param n_callers n_callers (Default n_callers=2)
 #' @param variant_caller variant_caller
 #'
 #' @export
@@ -31,8 +34,46 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
                     gnomAD_AF_max=0.001, AF_max=0.001, ExAC_AF_max=0.001,
                     n_callers=2, variant_caller=NULL){
 
-  # browser()
-  if (length(flag_genes)==0) {
+  ### Add checks for the conditions
+  mafFilePath <- ensurer::ensure_that(mafFilePath,
+                                     !is.null(.) && file.exists(.),
+                                     err_desc = "Please enter correct file path.")
+  flag_genes <- ensurer::ensure_that(flag_genes,
+                                      is.null(.) || (class(.) == "character"),
+                                      err_desc = "Please enter the gene list in correct format.")
+  no_filter <- ensurer::ensure_that(no_filter,
+                                     !is.null(.) && (class(.) == "logical"),
+                                     err_desc = "Please enter the no_filter flag in correct format.")
+  norm_alt_max <- ensurer::ensure_that(norm_alt_max,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the norm_alt_max in correct format.")
+  t_alt_min <- ensurer::ensure_that(t_alt_min,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the t_alt_min in correct format.")
+  t_depth_min <- ensurer::ensure_that(t_depth_min,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the t_depth_min in correct format.")
+  tumor_freq_min <- ensurer::ensure_that(tumor_freq_min,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the tumor_freq_min in correct format.")
+  norm_freq_max <- ensurer::ensure_that(norm_freq_max,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the norm_freq_max in correct format.")
+  gnomAD_AF_max <- ensurer::ensure_that(gnomAD_AF_max,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the gnomAD_AF_max in correct format.")
+  AF_max <- ensurer::ensure_that(AF_max,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the AF_max in correct format.")
+  ExAC_AF_max <- ensurer::ensure_that(ExAC_AF_max,
+                                 !is.null(.) && (class(.) == "numeric"),
+                                 err_desc = "Please enter the ExAC_AF_max in correct format.")
+  n_callers <- ensurer::ensure_that(n_callers,
+                                 !is.null(.) && (class(.) == "numeric"),
+                                 err_desc = "Please enter the n_callers in correct format.")
+
+
+  if (is.null(flag_genes) || length(flag_genes)==0) {
     flag_genes <- c()
   } else if (flag_genes[1]=="default") {
     flag_genes <- c("TTN","MUC16","OBSCN","AHNAK2","SYNE1","FLG","MUC5B","DNAH17","PLEC","DST","SYNE2","NEB","HSPG2","LAMA5","AHNAK","HMCN1","USH2A","DNAH11","MACF1","MUC17","DNAH5","GPR98","FAT1","PKD1","MDN1","RNF213","RYR1","DNAH2","DNAH3","DNAH8","DNAH1","DNAH9","ABCA13","SRRM2","CUBN","SPTBN5","PKHD1","LRP2","FBN3","CDH23","DNAH10","FAT4","RYR3","PKHD1L1","FAT2","CSMD1","PCNT","COL6A3","FRAS1","FCGBP","RYR2","HYDIN","XIRP2","LAMA1")

@@ -17,6 +17,17 @@
 #'
 generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
 
+  ### Add checks for the conditions
+  mymaf <- ensurer::ensure_that(mymaf,
+                                   !is.null(.) && (class(.) == "MAF"),
+                                   err_desc = "Please enter correct MAF object")
+  plotType <- ensurer::ensure_that(plotType,
+                                is.null(.) || (. == "Dotplot") || (. == "Barplot"),
+                                err_desc = "Please enter correct Plot Type")
+  mb_covered <- ensurer::ensure_that(mb_covered,
+                                   is.null(.) || (class(.) == "numeric"),
+                                   err_desc = "Please enter correct mb_covered value")
+
   num_var_data <- mymaf@variants.per.sample
   colnames(num_var_data) <- c("Tumor_Sample_Barcode","Variants_filtered")
   num_var_data$mut_burden_count <- num_var_data$Variants_filtered

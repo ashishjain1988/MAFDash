@@ -5,6 +5,7 @@
 #' @param cancerCode The TCGA cancer code
 #' @param outputFolder The path of the file containing the mutation
 #' information in the MAF format
+#' @param variant_caller The type of variant caller in TCGA
 #' @export
 #' @return A list containing path of mutation annotation file
 #'
@@ -15,6 +16,13 @@
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 
 getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant_caller="mutect2"){
+
+  cancerCode <- ensurer::ensure_that(cancerCode,
+                                   !is.null(.) && (class(.) == "character"),
+                                   err_desc = "Please enter the Cancer Code in correct format.")
+  variant_caller <- ensurer::ensure_that(variant_caller,
+                                     !is.null(.) && (class(.) == "character"),
+                                     err_desc = "Please enter the variant caller type in correct format.")
 
   outputFolder=file.path(outputFolder,paste0("TCGA_",cancerCode),variant_caller)
   tcga_maf_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".",variant_caller,".maf"))
@@ -60,6 +68,12 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("data"), plotdata=NULL) {
+  cancerCode <- ensurer::ensure_that(cancerCode,
+                                     !is.null(.) && (class(.) == "character"),
+                                     err_desc = "Please enter the Cancer Code in correct format.")
+  plotdata <- ensurer::ensure_that(plotdata,
+                                         is.null(.) || (class(.) == "data.frame"),
+                                         err_desc = "Please enter the data to be plotted in a correct format.")
 
   tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
   if (! file.exists(tcga_clinical_file)) {

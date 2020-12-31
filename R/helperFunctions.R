@@ -8,6 +8,10 @@
 #' library(MAFDashRPackage)
 #' #g<-detectMAFGenome(maf)
 detectMAFGenome<-function(maf){
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
   if (! "NCBI_Build" %in% colnames(maf@data)) {
     warning("No genome information in MAF obj.")
     return(NA)
@@ -31,7 +35,7 @@ detectMAFGenome<-function(maf){
 }
 
 
-### Cretaes matrix for oncoplot from maf file
+### Creates matrix for oncoplot from maf file
 ### Adapted from maftools: https://github.com/PoisonAlien/maftools/blob/master/R/oncomatrix.R
 #' Creates matrix for oncoplot
 #' @description Creates matrix for oncoplot from maf file
@@ -46,6 +50,17 @@ detectMAFGenome<-function(maf){
 #' #g<-createOncoMatrix(maf)
 createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
 
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  ### Add checks for the conditions
+  g <- ensurer::ensure_that(g,
+                              !is.null(.) && (class(.) == "character"),
+                              err_desc = "Please provde atleast two genes")
+  add_missing <- ensurer::ensure_that(add_missing,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the add_missing flag in correct format.")
   if(is.null(g)){
     stop("Please provde atleast two genes!")
   }
@@ -178,6 +193,17 @@ createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
 #' library(MAFDashRPackage)
 #' #g<-generateVariantTable(maf)
 generateVariantTable <- function(maf.filter, use_syn=F, extra_cols=c()) {
+  ### Add checks for the conditions
+  maf.filter <- ensurer::ensure_that(maf.filter,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  use_syn <- ensurer::ensure_that(use_syn,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the use_syn flag in correct format.")
+  # extra_cols <- ensurer::ensure_that(use_syn,
+  #                                 !is.null(.) && (class(.) == "logical"),
+  #                                 err_desc = "Please enter the use_syn flag in correct format.")
+
 
   output_data <- maf.filter@data
   if (use_syn) {
@@ -251,6 +277,7 @@ mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Fra
                      In_Frame_Del="#f781bf",Translation_Start_Site="#400085",Nonstop_Mutation="#b68dfc",
                      no_variants="#d6d6d6")
 names(mutation_colors) <- gsub("_"," ",names(mutation_colors))
+
 ### List defining functions for color and shape of cells in oncoplot
 alter_fun = list(
   background = function(x, y, w, h) {

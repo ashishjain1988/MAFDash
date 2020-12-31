@@ -20,6 +20,20 @@
 #'
 getMAFDashboard<-function(filePath,outputFilePath,outputFileName="output",outputFileTitle="MAF Dash"){
 
+  ### Add checks for the conditions
+  filePath <- ensurer::ensure_that(filePath,
+                                      !is.null(.) && file.exists(.),
+                                      err_desc = "Please enter correct file path and name.")
+  outputFilePath <- ensurer::ensure_that(outputFilePath,
+                                   !is.null(.) && dir.exists(.),
+                                   err_desc = "Please enter correct output file path.")
+  outputFileName <- ensurer::ensure_that(outputFileName,
+                                     !is.null(.) && (class(.) == "character"),
+                                     err_desc = "Please enter the correct output file name.")
+  outputFileTitle <- ensurer::ensure_that(outputFileTitle,
+                                         !is.null(.) && (class(.) == "character"),
+                                         err_desc = "Please enter the correct title of the MAF Dashboard.")
+
   MAFRmdfile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
   html_filename=paste0(outputFileName,".",gsub(".Rmd",".html",basename(MAFRmdfile)))
   rmarkdown::render(MAFRmdfile,
