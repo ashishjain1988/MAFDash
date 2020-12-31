@@ -2,29 +2,70 @@
 #' @description This function created an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
 #' @author Mayank Tondon, Ashish Jain
-#' @param file The path of the file containing the mutation
-#' information in the MAF format
+#' @param maf The MAF object
+#' @param onco_genes List of onco genes to be plotted
+#' @param save_name Name of the output plot file
+#' @param ribbon_color Colors of the ribbon in the plots
+#' @param pval_high All interactions with less than this p-value will be shown
+#' @param pval_low Links with p-value less than this will be highlighted with a dashed border
+#' @param plot_frac_mut_axis Whether or not to draw a numerical axis on the perimeter
+#' @param rotate_plot_degrees For custom rotation
+#' @param shrink_factor Higher = more shrinkage; Control whitespaces (or lack thereof) around figure
+#' @param scale_ribbon_to_fracmut Flag to scale ribbon widths to their frequency
+#' @param sig_colors Vector of 4 colors for coloring significance
+#' @param gene_colors color(s) for gene blocks
+#'
 #' @export
-#' @return The output is the html file.
+#' @return Plot saved in an output file.
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #t <- getMAFDashboard(file = MAFfilePath)
 #'
 generateSingleRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL, ribbon_color=NULL,
-                                  pval_high=0.1,  ## All interactions with less than this p-value will be shown
-                                  pval_low=0.05,  ## Links with p-value less than this will be highlighted with a dashed border
-                                  plot_frac_mut_axis=TRUE,  ## Whether or not to draw a numerical axis on the perimeter
-                                  rotate_plot_degrees=0,   ## For custom rotation
-                                  shrink_factor=1.3, # Higher = more shrinkage; use to control whitespace (or lack thereof) around figure
-                                  scale_ribbon_to_fracmut=TRUE,  ## Whether or not to scale ribbon widths to their frequency
-                                  sig_colors=NULL,   ## Vector of 4 colors for coloring significance
-                                  gene_colors=NULL   ## color(s) for gene blocks
-){
+                                  pval_high=0.1,
+                                  pval_low=0.05,
+                                  plot_frac_mut_axis=TRUE,
+                                  rotate_plot_degrees=0,
+                                  shrink_factor=1.3,
+                                  scale_ribbon_to_fracmut=TRUE,
+                                  sig_colors=NULL,
+                                  gene_colors=NULL){
+
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                                !is.null(.) && (class(.) == "MAF"),
+                                err_desc = "Please enter correct MAF object")
+  onco_genes <- ensurer::ensure_that(onco_genes,
+                              is.null(.) || (class(.) == "character"),
+                              err_desc = "Please enter the correct list of onco genes")
+  save_name <- ensurer::ensure_that(save_name,
+                                     !is.null(.) && (class(.) == "character"),
+                                     err_desc = "Please enter the correct output file name")
+  pval_high <- ensurer::ensure_that(pval_high,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the pval_high in correct format.")
+  pval_low <- ensurer::ensure_that(pval_low,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the pval_low in correct format.")
+  plot_frac_mut_axis <- ensurer::ensure_that(plot_frac_mut_axis,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the plot_frac_mut_axis flag in correct format.")
+  rotate_plot_degrees <- ensurer::ensure_that(rotate_plot_degrees,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the rotate_plot_degrees in correct format.")
+  shrink_factor <- ensurer::ensure_that(shrink_factor,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the shrink_factor in correct format.")
+  scale_ribbon_to_fracmut <- ensurer::ensure_that(scale_ribbon_to_fracmut,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the scale_ribbon_to_fracmut flag in correct format.")
+
+
   # pval_low <- 0.05
   # browser()
-  require(circlize)
+  #require(circlize)
   if (!is.null(save_name)) {
     if (! dir.exists(dirname(save_name))) {
       dir.create(dirname(save_name))
@@ -74,7 +115,7 @@ generateSingleRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL, ribbon_
                                       paste0( " p-val < ", ifelse(cooccur_data$pValue < pval_low, pval_low, pval_high)))
   chord_data$color_val <- sig_colors[chord_data$color_category]
 
-  require(RColorBrewer)
+  #require(RColorBrewer)
   # browser()
   interacting_genes <- unique(unlist(chord_data[,1:2]))
   if (is.null(gene_colors)) {
