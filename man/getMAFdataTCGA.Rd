@@ -32,5 +32,5 @@ outputFolderPath <- "."
 #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 }
 \author{
-Mayank Tondon, Ashish Jain
+Mayank Tandon, Ashish Jain
 }

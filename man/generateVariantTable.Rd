@@ -4,17 +4,17 @@
 \alias{generateVariantTable}
 \title{Make variant table from maf file}
 \usage{
-generateVariantTable(maf.filter, use_syn = F, extra_cols = c())
+generateVariantTable(maf, use_syn = F, extra_cols = c())
 }
 \arguments{
-\item{maf.filter}{The MAF object}
+\item{maf}{The MAF object}
 
-\item{use_syn}{use_syn}
+\item{use_syn}{Whether or not to include synonymous variants (default is FALSE, i.e. returns non-synonymous mutations only)}
 
-\item{extra_cols}{extra_cols}
+\item{extra_cols}{Vector of column names to include from the MAF file.  If it's a named vector, the names will be used in the output table.}
 }
 \value{
-Data table containing the variant information
+Data frame containing the variant information
 }
 \description{
 Make variant table from maf file

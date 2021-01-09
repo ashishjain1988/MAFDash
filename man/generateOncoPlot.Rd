@@ -7,27 +7,33 @@
 generateOncoPlot(
   maf,
   cohort_freq_thresh = 0.01,
-  auto_adjust_threshold = T,
+  auto_adjust_cohort_freq = T,
+  genes_to_plot = NULL,
+  include_all = F,
   oncomat_only = F,
-  clin_data = NULL,
+  title_text = "",
+  custom_column_order = NULL,
+  add_clinical_annotations = F,
   clin_data_colors = NULL
 )
 }
 \arguments{
 \item{maf}{The MAF object}
 
-\item{cohort_freq_thresh}{Cohort Frequency Threshold}
+\item{cohort_freq_thresh}{Fraction of cohort that a gene must be mutated to select for display}
 
-\item{auto_adjust_threshold}{Auto Adjusted Threshold flag}
+\item{auto_adjust_cohort_freq}{Whether or not to automatically adjust the frequen}
 
-\item{oncomat_only}{Oncomat only flag}
+\item{genes_to_plot}{Character vector, data frame, or tab-delimited file name with genes to plot. Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally, a column named "Reason" for labeling the plot}
 
-\item{clin_data}{Clinical data}
+\item{oncomat_only}{Whether or not to return just the oncoplot matrix}
 
-\item{clin_data_colors}{Clinical data colors}
+\item{add_clinical_annotations}{Whether or not to try to plot column annotations from the 'clinical.data' slot of the MAF object}
+
+\item{clin_data_colors}{Named list of colors for clinical annoations}
 }
 \value{
-The onco plot object.
+A ComplexHeatmap object.  Or a character matrix if 'oncomat_only' is TRUE.
 }
 \description{
 This function created an HTML file containing the
@@ -40,5 +46,5 @@ library(MAFDashRPackage)
 
 }
 \author{
-Mayank Tondon, Ashish Jain
+Mayank Tandon, Ashish Jain
 }

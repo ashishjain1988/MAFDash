@@ -1,14 +1,15 @@
 ---
 title: "MAFDash"
-output: 
+output:
   flexdashboard::flex_dashboard:
     source_code: embed
     theme: yeti
     orientation: rows
     vertical_layout: scroll
 params:
-  maffile: "MAF object or path to MAF file"
+  maffile: NULL
   titletext: "MAF Dash"
+  plot_list: NULL
 ---
 
 ```{r setup, include=FALSE}
@@ -21,255 +22,102 @@ library(htmltools)
 library(bsplus)
 library(knitr)
 library(maftools)
+library(canvasXpress)
+library(ggbeeswarm)
+library(ComplexHeatmap)
 
 maf_file <- params$maffile
 title_text <- params$titletext
-# maf_file <- "/Users/tandonm/Documents/my_tools/MAFdash/4/data/TCGA_THYM/mutect2/TCGA_THYM.mutect2.maf"
-# title_text <- ""
-# source("scripts/helper_functions/helper_functions.oncoplot.R")
+
+all_plot_opts <- params$plot_list
+if (is.null(all_plot_opts)) {
+  all_plot_opts = list("summary_plot"=TRUE,
+                       "burden"=TRUE,
+                       "oncoplot"=TRUE,
+                       "cooccurence"=TRUE,
+                       # "other"="custom_image.pdf",
+                       "heatmap"=TRUE
+                       )
+}
+
+template_dir <- getwd()
+options(knitr.duplicate.label = "allow")
+
+maf <- NULL
 
 ```
 
 
 ```{r read-MAF-file, results="hide" }
 
-maf <- read.maf(maf_file)
+maf_data <- maf_file
+clinical_data <- NULL
+
+if (!is.null(maf_file)) {
+  if (class(maf_file)=="MAF") {
+    maf_data <- rbind(maf_file@data, maf_file@maf.silent)
+    clinical_data <- maf_file@clinical.data
+  }
+  maf <- read.maf(maf_data, clinicalData = clinical_data)
+}
 
 ```
 
-Summary {data-orientation=rows}
-=======================================================================
-Row {data-height=120}
--------------------------------------
-### <font size="11"> `r title_text` </font>
-```{r make-summary-table }
-summaryInfo <- maf@summary
-summaryTable <- data.frame(Genome=summaryInfo$summary[summaryInfo$ID=="NCBI_Build"],
-                           Number_of_samples=summaryInfo$summary[summaryInfo$ID=="Samples"],
-                           Number_of_genes=summaryInfo$summary[summaryInfo$ID=="nGenes"],
-                           Mean_Variants=prettyNum(summaryInfo$Mean[summaryInfo$ID=="total"],digits=4),
-                           Median_Variants=prettyNum(summaryInfo$Median[summaryInfo$ID=="total"], digits=4)
-)
-datatable(summaryTable, style="bootstrap4", class=c("display"),
-          fillContainer=T,
-          escape = F,
-          selection = "none",
-          rownames=F,
-          colnames=tools::toTitleCase(gsub("_"," ", colnames(summaryTable))),
-          options=list(dom = 't',ordering=F,autoWidth=F,
-                       columnDefs = list(list(width = '80px', targets = "_all"),
-                                         list(className = 'dt-center', targets = "_all")),
-          initComplete = JS(
-            "function(settings, json) {",
-            "$(this.api().table().header()).css({'font-size': '120%', 'background-color': '#ace1fa', 'color': '#424242'});",
-            "}")             
-          ),
-          autoHideNavigation=TRUE
-          )  %>%
-  DT::formatStyle(columns = 1:ncol(summaryTable), fontSize = '120%',fontWeight="bold") 
-
+```{r make-summary-table}
+summary_table_text=NULL
+if (!is.null(maf)) {
+  summ_template_name=file.path(template_dir, "summary_table.Rmd")
+  summary_table_text <- knitr::knit_expand(summ_template_name)
+}
 ```
+`r paste(knitr::knit(text = paste(summary_table_text, collapse = '\n')))`
 
 Row {.tabset .tabset-fade data-height=800}
 -------------------------------------
-### Summary Plots
-```{r make-summary-maftools, fig.width=12, fig.height=8 }
-plotmafSummary(maf = maf, titvRaw = F)
 
+``` {r make-plot-tabs }
+# all_plot_opts = list("summary_plot"=TRUE,
+#                      # "burden"=TRUE,
+#                      # "oncoplot"=TRUE,
+#                      # "cooccurence"=TRUE,
+#                      # "heatmap"=TRUE,
+#                      "other"="~/Documents/my_tools/MAFdash/Rpackage/testing/custom_image.pdf"
+#                      )
+
+out <- lapply(names(all_plot_opts), function(plotname) {
+  plot_input <- all_plot_opts[[plotname]]
+  if (is.logical(plot_input) && plot_input) {
+    template_name=file.path(template_dir, paste0(plotname, ".Rmd"))
+    if (file.exists(template_name)) {
+      return_text <- knitr::knit_expand(template_name)
+    }
+  } else {
+    tab_text <- paste0("\n### ", plotname)
+    rchunk_text <- c("``` {r, out.width='100%', out.height='95%' }","```")
+    plot_text <- "print('Image not found')"
+    if (is.character(plot_input) && file.exists(plot_input)) {
+      plot_text <- paste0("knitr::include_graphics(all_plot_opts[['",plotname,"']])")
+    } else if (class(plot_input)[1] %in% c("gg","Heatmap")) {
+      plot_text <- paste0("print(all_plot_opts[['",plotname,"']])")
+    } else if (class(plot_input)[1] %in% c("plotly")) {
+      plot_text <- paste0("all_plot_opts[['",plotname,"']]")
+    }
+    return_text <- paste(tab_text, rchunk_text[1], plot_text, rchunk_text[2], sep="\n",collapse="\n")
+  }
+  return(return_text)
+  
+})
 ```
+`r paste(knitr::knit(text = paste(out, collapse = '\n')))`
 
-### Interactive Heatmap
-```{r make-interactive-heatmap, fig.width=12, fig.height=8  }
-snp_mat <- mutCountMatrix(maf = maf)
-snp_mat$total <- rowSums(snp_mat)
-snp_mat <- snp_mat[with(snp_mat,order(-total)),]
-snp_mat <- snp_mat[1:50,]
-mat1 <-subset(snp_mat, select=-(total))
-mat1 <- log2(mat1 +1)
-mat1<- t(mat1)
+-------------------------------------
 
-
-### This makes the "waterfall" effect for the gene/sample matrix
-# source("scripts/helper_functions/helper_functions.oncoplot.R")
-oncomat <- createOncoMatrix(maf, g=colnames(mat1))$oncoMatrix
-mat1 <- mat1[match(colnames(oncomat), rownames(mat1)), match(rownames(oncomat), colnames(mat1))]
-
-### Set up sizing parameters
-minsize=200
-maxsize=850
-nsample=ncol(mat1)
-px_per_sample=13
-hm_height=paste0(
-        min(c(maxsize, max(c(minsize,nsample*px_per_sample)))),
-        "px")
-
-ngenes=nrow(mat1)
-px_per_gene=px_per_sample
-hm_width=paste0(
-        min(c(maxsize, max(c(minsize,ngenes*px_per_gene)))),
-        "px")
-
-#require(canvasXpress)
-### Render plot
-canvasXpress(
-  data = mat1,
-  colorSpectrum = list("black","blue","magenta","red","gold"),
-  graphType = "Heatmap",
-  # samplesClustered = TRUE,
-  # variablesClustered = TRUE,
-  samplesClustered = FALSE,
-  variablesClustered = FALSE,
-  showTransition = FALSE,
-  smpLabelScaleFontFactor = 0.5,
-  varLabelScaleFontFactor = 0.5,
-  width = hm_width,
-  height = hm_height,
-  # titleFont="10px Verdana",
-  legendScaleFontFactor=1,
-  # showLegendTitle=T#,
-  titleScaleFontFactor=0.3,
-  title="log2(Num Variants)"
-  )
-
-
-
-```
-
-### Burden Plots {data-orientation=columns}
-```{r make-burden-plot-dot }
-# source("scripts/helper_functions/helper_functions.oncoplot.R")
-burden_plot <- generateBurdenPlot(maf, plotType = "Dotplot")
-
-dotplotly <- ggplotly(burden_plot,tooltip = "text", width=500, height=600) %>%
-      layout(yaxis=list(autorange = T,fixedrange= F))
-
-burden_plot <- generateBurdenPlot(maf, plotType = "Barplot")
-
-barplotly <- ggplotly(burden_plot,tooltip = "text", width=800, height=600) %>%
-      layout(yaxis=list(autorange = T,fixedrange= F))
-
-### Use CSS/javascript flex-wrap to contain the two plots
-div(
-  style = "display: flex; flex-wrap: wrap; justify-content: center",
-  div(dotplotly, style = "width: 40%; border: groove;"),
-  div(barplotly, style = "width: 60%; border: groove;"),
-)
-
-```
-
-
-### Oncoplot
-``` {r make-oncoplot, fig.width=12, fig.height=6 }
-# source("scripts/helper_functions/helper_functions.oncoplot.R")
-onco <- generateOncoPlot(maf)
-draw(onco)
-```
-
-
-### Co-occurence of Mutated Genes
-``` {r somatic-interactions, fig.width=12, fig.height=6 }
-pval_low=0.05
-pval_high=0.01
-
-#source("~/Documents/helper_functions/helper_functions.oncoplot.R")
-generateSingleRibbonPlot(maf,
-                        pval_low = pval_low, pval_high = pval_high, 
-                        gene_colors = "grey50",
-                        shrink_factor=1.5)
-```
-
-
-Variant Table
-=======================================================================
-```{r make-data-table, results="hide" }
-mydf <- generateVariantTable(maf)
-column_labels <- setNames(colnames(mydf), make.names(colnames(mydf)))
-colnames(mydf) <- names(column_labels)
-
-n_samples <- length(unique(mydf$Sample.ID))
-
-extra_data <- mydf %>% group_by(Hugo.Symbol) %>% mutate(Gene.Altered.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
-extra_data <- extra_data %>% group_by(Hugo.Symbol, Protein.Change) %>%
-                             mutate(Variant.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
-
-mydf <- cbind(mydf[,1:2], extra_data[,c("Gene.Altered.in.Cohort.frac","Variant.in.Cohort.frac")], mydf[,3:ncol(mydf)])
-
-
-
-normdb_cols <- intersect(c("gnomAD.Frequency","ExAC.Frequency","X1000Genomes.Frequency"),colnames(mydf))
-columns_to_round <- c("Gene.Altered.in.Cohort.frac","Variant.in.Cohort.frac", "Tumor.Alt.Frequency",#"Tumor.Depth",
-                      normdb_cols)
-for (colname in columns_to_round) {
-  mydf[,colname] <- as.numeric(as.character(mydf[,colname]))
-  mydf[,colname] <- ifelse(is.na(mydf[,colname]), 0, mydf[,colname])
-  mydf[,colname] <- round(mydf[,colname],3)
+```{r make-variant-table}
+var_table_text=NULL
+if (!is.null(maf)) {
+  vartbl_template_name=file.path(template_dir, "variant_table.Rmd")
+  var_table_text <- knitr::knit_expand(vartbl_template_name)
 }
-
-mydf[,"Tumor.Depth"] <-  as.numeric(as.character(mydf[,"Tumor.Depth"]))
-
-mydf <- mutate(mydf, mean.freq.normals = round(rowMeans(select(mydf, all_of(normdb_cols)), na.rm = TRUE),3))
-
-
-mycounts <- mydf %>% group_by(Sample.ID) %>% summarise(num_mut=n(), .groups="drop")
-mydf$Sample.ID <- factor(as.character(mydf$Sample.ID), levels=unique(as.character(mycounts$Sample.ID)[order(mycounts$num_mut,decreasing = T)]))
-
-
 ```
-Inputs {.sidebar data-width=300}
--------------------------------------
-```{r set-up-variant-filters }
-
-
-# Wrap data frame in SharedData
-variant_sd <- SharedData$new(mydf)
-
-# Create a filter input
-h4("Filter data by cohort values")
-filter_select("sample_filter", "Sample ID", variant_sd, group=~Sample.ID)
-filter_slider("fracgene_filter", "Gene mutated in cohort (frequency)", variant_sd, column=~Gene.Altered.in.Cohort.frac, step=0.01, width=250)
-br()
-h4("Filter data by variant values")
-filter_select("gene_filter", "Gene Symbol", variant_sd, group=~Hugo.Symbol)
-filter_select("protchange_filter", "Protein change", variant_sd, group=~Protein.Change)
-filter_slider("fracvar_filter", "Variant found in cohort (frequency)", variant_sd, column=~Variant.in.Cohort.frac, step=0.01, width=250)
-filter_slider("tumdepth_filter", "Total depth (count) at site", variant_sd, column=~Tumor.Depth, step=5, width=250)
-filter_slider("tumfreq_filter", "Frequency of mutated allele at site", variant_sd, column=~Tumor.Alt.Frequency, step=0.01, width=250)
-filter_select("vartype_filter", "Type of variant (SNP, INDEL)", variant_sd, group=~Variant.Type)
-br()
-h4("Filter common variants in normal databases")
-filter_slider("normal_mean_freq_filter", "Mean frequency in gnomAD, ExAC, and 1000 Genomes", variant_sd, column=~mean.freq.normals, step=0.01, width=250)
-# filter_slider("gnomad_filter", "gnomAD frequency", variant_sd, column=~gnomAD.Frequency, step=0.01, width=250)
-# filter_slider("exac_filter", "ExAC frequency", variant_sd, column=~ExAC.Frequency, step=0.01, width=250)
-# filter_slider("kgenomes_filter", "1000Genomes frequency", variant_sd, column=~X1000Genomes.Frequency, step=0.01, width=250)
-br()
-
-```
-
-Row {data-height=500}
--------------------------------------
-### Variant Table
-
-```{r render-full-table }
-datatable(variant_sd, extensions=c("Scroller","FixedColumns","Buttons","ColReorder"), style="bootstrap", class=c("compact","display"), width="90%",
-          fillContainer=F,
-          escape = F,
-          selection = "none",
-          rownames=F,
-          colnames=tools::toTitleCase(gsub("_"," ", colnames(mydf))),
-          options=list(dom = 'BSRlfrtip',
-                       deferRender=TRUE,
-                       scrollX=T,
-                       scrollY=450,
-                       scroller=T,
-                       buttons =list('copy', 'print', list(
-                                    extend = 'collection',
-                                    buttons = c('csv', 'excel', 'pdf'),
-                                    text = 'Download'
-                                  )),
-                       colReorder=TRUE,
-                       fixedColumns = list(leftColumns = 4)
-                       )
-          )
-
-```
+`r paste(knitr::knit(text = paste(var_table_text, collapse = '\n')))`
 

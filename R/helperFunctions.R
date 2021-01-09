@@ -41,14 +41,13 @@ detectMAFGenome<-function(maf){
 #' @description Creates matrix for oncoplot from maf file
 #' @param maf The MAF object
 #' @param g g
-#' @param chatty chatty
 #' @param add_missing add_missing
 #' @export
 #' @return The list of objects required for oncoplot function
 #' @examples
 #' library(MAFDashRPackage)
 #' #g<-createOncoMatrix(maf)
-createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
+createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 
   ### Add checks for the conditions
   maf <- ensurer::ensure_that(maf,
@@ -57,13 +56,10 @@ createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
   ### Add checks for the conditions
   g <- ensurer::ensure_that(g,
                               !is.null(.) && (class(.) == "character"),
-                              err_desc = "Please provde atleast two genes")
+                              err_desc = "Please provde at least two genes")
   add_missing <- ensurer::ensure_that(add_missing,
                                     !is.null(.) && (class(.) == "logical"),
                                     err_desc = "Please enter the add_missing flag in correct format.")
-  if(is.null(g)){
-    stop("Please provde atleast two genes!")
-  }
 
   subMaf = subsetMaf(maf = maf, genes = g, includeSyn = FALSE, mafObj = FALSE)
 
@@ -184,52 +180,50 @@ createOncoMatrix = function(maf, g = NULL, chatty = TRUE, add_missing = FALSE){
 
 #' Make variant table from maf file
 #' @description Make variant table from maf file
-#' @param maf.filter The MAF object
-#' @param use_syn use_syn
-#' @param extra_cols extra_cols
+#' @param maf The MAF object
+#' @param use_syn Whether or not to include synonymous variants (default is FALSE, i.e. returns non-synonymous mutations only)
+#' @param extra_cols Vector of column names to include from the MAF file.  If it's a named vector, the names will be used in the output table.
 #' @export
-#' @return Data table containing the variant information
+#' @return Data frame containing the variant information
 #' @examples
 #' library(MAFDashRPackage)
 #' #g<-generateVariantTable(maf)
-generateVariantTable <- function(maf.filter, use_syn=F, extra_cols=c()) {
+generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
   ### Add checks for the conditions
-  maf.filter <- ensurer::ensure_that(maf.filter,
+  maf.filter <- ensurer::ensure_that(maf,
                               !is.null(.) && (class(.) == "MAF"),
                               err_desc = "Please enter correct MAF object")
   use_syn <- ensurer::ensure_that(use_syn,
                                     !is.null(.) && (class(.) == "logical"),
                                     err_desc = "Please enter the use_syn flag in correct format.")
-  # extra_cols <- ensurer::ensure_that(use_syn,
-  #                                 !is.null(.) && (class(.) == "logical"),
-  #                                 err_desc = "Please enter the use_syn flag in correct format.")
+  # extra_cols <- ensurer::ensure_that(extra_cols,
+  #                                 !is.null(.) && (class(.) == "character"),
+  #                                 err_desc = "Please provide a character vector to include extra MAF columns.")
 
 
-  output_data <- maf.filter@data
+  output_data <- maf@data
   if (use_syn) {
-    output_data <- rbind(output_data, maf.filter@maf.silent)
+    output_data <- rbind(output_data, maf@maf.silent)
+  }
+  
+  if (all(c("Tumor_Seq_Allele1","Tumor_Seq_Allele2") %in% colnames(output_data))) {
+    output_data$tumor_genotype <- apply(output_data[,c("Tumor_Seq_Allele1","Tumor_Seq_Allele2")], 1, paste, collapse="/")
+  }
+  if (all(c("Match_Norm_Seq_Allele1","Match_Norm_Seq_Allele2") %in% colnames(output_data))) {
+    output_data$normal_genotype <- apply(output_data[,c("Match_Norm_Seq_Allele1","Match_Norm_Seq_Allele2")], 1, paste, collapse="/")
   }
 
-  output_data$tumor_genotype <- apply(output_data[,c("Tumor_Seq_Allele1","Tumor_Seq_Allele2")], 1, paste, collapse="/")
-  output_data$normal_genotype <- apply(output_data[,c("Match_Norm_Seq_Allele1","Match_Norm_Seq_Allele2")], 1, paste, collapse="/")
-
-  # pheno_info <- sample_info.exome[match(output_data$Tumor_Sample_Barcode, sample_info.exome$Tumor_Sample_Barcode),]
-  # pheno_info <- cbind(pheno_info[,"Tumor_Sample_Barcode"],pheno_info[,-c("Tumor_Sample_Barcode")])
-  # pheno_columns <- colnames(pheno_info)
-  # names(pheno_columns) <- make.names(pheno_columns, unique = T)
   if (! "tumor_freq" %in% colnames(output_data)) {
     # browser()
     if (all(c("t_depth","t_alt_count")%in% colnames(output_data))) {
       output_data$tumor_freq <- as.numeric(as.character(output_data$t_alt_count))/as.numeric(as.character(output_data$t_depth))
     }
   }
-  # output_data <- cbind(output_data,pheno_info)
   cols_for_table <- c("Hugo Symbol" = "Hugo_Symbol",
                       "Sample ID" = "Tumor_Sample_Barcode",
                       "Variant Classification"="Variant_Classification",
                       "Variant Type"="Variant_Type",
                       "Consequence"="Consequence",
-                      # pheno_columns,
                       "Chromosome"="Chromosome","Start Position" ="Start_Position","End Position"="End_Position","Strand"="Strand",
                       "Reference Allele"="Reference_Allele",
                       "Tumor Genotype"="tumor_genotype",
@@ -254,83 +248,235 @@ generateVariantTable <- function(maf.filter, use_syn=F, extra_cols=c()) {
   # browser()
   cols_for_table <- c(cols_for_table, extra_cols)
   # variant_info <- as.data.frame(output_data)[,cols_for_table]
-  norm_info_cols <- grep("^n_",cols_for_table, value=T)
-  # mydat <- apply(output_data[,..norm_info_cols],2,function(x){as.numeric(x)})
-  if (sum(rowSums(apply(output_data[,..norm_info_cols],2,function(x){as.numeric(x)}), na.rm=T), na.rm = T)==0) {
-    cols_for_table <- cols_for_table[!cols_for_table %in% norm_info_cols]
-  }
+  # norm_info_cols <- grep("^n_",cols_for_table, value=T)
+  # # mydat <- apply(output_data[,..norm_info_cols],2,function(x){as.numeric(x)})
+  # if (sum(rowSums(apply(output_data[,..norm_info_cols],2,function(x){as.numeric(x)}), na.rm=T), na.rm = T)==0) {
+  #   cols_for_table <- cols_for_table[!cols_for_table %in% norm_info_cols]
+  # }
   output_cols <- colnames(output_data)[match(cols_for_table, colnames(output_data), nomatch=0)]
   not_output <- cols_for_table[!cols_for_table %in% output_cols]
   if (length(not_output) > 0) {
-    print("Not outputting these columsn: ")
-    print(not_output)
+    warning(paste0("Not outputting these columns: ", paste(not_output, collapse=", ")))
   }
   variant_info <- as.data.frame(output_data)[,output_cols]
   colnames(variant_info) <- names(cols_for_table)[match(colnames(variant_info),cols_for_table)]
   return(variant_info)
 }
 
+#' Compute exome coverage from a region file
+#' @description This function will take a bed file, and return the sum of the lengths of unique regions
+#' @param targets_bed_file Path to a bed file with exome target regions
+#' @param out_file A file name to which the number of covered bases will be written, instead of returning the value
+#' @export
+#' @return Integer value of the sum of the length of the covered regions
+#' @examples
+#' library(MAFDashRPackage)
+#' #coverage<-computeExomeCoverage("/path/to/bed/file")
+compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
+  ##### This function will read the target regions BED file and
+  #####  compute the sum of the lengths of the regions
+  # require(GenomicRanges)
+  
+  ## This bit will only read in the first three columns
+  num_fields <- max(count.fields(targets_bed_file, sep = "\t"))
+  my_classes <- c("character","integer","integer", rep("NULL", num_fields-3))
+  
+  ## Read the BED file as a table
+  bed_data <- read.table(targets_bed_file, sep="\t",colClasses = my_classes, 
+                         stringsAsFactors = F)
+  colnames(bed_data) <- c("chr","start","end")
+  
+  ## Convert to a GenomicRanges object
+  bed.gr <- makeGRangesFromDataFrame(bed_data)
+  
+  ## Collapse any overlapping features
+  bed.gr.collapse <- reduce(bed.gr)
+  
+  ## Sum up the widths of each range
+  total_exome_coverage = sum(width(bed.gr.collapse))
+  
+  if (! is.null(out_file)) {
+    ## Write to a file
+    write.table(total_exome_coverage,file = out_file, col.names =F, row.names = F)
+    invisible()
+  } else {
+    return(total_exome_coverage)
+  }
+}
+
+geneSelectParser <- function(genes_arg=NULL) {
+  
+  genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
+  
+  if (! is.null(genes_arg)) {
+    if (class(genes_arg)=="character") {
+      if (length(genes_arg)==1) {
+        ## Then it's either a file name or a single gene
+        if (file.exists(genes_arg)) {
+          ### Need to parse file type and read accordingly; assuming tsv for now
+          gene_data <- read.table(genes_arg,sep="\t", header=T)
+          if (sum(c("Hugo_Symbol","Reason") %in% colnames(gene_data)) != 2) {
+            stop("Can't find Hugo Symbol or Reason in custom gene input.")
+          }
+          genes_for_oncoplot <- gene_data
+        } else {
+          stop(paste0("Can't find file: ",genes_arg))
+        }
+      } else {
+        genes_for_oncoplot <- data.frame(Hugo_Symbol=genes_arg,Reason="Selected Genes", stringsAsFactors = F)
+      }
+    } else if (class(genes_arg)=="data.frame") {
+      genes_for_oncoplot <- genes_arg
+      if (! "Reason" %in% colnames(genes_for_oncoplot)) {
+        genes_for_oncoplot$Reason <- "Selected Genes"
+      }
+    } else {
+      stop(paste0("Don't know what to do with 'genes_arg' of class: ",class(genes_arg)))
+    }
+    
+    genes_for_oncoplot <- genes_for_oncoplot[,c("Hugo_Symbol","Reason")]
+    genes_for_oncoplot <- data.frame(apply(genes_for_oncoplot,2,as.character), stringsAsFactors = F)
+    # genes_for_oncoplot <- genes_for_oncoplot[genes_for_oncoplot$Hugo_Symbol %in% maf.filtered@gene.summary$Hugo_Symbol, ]
+  }
+  
+  return(genes_for_oncoplot)
+}
+
+make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) {
+  
+  myanno <- NULL
+  # browser()
+  # my_clin_dat <- as.data.frame(my_clin_dat)
+  if ("Tumor_Sample_Barcode" %in% colnames(my_clin_dat)) {
+    tsb_idx=which(colnames(my_clin_dat)=="Tumor_Sample_Barcode")
+  } else {
+    ## Try to guess column containing sample IDs
+    tsb_idx <- which(apply(my_clin_dat,2, function(x) { sum(names_to_match %in% x)/length(names_to_match)})>0.9)[1]
+  }
+  
+  if ( is.na(tsb_idx) ) {
+    warning("No Tumor Sample Barcode match found")
+  } else {
+    anno_data <- as.data.frame(my_clin_dat, stringsAsFactors = F)
+    # anno_data <- my_clin_dat
+    # browser()
+    colnames(my_clin_dat)[tsb_idx] <- "Tumor_Sample_Barcode"
+    rownames(anno_data) <- anno_data$Tumor_Sample_Barcode
+    anno_data <- anno_data[,colnames(anno_data)!="Tumor_Sample_Barcode", drop=F]
+    
+    anno_data <- anno_data[match(names_to_match,rownames(anno_data)),,drop=F]
+    anno_data <- anno_data[,unlist(lapply(anno_data,function(x){!all(is.na(x))}))]
+    
+    if (ncol(anno_data) > 0) {
+      if (ncol(anno_data) > 10) {
+        warning("Too many columns for annotation, using only the first 10...")
+        anno_data <- anno_data[,1:10]
+      }
+      make_legends <- unlist(lapply(anno_data,function(x) {
+        ret_val=TRUE
+        if (is.factor(x) && length(levels(x))>12) {
+          ret_val=FALSE 
+        }
+        return(ret_val)
+      }))
+      if (sum(!make_legends) > 0) {
+        warning(paste0("Suppressing legends for: ", paste0(names(make_legends)[!make_legends], collapse=", ")))
+      }
+      
+      # browser()
+      if (!is.null(my_colors)) {
+        # testcolors <- my_colors[1]
+        myanno <- HeatmapAnnotation(df=anno_data,
+                                    which="column",
+                                    col = my_colors,
+                                    # col = testcolors,
+                                    show_legend = make_legends, 
+                                    show_annotation_name = TRUE,
+                                    annotation_name_side = "right")
+        # draw(myanno)
+        
+      } else {
+        myanno <- HeatmapAnnotation(df=anno_data,
+                                    which="column",
+                                    show_legend = make_legends, 
+                                    show_annotation_name = TRUE,
+                                    annotation_name_side = "right")
+      }
+    }
+    
+  }
+  
+  return(myanno)
+}
 
 ### Define colors for mutation types
-mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
-                     In_Frame_Ins="#ff008c",Splice_Site="#FF7F00",Multi_Hit="#FFFF33",Frame_Shift_Ins="#A65628",
-                     In_Frame_Del="#f781bf",Translation_Start_Site="#400085",Nonstop_Mutation="#b68dfc",
-                     no_variants="#d6d6d6")
-names(mutation_colors) <- gsub("_"," ",names(mutation_colors))
+my_mutation_colors <- function() {
+  mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
+                       In_Frame_Ins="#ff008c",Splice_Site="#FF7F00",Multi_Hit="#FFFF33",Frame_Shift_Ins="#A65628",
+                       In_Frame_Del="#f781bf",Translation_Start_Site="#400085",Nonstop_Mutation="#b68dfc",
+                       no_variants="#d6d6d6")
+  names(mutation_colors) <- gsub("_"," ",names(mutation_colors))
+  return(mutation_colors)
+}
 
 ### List defining functions for color and shape of cells in oncoplot
-alter_fun = list(
-  background = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = "#CCCCCC", col = NA))
-  },
-  # "0" = function(x, y, w, h) {
-  #   grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-  #             gp = gpar(fill = "#CCCCCC", col = NA))
-  # },
-  "Nonsense Mutation" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Nonsense Mutation"], col = NA))
-  },
-  "Missense Mutation" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Missense Mutation"], col = NA))
-  },
-  "Frame Shift Del" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Frame Shift Del"], col = NA))
-  },
-  "In Frame Ins" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["In Frame Ins"], col = NA))
-  },
-  "Splice Site" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Splice Site"], col = NA))
-  },
-  "Multi Hit" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Multi Hit"], col = NA))
-  },
-  "Frame Shift Ins" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Frame Shift Ins"], col = NA))
-  },
-  "In Frame Del" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["In Frame Del"], col = NA))
-  },
-  "Nonstop Mutation" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Nonstop Mutation"], col = NA))
-  },
-  "Translation Start Site" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              gp = gpar(fill = mutation_colors["Translation Start Site"], col = NA))
-  },
-  "no variants" = function(x, y, w, h) {
-    grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-              # gp = gpar(fill = "#e0e0e0", col = NA))
-              gp = gpar(fill = "#CCCCCC", col = NA))
-  }
-)
+oncoplot_annotation_func <- function() {
+  
+  mutation_colors <- my_mutation_colors()
+  alter_fun = list(
+    background = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = "#CCCCCC", col = NA))
+    },
+    # "0" = function(x, y, w, h) {
+    #   grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+    #             gp = gpar(fill = "#CCCCCC", col = NA))
+    # },
+    "Nonsense Mutation" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Nonsense Mutation"], col = NA))
+    },
+    "Missense Mutation" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Missense Mutation"], col = NA))
+    },
+    "Frame Shift Del" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Frame Shift Del"], col = NA))
+    },
+    "In Frame Ins" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["In Frame Ins"], col = NA))
+    },
+    "Splice Site" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Splice Site"], col = NA))
+    },
+    "Multi Hit" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Multi Hit"], col = NA))
+    },
+    "Frame Shift Ins" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Frame Shift Ins"], col = NA))
+    },
+    "In Frame Del" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["In Frame Del"], col = NA))
+    },
+    "Nonstop Mutation" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Nonstop Mutation"], col = NA))
+    },
+    "Translation Start Site" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = gpar(fill = mutation_colors["Translation Start Site"], col = NA))
+    },
+    "no variants" = function(x, y, w, h) {
+      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                # gp = gpar(fill = "#e0e0e0", col = NA))
+                gp = gpar(fill = "#CCCCCC", col = NA))
+    }
+  )
+  return(alter_fun)
+}

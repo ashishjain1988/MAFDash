@@ -4,14 +4,12 @@
 \alias{createOncoMatrix}
 \title{Creates matrix for oncoplot}
 \usage{
-createOncoMatrix(maf, g = NULL, chatty = TRUE, add_missing = FALSE)
+createOncoMatrix(maf, g = NULL, add_missing = FALSE)
 }
 \arguments{
 \item{maf}{The MAF object}
 
 \item{g}{g}
-
-\item{chatty}{chatty}
 
 \item{add_missing}{add_missing}
 }

@@ -32,6 +32,7 @@ Depends:
     ensurer (>= 1.1.0),
     data.table (>= 1.13.2),
     reshape2 (>= 1.4.4)
+URL: https://github.com/ashishjain1988/MAFDashRPackage
 Suggests: jsonlite
 Encoding: UTF-8
 LazyData: true
