@@ -86,5 +86,5 @@ getMAFDashboard(plotList = toyplotlist,
                 outputFileTitle = "Iris")
 ```
 
-The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html).
+The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html).
 

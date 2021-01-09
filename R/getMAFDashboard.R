@@ -33,7 +33,6 @@ getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboa
     masterRmdFile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
   }
   
-  R.utils::isAbsolutePath()
   html_filename=paste0(basename(outputFileName))
   # html_filename=gsub(".Rmd",".html",basename(masterRmdFile))
   rmarkdown::render(masterRmdFile,

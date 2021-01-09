@@ -113,4 +113,4 @@ getMAFDashboard(MAFfilePath = filtered_maf,
 
 
 ```
-The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html).
+The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html).
