@@ -20,12 +20,14 @@ MAFDash is an R package that helps to quickly create an HTML dashboard to summar
 Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information.
 
 ### How to use
+
 - [Quick Start](articles/Quick Start.html)
 - [Customizing](articles/Customizing.html)
 - [Real-world example](articles/Advanced_Example.html)
 
 ### Example dashboards from the vignette
 Here are some example dashboards created using TCGA data:
+
 - [Default dashboard using TCGA-LAML](https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html)
 - [Customized dashboard using TCGA-UVM](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html)
 - [Arbitrary plots using `iris` dataset](https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html)
