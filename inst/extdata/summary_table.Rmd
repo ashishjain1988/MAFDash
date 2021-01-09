@@ -1,0 +1,33 @@
+
+Summary {data-orientation=rows}
+=======================================================================
+Row {data-height=120}
+-------------------------------------
+### <font size="9"> `r title_text` </font>
+```{r make-summary-table , output=FALSE }
+summaryInfo <- maf@summary
+summaryTable <- data.frame(Genome=summaryInfo$summary[summaryInfo$ID=="NCBI_Build"],
+                           Number_of_samples=summaryInfo$summary[summaryInfo$ID=="Samples"],
+                           Number_of_genes=summaryInfo$summary[summaryInfo$ID=="nGenes"],
+                           Mean_Variants=prettyNum(summaryInfo$Mean[summaryInfo$ID=="total"],digits=4),
+                           Median_Variants=prettyNum(summaryInfo$Median[summaryInfo$ID=="total"], digits=4)
+)
+datatable(summaryTable, style="bootstrap4", class=c("display"),
+          fillContainer=T,
+          escape = F,
+          selection = "none",
+          rownames=F,
+          colnames=tools::toTitleCase(gsub("_"," ", colnames(summaryTable))),
+          options=list(dom = 't',ordering=F,autoWidth=F,
+                       columnDefs = list(list(width = '80px', targets = "_all"),
+                                         list(className = 'dt-center', targets = "_all")),
+          initComplete = JS(
+            "function(settings, json) {",
+            "$(this.api().table().header()).css({'font-size': '120%', 'background-color': '#ace1fa', 'color': '#424242'});",
+            "}")             
+          ),
+          autoHideNavigation=TRUE
+          )  %>%
+  DT::formatStyle(columns = 1:ncol(summaryTable), fontSize = '120%',fontWeight="bold") 
+
+```

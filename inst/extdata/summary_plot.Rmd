@@ -1,0 +1,5 @@
+
+### Summary Plots
+```{r make-summary-maftools, fig.width=12, fig.height=8 }
+plotmafSummary(maf = maf, titvRaw = F)
+```

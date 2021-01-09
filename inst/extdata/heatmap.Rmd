@@ -1,0 +1,57 @@
+
+### Interactive Heatmap
+```{r make-interactive-heatmap, fig.width=12, fig.height=8  }
+snp_mat <- mutCountMatrix(maf = maf)
+snp_mat$total <- rowSums(snp_mat)
+snp_mat <- snp_mat[with(snp_mat,order(-total)),]
+snp_mat <- snp_mat[1:50,]
+mat1 <-subset(snp_mat, select=-(total))
+mat1 <- log2(mat1 +1)
+mat1<- t(mat1)
+
+
+### This makes the "waterfall" effect for the gene/sample matrix
+# source("scripts/helper_functions/helper_functions.oncoplot.R")
+oncomat <- createOncoMatrix(maf, g=colnames(mat1))$oncoMatrix
+mat1 <- mat1[match(colnames(oncomat), rownames(mat1)), match(rownames(oncomat), colnames(mat1))]
+
+### Set up sizing parameters
+minsize=200
+maxsize=850
+nsample=ncol(mat1)
+px_per_sample=13
+hm_height=paste0(
+        min(c(maxsize, max(c(minsize,nsample*px_per_sample)))),
+        "px")
+
+ngenes=nrow(mat1)
+px_per_gene=px_per_sample
+hm_width=paste0(
+        min(c(maxsize, max(c(minsize,ngenes*px_per_gene)))),
+        "px")
+
+#require(canvasXpress)
+### Render plot
+canvasXpress(
+  data = mat1,
+  colorSpectrum = list("black","blue","magenta","red","gold"),
+  graphType = "Heatmap",
+  # samplesClustered = TRUE,
+  # variablesClustered = TRUE,
+  samplesClustered = FALSE,
+  variablesClustered = FALSE,
+  showTransition = FALSE,
+  smpLabelScaleFontFactor = 0.5,
+  varLabelScaleFontFactor = 0.5,
+  width = hm_width,
+  height = hm_height,
+  # titleFont="10px Verdana",
+  legendScaleFontFactor=1,
+  # showLegendTitle=T#,
+  titleScaleFontFactor=0.3,
+  title="log2(Num Variants)"
+  )
+
+
+
+```

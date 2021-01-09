@@ -1,0 +1,90 @@
+---
+title: "Customizing"
+# date: "`r format(Sys.Date(), '%m/%d/%Y')`"
+output: 
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    #number_sections: true  ## if you want number sections at each table header
+    theme: flatly  # many options for theme, this one is my favorite.
+fig_width: 8 
+fig_height: 5 
+vignette: >
+  %\VignetteIndexEntry{MAFDashRPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width=8, fig.height=5
+)
+```
+
+## Adding Custom Plots
+The `getMAFDashboard()` function will accept a named list for adding arbitrary objects to the dashboard.  Each item in the list will be displayed in separate tabs, and the name of the element will be used as the title of the tab.
+
+Elements of the list can be:
+
+- A boolean value: indicates whether or not to draw one of the preset plots provided by MAFDasoh
+- A file path: any image format (or PDF)
+- An R plot object: ggplot, plotly, ComplexHeatmap
+
+This functionality can be used with or without providing a MAF file.  When MAF data is not provided, the "Variant Table" tab of the dashboard is automatically omitted.
+
+## Toy example with `iris` data
+```
+library(ggplot2)
+library(plotly)
+library(ComplexHeatmap)
+
+data(iris)
+
+## Simple ggplot
+myplot <- ggplot(iris) + geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
+
+## Save as PNG
+mycustomimage_png <- file.path(getwd(),"custom_ggplot.png")
+ggsave(mycustomimage_png, plot=myplot, width=5, height=4)
+
+## Save as PDF
+mycustomimage_pdf <- file.path(getwd(),"custom_ggplot.pdf")
+ggsave(mycustomimage_pdf, plot=myplot, width=5, height=4)
+
+## Convert ggplot to plotly
+myplotly <- ggplotly(myplot)
+
+## Make heatmap with ComplexHeatmap
+hmdata <- t(iris[,1:4])
+hmanno <- HeatmapAnnotation(df=data.frame(Species=iris[,5]))
+myhm <- Heatmap(hmdata, bottom_annotation = hmanno)
+
+## Customizable plotly from https://github.com/mtandon09/Dynamic_Plotly
+source("https://raw.githubusercontent.com/mtandon09/Dynamic_Plotly/master/make_cutomizable_plotly.R")
+custom_plotly <- make_customizable_plotly(iris)
+
+## Put together objects/filepaths into a list
+toyplotlist <- list("ggplot"= myplot,
+                   "plotly"= myplotly,
+                   "PNG"= mycustomimage_png,
+                   "PDF"= mycustomimage_pdf,
+                   "ComplexHeatmap"= myhm,
+                   "Customizable"= custom_plotly
+)
+
+## Filename to output to
+html_filename="toy_dash.html"
+
+## Render dashboard
+getMAFDashboard(plotList = toyplotlist,
+                outputFileName = html_filename,
+                outputFileTitle = "Iris")
+```
+
+The output can be seen [here](examples/LAML.mafdash.html).
+

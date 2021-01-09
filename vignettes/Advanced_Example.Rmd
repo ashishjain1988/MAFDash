@@ -1,0 +1,116 @@
+---
+title: "Advanced Example"
+# date: "`r format(Sys.Date(), '%m/%d/%Y')`"
+output: 
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    #number_sections: true  ## if you want number sections at each table header
+    theme: flatly  # many options for theme, this one is my favorite.
+fig_width: 8 
+fig_height: 5 
+vignette: >
+  %\VignetteIndexEntry{MAFDashRPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width=8, fig.height=5
+)
+```
+
+## Download TCGA data
+
+### Download MAF file using `TCGABiolinks`
+MAFDash provides a wrapper function that tries to simplify retrieving data using `TCGABiolinks`.  Valid project codes can be viewed by running `TCGABiolinks::getGDCprojects()` and checking the "tumor" column.
+```
+library(MAFDashRPackage)
+library(TCGABiolinks)
+
+tcga_code = "UVM"    ## Uveal Melanoma
+caller = "mutect2"
+title_label = paste0("TCGA-",tcga_code)
+
+maf_file <- getMAFdataTCGA(tcga_code,variant_caller = caller)
+```
+
+### Download clinical data using `TCGABiolinks`
+```
+tcga_clinical <- TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
+tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
+```
+
+## Make a customized oncoplot
+### Filter data
+The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
+```
+filtered_mafdata <- filterMAF(maf_file)
+```
+
+### Add clinical data
+The easiest way to add clinical annotations to the oncoplot is to add clinical data to the `clinical.data` slot of a `MAF` object before passing it to the `generateOncoplot()` function.
+
+MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.
+
+```
+filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical)
+annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$age_at_diagnosis, na.rm=T))
+```
+
+### Make the plot
+The `add_clinical_annotations` argument can be:
+
+- A boolean indicating whether or not to add annotations built from the `clinical.data` slot of the `MAF` object.  Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of `clinical.data`)
+- A character vector of column names provided as clinical data
+```
+# We can enforce a
+custom_onco <- generateOncoPlot(filtered_maf, add_clinical_annotations = names(annotation_colors), clin_data_colors = annotation_colors)
+```
+
+
+## Make some other figures
+### TCGA Comparison
+A lot of `maftools`'s plots are base graphics, so they're drawn to a device and not returned.  But we can simply save them to a file and provide the file path.
+```
+library(maftools)
+tcgacompare_file <- file.path(getwd(),"tcga_compare.png")
+png(tcgacompare_file,width=8, height=6, units="in", res=400)
+tcgaCompare(filtered_maf,tcga_capture_size = NULL)
+dev.off()
+```
+
+### Chord Diagram of mutation co-occurrence
+This function is built on top of `maftools`'s `somaticInteractions()` function. It's just a different way of visualizing co-occurence or mutual exclusivity between genes.
+```
+ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
+generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)
+```
+
+## Render the dashboard
+```
+customplotlist <- list("summary_plot"=T,
+                       "burden"=T,
+                       "TCGA Comparison"=tcgacompare_file,
+                       "oncoplot"=T,
+                       "Annotated Oncoplot"=custom_onco
+                       )
+
+## Filename to output to
+html_filename=file.path("output/TCGA-UVM.custom.mafdash.html")
+
+## Render dashboard
+getMAFDashboard(MAFfilePath = filtered_maf,
+                plotList = customplotlist,
+                outputFileName = html_filename, 
+                outputFileTitle = "Customized Dashboard")
+
+
+```
+

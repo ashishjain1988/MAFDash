@@ -1,0 +1,57 @@
+---
+title: "Quick Start"
+# date: "`r format(Sys.Date(), '%m/%d/%Y')`"
+output: 
+  rmarkdown::html_document:
+    highlight: pygments
+    toc: true
+    #number_sections: true  ## if you want number sections at each table header
+    theme: flatly  # many options for theme, this one is my favorite.
+fig_width: 8 
+fig_height: 5 
+vignette: >
+  %\VignetteIndexEntry{MAFDashRPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width=8, fig.height=5
+)
+```
+
+## Getting started
+### Installation from Github
+```
+## Need devtools to install from Github
+install.packages(devtools)
+library(devtools)
+devtools::install_github("ashishjain1988/MAFDashRPackage")
+
+```
+
+### Get some mutation data in MAF format
+You can run `TCGAbiolinks::getGDCprojects()` to get a data frame of available datasets. The last column (`tumor`) contains valid TCGA project codes for download.
+
+```
+# Let's use the example MAF provided by maftools
+library("maftools")
+laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+```
+
+### Make it into a dashboard
+```
+title_text <- paste0("Example Dashboard")
+html_output <- "LAML.mafdash.html"
+getMAFDashboard(MAFfilePath = laml.maf,
+                outputFileName = html_filename,
+                outputFileTitle=title_text)
+```
+
+The output can be seen [here](examples/LAML.mafdash.html)

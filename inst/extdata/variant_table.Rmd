@@ -1,0 +1,157 @@
+
+Variant Table
+=======================================================================
+
+```{r make-data-table, results="hide" }
+mydf <- generateVariantTable(maf)
+column_labels <- setNames(colnames(mydf), make.names(colnames(mydf)))
+colnames(mydf) <- names(column_labels)
+
+n_samples <- length(unique(mydf$Sample.ID))
+extra_data <- mydf %>% group_by(Hugo.Symbol) %>% mutate(Gene.Altered.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
+extra_cols <- c("Gene.Altered.in.Cohort.frac")
+
+if ("Protein.Change" %in% colnames(extra_data)) {
+  extra_data <- extra_data %>% group_by(Hugo.Symbol, Protein.Change) %>%
+                               mutate(Variant.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
+  extra_cols <- c(extra_cols,"Variant.in.Cohort.frac")
+}
+
+mydf <- cbind(mydf[,1:2], extra_data[,extra_cols], mydf[,3:ncol(mydf)])
+
+
+
+normdb_cols <- intersect(c("gnomAD.Frequency","ExAC.Frequency","X1000Genomes.Frequency"),colnames(mydf))
+columns_to_round <- c("Gene.Altered.in.Cohort.frac","Variant.in.Cohort.frac", "Tumor.Alt.Frequency","Tumor.Depth",
+                      normdb_cols)
+columns_to_round <- columns_to_round[columns_to_round %in% colnames(mydf)]
+for (colname in columns_to_round) {
+  mydf[,colname] <- as.numeric(as.character(mydf[,colname]))
+  mydf[,colname] <- ifelse(is.na(mydf[,colname]), 0, mydf[,colname])
+  mydf[,colname] <- round(mydf[,colname],3)
+}
+
+# mydf[,"Tumor.Depth"] <-  as.numeric(as.character(mydf[,"Tumor.Depth"]))
+
+mydf <- mutate(mydf, mean.freq.normals = round(rowMeans(select(mydf, all_of(normdb_cols)), na.rm = TRUE),3))
+
+
+mycounts <- mydf %>% group_by(Sample.ID) %>% summarise(num_mut=n(), .groups="drop")
+mydf$Sample.ID <- factor(as.character(mydf$Sample.ID), levels=unique(as.character(mycounts$Sample.ID)[order(mycounts$num_mut,decreasing = T)]))
+
+
+```
+
+Inputs {.sidebar data-width=300}
+-------------------------------------
+```{r set-up-variant-filters }
+
+
+# Wrap data frame in SharedData
+variant_sd <- SharedData$new(mydf)
+
+# Create filter inputs
+crosstalk_filters <- c("Sample ID"="Sample.ID",
+                       "Gene mutated in cohort (frequency)"="Gene.Altered.in.Cohort.frac",
+                       "Gene Symbol"="Hugo.Symbol",
+                       "Protein change"="Protein.Change",
+                       "Variant found in cohort (frequency)"="Variant.in.Cohort.frac",
+                       "Total depth (count) at site"="Tumor.Depth",
+                       "Frequency of mutated allele at site"="Tumor.Alt.Frequency",
+                       "Type of variant (SNP, INDEL)"="Variant.Type",
+                       # "Mean frequency in gnomAD, ExAC, and 1000 Genomes"="mean.freq.normals",
+                       "gnomAD frequency"="gnomAD.Frequency",
+                       "ExAC frequency"="ExAC.Frequency",
+                       "1000Genomes frequency"="X1000Genomes.Frequency"
+                       )
+
+filters_df <- data.frame(sd_colname=crosstalk_filters,
+                         filter_label=names(crosstalk_filters),
+                         html_id=paste0("filter_id",1:length(crosstalk_filters)),
+                         stringsAsFactors = F)
+filters_df <- filters_df[filters_df$sd_colname %in% colnames(mydf),]
+
+# print(unlist(lapply(mydf, class)))
+
+rchunk_text <- c("``` {r}","```")
+# browser()
+filter_header_text <- "h4('Filter data')"
+cohort_filter_text <- rep("",nrow(filters_df))
+for (i in 1:nrow(filters_df)) {
+  if (is.numeric(mydf[,filters_df$sd_colname[i]])) {
+    cohort_filter_text[i] <- paste0("filter_slider(\"",filters_df$html_id[i],"\",\"",filters_df$filter_label[i],"\", variant_sd, column=~",filters_df$sd_colname[i],")")
+  } else {
+    cohort_filter_text[i] <- paste0("filter_select(\"",filters_df$html_id[i],"\",\"",filters_df$filter_label[i],"\", variant_sd, group=~",filters_df$sd_colname[i],")")
+  }
+}
+# cohort_knit_text <- knitr::knit_expand(text=cohort_filter_text)
+cohort_knit_text <- c(rchunk_text[1], filter_header_text, cohort_filter_text, rchunk_text[2])
+```
+
+`r knitr::knit(text = paste(cohort_knit_text, collapse = '\n'))`
+
+``` {r}
+# paste(knitr::knit(text = paste(cohort_knit_text, collapse = '\n')))
+
+crosstalk_filters <- c("Sample ID"="Sample.ID",
+                       "Gene mutated in cohort (frequency)"="Gene.Altered.in.Cohort.frac",
+                       "Gene Symbol"="Hugo.Symbol",
+                       "Protein change"="Protein.Change",
+                       "Variant found in cohort (frequency)"="Variant.in.Cohort.frac",
+                       "Total depth (count) at site"="Tumor.Depth",
+                       "Frequency of mutated allele at site"="Tumor.Alt.Frequency",
+                       "Type of variant (SNP, INDEL)"="Variant.Type",
+                       "Mean frequency in gnomAD, ExAC, and 1000 Genomes"="mean.freq.normals",
+                       "gnomAD frequency"="gnomAD.Frequency",
+                       "ExAC frequency"="ExAC.Frequency",
+                       "1000Genomes frequency"="X1000Genomes.Frequency"
+                       )
+# filter_select("sample_filter", "Sample ID", variant_sd, group=~Sample.ID)
+# filter_select("sample_filter", "Sample ID", variant_sd, group=~Sample.ID)
+# filter_slider("fracgene_filter", "Gene mutated in cohort (frequency)", variant_sd, column=~Gene.Altered.in.Cohort.frac, step=0.01, width=250)
+# br()
+# h4("Filter data by variant values")
+# filter_select("gene_filter", "Gene Symbol", variant_sd, group=~Hugo.Symbol)
+# filter_select("protchange_filter", "Protein change", variant_sd, group=~Protein.Change)
+# filter_slider("fracvar_filter", "Variant found in cohort (frequency)", variant_sd, column=~Variant.in.Cohort.frac, step=0.01, width=250)
+# filter_slider("tumdepth_filter", "Total depth (count) at site", variant_sd, column=~Tumor.Depth, step=5, width=250)
+# filter_slider("tumfreq_filter", "Frequency of mutated allele at site", variant_sd, column=~Tumor.Alt.Frequency, step=0.01, width=250)
+# filter_select("vartype_filter", "Type of variant (SNP, INDEL)", variant_sd, group=~Variant.Type)
+# br()
+# h4("Filter common variants in normal databases")
+# filter_slider("normal_mean_freq_filter", "Mean frequency in gnomAD, ExAC, and 1000 Genomes", variant_sd, column=~mean.freq.normals, step=0.01, width=250)
+# filter_slider("gnomad_filter", "gnomAD frequency", variant_sd, column=~gnomAD.Frequency, step=0.01, width=250)
+# filter_slider("exac_filter", "ExAC frequency", variant_sd, column=~ExAC.Frequency, step=0.01, width=250)
+# filter_slider("kgenomes_filter", "1000Genomes frequency", variant_sd, column=~X1000Genomes.Frequency, step=0.01, width=250)
+br()
+
+```
+
+Row {data-height=500}
+-------------------------------------
+### Mutation Info Table
+
+```{r render-full-table }
+datatable(variant_sd, extensions=c("Scroller","FixedColumns","Buttons","ColReorder"), style="bootstrap", class=c("compact","display"), width="90%",
+          fillContainer=F,
+          escape = F,
+          selection = "none",
+          rownames=F,
+          colnames=tools::toTitleCase(gsub("_"," ", colnames(mydf))),
+          options=list(dom = 'BSRlfrtip',
+                       deferRender=TRUE,
+                       scrollX=T,
+                       scrollY=450,
+                       scroller=T,
+                       buttons =list('copy', 'print', list(
+                                    extend = 'collection',
+                                    buttons = c('csv', 'excel', 'pdf'),
+                                    text = 'Download'
+                                  )),
+                       colReorder=TRUE,
+                       fixedColumns = list(leftColumns = 4)
+                       )
+          )
+
+```
+

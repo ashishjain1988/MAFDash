@@ -1,0 +1,13 @@
+
+### Co-occurence of Mutated Genes
+``` {r somatic-interactions, fig.width=12, fig.height=6 , output=FALSE}
+pval_low=0.05
+pval_high=0.01
+
+#source("~/Documents/helper_functions/helper_functions.oncoplot.R")
+generateRibbonPlot(maf,
+                   plot_type="matrix",
+                   pval_low = pval_low, pval_high = pval_high, 
+                   gene_colors = "grey50",
+                   shrink_factor=1.5)
+```
