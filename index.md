@@ -9,7 +9,7 @@ MAFDash
 ```
 install.packages(devtools)
 library(devtools)
-devtools::install_github("ashishjain1988/MAFDashRPackage")
+devtools::install_github("mtandon09/MAFDashRPackage")
 ```
 
 ### Description
