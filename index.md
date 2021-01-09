@@ -28,7 +28,7 @@ Currently, MAFDash produces mostly static plots powered by [maftools](https://bi
 Here are some example dashboards created using TCGA data:
 - [Default dashboard using TCGA-LAML](https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html)
 - [Customized dashboard using TCGA-UVM](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html)
-- [Arbitrary plots using `iris` dataset](https://mtandon09.github.io/MAFDash/examples/toy_dash.html.MAFDash.html)
+- [Arbitrary plots using `iris` dataset](https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html)
 
 #### Other notes
 - This repo was born out of a Shiny app, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard was an attempt to try some of those things using client-side javascript functionality.
