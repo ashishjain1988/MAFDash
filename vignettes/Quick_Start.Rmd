@@ -54,4 +54,4 @@ getMAFDashboard(MAFfilePath = laml.maf,
                 outputFileTitle=title_text)
 ```
 
-The output can be seen [here](examples/LAML.mafdash.html)
+The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html)
