@@ -64,14 +64,15 @@ filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical)
 annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$age_at_diagnosis, na.rm=T))
 ```
 
-### Make the plot
+### Make an annotated oncoplot
 The `add_clinical_annotations` argument can be:
 
 - A boolean indicating whether or not to add annotations built from the `clinical.data` slot of the `MAF` object.  Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of `clinical.data`)
 - A character vector of column names provided as clinical data
 ```
-# We can enforce a
-custom_onco <- generateOncoPlot(filtered_maf, add_clinical_annotations = names(annotation_colors), clin_data_colors = annotation_colors)
+custom_onco <- generateOncoPlot(filtered_maf, 
+                                add_clinical_annotations = names(annotation_colors), 
+                                clin_data_colors = annotation_colors)
 ```
 
 
@@ -102,8 +103,8 @@ customplotlist <- list("summary_plot"=T,
                        "Annotated Oncoplot"=custom_onco
                        )
 
-## Filename to output to
-html_filename=file.path("output/TCGA-UVM.custom.mafdash.html")
+## Filename to output to; if output directory doesn't exist, it will be created
+html_filename=file.path("examples/TCGA-UVM.custom.mafdash.html")
 
 ## Render dashboard
 getMAFDashboard(MAFfilePath = filtered_maf,
@@ -113,4 +114,6 @@ getMAFDashboard(MAFfilePath = filtered_maf,
 
 
 ```
+
+## Output
 The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html).

@@ -29,11 +29,8 @@ knitr::opts_chunk$set(
 ## Getting started
 ### Installation from Github
 ```
-## Need devtools to install from Github
-install.packages(devtools)
-library(devtools)
-devtools::install_github("ashishjain1988/MAFDashRPackage")
-
+# install.packages(devtools)  ## Install devtools if necessary
+devtools::install_github("mtandon09/MAFDashRPackage")
 ```
 
 ### Get some mutation data in MAF format
@@ -41,17 +38,21 @@ You can run `TCGAbiolinks::getGDCprojects()` to get a data frame of available da
 
 ```
 # Let's use the example MAF provided by maftools
-library("maftools")
 laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
 ```
 
 ### Make it into a dashboard
 ```
-title_text <- paste0("Example Dashboard")
-html_output <- "LAML.mafdash.html"
+## Text to display as the header in the output file
+title_text <- paste0("Example Dashboard")  
+
+## Location for the output file
+html_filename <- "LAML.mafdash.html"
+
 getMAFDashboard(MAFfilePath = laml.maf,
                 outputFileName = html_filename,
                 outputFileTitle=title_text)
 ```
 
+## Output
 The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html)

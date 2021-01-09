@@ -123,11 +123,11 @@ data(iris)
 ## Simple ggplot
 myplot &lt;- ggplot(iris) + geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 
-## Save as PNG
+## Save as PNG (provide absolute file path)
 mycustomimage_png &lt;- file.path(getwd(),"custom_ggplot.png")
 ggsave(mycustomimage_png, plot=myplot, width=5, height=4)
 
-## Save as PDF
+## Save as PDF (provide absolute file path)
 mycustomimage_pdf &lt;- file.path(getwd(),"custom_ggplot.pdf")
 ggsave(mycustomimage_pdf, plot=myplot, width=5, height=4)
 
@@ -159,6 +159,10 @@ html_filename="toy_dash.html"
 getMAFDashboard(plotList = toyplotlist,
                 outputFileName = html_filename,
                 outputFileTitle = "Iris")</a></code></pre>
+</div>
+<div id="output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#output" class="anchor"></a>Output</h2>
 <p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html">here</a>.</p>
 </div>
   </div>

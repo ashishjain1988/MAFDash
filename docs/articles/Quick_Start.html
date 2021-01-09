@@ -105,30 +105,34 @@
 <div id="installation-from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-from-github" class="anchor"></a>Installation from Github</h3>
-<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">## Need devtools to install from Github
-install.packages(devtools)
-library(devtools)
-devtools::install_github("ashishjain1988/MAFDashRPackage")
-</a></code></pre>
+<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html"># install.packages(devtools)  ## Install devtools if necessary
+devtools::install_github("mtandon09/MAFDashRPackage")</a></code></pre>
 </div>
 <div id="get-some-mutation-data-in-maf-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get-some-mutation-data-in-maf-format" class="anchor"></a>Get some mutation data in MAF format</h3>
 <p>You can run <code><a href="https://rdrr.io/pkg/TCGAbiolinks/man/getGDCprojects.html">TCGAbiolinks::getGDCprojects()</a></code> to get a data frame of available datasets. The last column (<code>tumor</code>) contains valid TCGA project codes for download.</p>
-<pre><code><a href="https://github.com/PoisonAlien/maftools"># Let's use the example MAF provided by maftools
-library("maftools")
-laml.maf &lt;- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")</a></code></pre>
+<pre><code># Let's use the example MAF provided by maftools
+laml.maf &lt;- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")</code></pre>
 </div>
 <div id="make-it-into-a-dashboard" class="section level3">
 <h3 class="hasAnchor">
 <a href="#make-it-into-a-dashboard" class="anchor"></a>Make it into a dashboard</h3>
-<pre><code>title_text &lt;- paste0("Example Dashboard")
-html_output &lt;- "LAML.mafdash.html"
+<pre><code>## Text to display as the header in the output file
+title_text &lt;- paste0("Example Dashboard")  
+
+## Location for the output file
+html_filename &lt;- "LAML.mafdash.html"
+
 getMAFDashboard(MAFfilePath = laml.maf,
                 outputFileName = html_filename,
                 outputFileTitle=title_text)</code></pre>
-<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html">here</a></p>
 </div>
+</div>
+<div id="output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#output" class="anchor"></a>Output</h2>
+<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html">here</a></p>
 </div>
   </div>
 

@@ -141,16 +141,17 @@ tcga_clinical$Tumor_Sample_Barcode &lt;- tcga_clinical$submitter_id</code></pre>
 <pre><code>filtered_maf &lt;- read.maf(filtered_mafdata, clinicalData = tcga_clinical)
 annotation_colors &lt;- getTCGAClinicalColors(ageRange = range(tcga_clinical$age_at_diagnosis, na.rm=T))</code></pre>
 </div>
-<div id="make-the-plot" class="section level3">
+<div id="make-an-annotated-oncoplot" class="section level3">
 <h3 class="hasAnchor">
-<a href="#make-the-plot" class="anchor"></a>Make the plot</h3>
+<a href="#make-an-annotated-oncoplot" class="anchor"></a>Make an annotated oncoplot</h3>
 <p>The <code>add_clinical_annotations</code> argument can be:</p>
 <ul>
 <li>A boolean indicating whether or not to add annotations built from the <code>clinical.data</code> slot of the <code>MAF</code> object. Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of <code>clinical.data</code>)</li>
 <li>A character vector of column names provided as clinical data</li>
 </ul>
-<pre><code># We can enforce a
-custom_onco &lt;- generateOncoPlot(filtered_maf, add_clinical_annotations = names(annotation_colors), clin_data_colors = annotation_colors)</code></pre>
+<pre><code>custom_onco &lt;- generateOncoPlot(filtered_maf, 
+                                add_clinical_annotations = names(annotation_colors), 
+                                clin_data_colors = annotation_colors)</code></pre>
 </div>
 </div>
 <div id="make-some-other-figures" class="section level2">
@@ -184,8 +185,8 @@ generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)</code></pre>
                        "Annotated Oncoplot"=custom_onco
                        )
 
-## Filename to output to
-html_filename=file.path("output/TCGA-UVM.custom.mafdash.html")
+## Filename to output to; if output directory doesn't exist, it will be created
+html_filename=file.path("examples/TCGA-UVM.custom.mafdash.html")
 
 ## Render dashboard
 getMAFDashboard(MAFfilePath = filtered_maf,
@@ -194,6 +195,10 @@ getMAFDashboard(MAFfilePath = filtered_maf,
                 outputFileTitle = "Customized Dashboard")
 
 </code></pre>
+</div>
+<div id="output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#output" class="anchor"></a>Output</h2>
 <p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html">here</a>.</p>
 </div>
   </div>

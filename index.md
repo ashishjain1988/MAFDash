@@ -7,8 +7,7 @@ MAFDash
 
 ### Installation from Github
 ```
-install.packages(devtools)
-library(devtools)
+# install.packages(devtools)  ## Install devtools if necessary
 devtools::install_github("mtandon09/MAFDashRPackage")
 ```
 
