@@ -41,8 +41,8 @@ different figures and plots explaining the MAF dataset.
 }
 \examples{
 library(MAFDashRPackage)
-#g <- generateOncoPlot(maf)
-#g
+laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+generateOncoPlot(read.maf(laml.maf))
 
 }
 \author{

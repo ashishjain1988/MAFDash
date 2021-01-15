@@ -20,7 +20,7 @@ Currently, MAFDash produces mostly static plots powered by [maftools](https://bi
 
 ### How to use
 
-- [Quick Start](articles/Quick Start.html)
+- [Quick Start](articles/Quick_Start.html)
 - [Customizing](articles/Customizing.html)
 - [Real-world example](articles/Advanced_Example.html)
 

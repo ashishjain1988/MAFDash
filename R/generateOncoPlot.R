@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #g <- generateOncoPlot(maf)
-#' #g
+#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' generateOncoPlot(read.maf(laml.maf))
 #'
 generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=T,
                            genes_to_plot=NULL, include_all=F,

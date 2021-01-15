@@ -14,7 +14,7 @@ generateBurdenPlot(
 \arguments{
 \item{mymaf}{The MAF object}
 
-\item{plotType}{Type of plot (Either Dotplot or Barplot)}
+\item{plotType}{Type of plot (Either "Dotplot" or "Barplot")}
 
 \item{mb_covered}{Total covered bases for mutation count
 normalization}
@@ -30,7 +30,9 @@ using the MAF data.
 }
 \examples{
 library(MAFDashRPackage)
-#g <- generateBurdenPlot(maf)
+laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
+generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 
 }
 \author{

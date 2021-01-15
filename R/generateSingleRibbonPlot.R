@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
+#' MAFfilePath <-  system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
 #' generateRibbonPlot(read.maf(MAFfilePath))
 #'
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL, 

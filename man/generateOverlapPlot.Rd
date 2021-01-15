@@ -9,7 +9,7 @@ generateOverlapPlot(
   use_silent_mutations = F,
   summarize_by = "gene",
   plotType = c("ribbon", "heatmap"),
-  savename = "overlap_plot.pdf",
+  savename = NULL,
   savewidth = 8,
   saveheight = 8
 )
@@ -38,7 +38,8 @@ using the MAF data.
 }
 \examples{
 library(MAFDashRPackage)
-#generateOverlapPlot(MAFObject)
+laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+generateOverlapPlot(read.maf(laml.maf))
 
 }
 \author{

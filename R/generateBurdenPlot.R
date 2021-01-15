@@ -3,7 +3,7 @@
 #' using the MAF data.
 #' @author Mayank Tondon, Ashish Jain
 #' @param mymaf The MAF object
-#' @param plotType Type of plot (Either Dotplot or Barplot)
+#' @param plotType Type of plot (Either "Dotplot" or "Barplot")
 #' @param mb_covered Total covered bases for mutation count
 #' normalization
 #' @param save_data_to_file The name and path of the output file
@@ -13,7 +13,9 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #g <- generateBurdenPlot(maf)
+#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
+#' generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 #'
 generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
 
