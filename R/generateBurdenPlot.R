@@ -3,7 +3,7 @@
 #' using the MAF data.
 #' @author Mayank Tondon, Ashish Jain
 #' @param mymaf The MAF object
-#' @param plotType Type of plot (Either Dotplot or Barplot)
+#' @param plotType Type of plot (Either "Dotplot" or "Barplot")
 #' @param mb_covered Total covered bases for mutation count
 #' normalization
 #' @param save_data_to_file The name and path of the output file
@@ -13,20 +13,11 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #g <- generateBurdenPlot(maf)
+#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
+#' generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 #'
 generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
-
-  ### Add checks for the conditions
-  mymaf <- ensurer::ensure_that(mymaf,
-                                   !is.null(.) && (class(.) == "MAF"),
-                                   err_desc = "Please enter correct MAF object")
-  plotType <- ensurer::ensure_that(plotType,
-                                is.null(.) || (. == "Dotplot") || (. == "Barplot"),
-                                err_desc = "Please enter correct Plot Type")
-  mb_covered <- ensurer::ensure_that(mb_covered,
-                                   is.null(.) || (class(.) == "numeric"),
-                                   err_desc = "Please enter correct mb_covered value")
 
   num_var_data <- mymaf@variants.per.sample
   colnames(num_var_data) <- c("Tumor_Sample_Barcode","Variants_filtered")
@@ -78,7 +69,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
   plotdata$classification <- factor(as.character(plotdata$classification),
                                     levels=class_means$classification[order(class_means$mean, decreasing = F)])
 
-  my_class_colors <- mutation_colors
+  my_class_colors <- my_mutation_colors()
 
   plotdata$hoverlabel <- paste0("Sample: ",plotdata$Tumor_Sample_Barcode,"\nMutations: ", plotdata$mut_burden)
 
@@ -111,7 +102,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
     }
   } else {
 
-    #require(ggbeeswarm)
+    # require(ggbeeswarm)
     ### Mutation Burden - Scatter/Dot plot
     ### Works better for larger cohorts
     alpha_val=1

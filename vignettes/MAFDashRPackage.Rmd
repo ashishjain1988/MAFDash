@@ -1,36 +1,3 @@
----
-title: "MAF Dash"
-author: |
-    | Mayank Tandon, Ashish Jain
-    | Frederick National Laboratory
-    | Frederick, Maryland
-    | 
-date: "`r format(Sys.Date(), '%m/%d/%Y')`"
-output: 
-  rmarkdown::html_document:
-    highlight: pygments
-    toc: true
-    #number_sections: true  ## if you want number sections at each table header
-    #theme: united  # many options for theme, this one is my favorite.
-fig_width: 8 
-fig_height: 5 
-vignette: >
-  %\VignetteIndexEntry{MAFDashRPackage}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  fig.width=8, fig.height=5
-)
-```
-
 #### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
 
 ## Getting started
@@ -127,3 +94,5 @@ This repo -- **MAFDash** -- contains a set of R tools to easily create an HTML d
 The resulting HTML file serves as a self-contained report that can be used to explore the result.  Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information. 
 
 This repo is a companion to the Shiny app, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard is an attempt to try some of those things using client-side javascript functionality.
+
+

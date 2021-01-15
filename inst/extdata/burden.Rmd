@@ -1,0 +1,22 @@
+
+### Burden Plots {data-orientation=columns}
+```{r make-burden-plot-dot }
+# source("scripts/helper_functions/helper_functions.oncoplot.R")
+burden_plot <- generateBurdenPlot(maf, plotType = "Dotplot")
+
+dotplotly <- ggplotly(burden_plot,tooltip = "text", width=500, height=600) %>%
+      layout(yaxis=list(autorange = T,fixedrange= F))
+
+burden_plot <- generateBurdenPlot(maf, plotType = "Barplot")
+
+barplotly <- ggplotly(burden_plot,tooltip = "text", width=800, height=600) %>%
+      layout(yaxis=list(autorange = T,fixedrange= F))
+
+### Use CSS/javascript flex-wrap to contain the two plots
+div(
+  style = "display: flex; flex-wrap: wrap; justify-content: center",
+  div(dotplotly, style = "width: 40%; border: groove;"),
+  div(barplotly, style = "width: 60%; border: groove;"),
+)
+
+```

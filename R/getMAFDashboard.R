@@ -2,13 +2,19 @@
 #' @description This function creates an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
 #' @author Mayank Tondon, Ashish Jain
-#' @param filePath The path of the file containing the mutation
+#' @param MAFfilePath The path of the file containing the mutation
 #' information in the MAF format
-#' @param outputFilePath The path of the output html dashboard
-#' file
+#' @param plotList A named list denoting which plots to draw.
+#' List elements can be:
+#' - boolean, if the name matches one of built-in plots: "summary_plot","burden","oncoplot","cooccurence","heatmap"
+#' - ggplot, ComplexHeatmap, or plotly object
+#' - file path to image (must be absolute path)
+#' The default value (if set to NULL) is 'list("summary_plot"=TRUE,"burden"=TRUE,"oncoplot"=TRUE,"cooccurence"=TRUE,"heatmap"=TRUE)'
+#' The order of the list determines the order of the tabs, and list names are used as tab titles.  
 #' @param outputFileName The name of the output html dashboard
 #' file
 #' @param outputFileTitle The title of the output html dashboard
+#' @param masterRmdFile Alternate Rmd file.  This argument is meant only for testing and development.
 #' file
 #' @export
 #' @return The dashboard html file
@@ -18,33 +24,29 @@
 #' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #t <- getMAFDashboard(file = MAFfilePath)
 #'
-getMAFDashboard<-function(filePath,outputFilePath,outputFileName="output",outputFileTitle="MAF Dash"){
-
-  ### Add checks for the conditions
-  filePath <- ensurer::ensure_that(filePath,
-                                      !is.null(.) && file.exists(.),
-                                      err_desc = "Please enter correct file path and name.")
-  outputFilePath <- ensurer::ensure_that(outputFilePath,
-                                   !is.null(.) && dir.exists(.),
-                                   err_desc = "Please enter correct output file path.")
-  outputFileName <- ensurer::ensure_that(outputFileName,
-                                     !is.null(.) && (class(.) == "character"),
-                                     err_desc = "Please enter the correct output file name.")
-  outputFileTitle <- ensurer::ensure_that(outputFileTitle,
-                                         !is.null(.) && (class(.) == "character"),
-                                         err_desc = "Please enter the correct title of the MAF Dashboard.")
-
-  MAFRmdfile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
-  html_filename=paste0(outputFileName,".",gsub(".Rmd",".html",basename(MAFRmdfile)))
-  rmarkdown::render(MAFRmdfile,
-                    knit_root_dir=getwd(),
+getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",masterRmdFile=NULL){
+  
+  if (all(is.null(c(MAFfilePath,plotList)))) {
+    stop("Need to define at least a MAF file or a plot list.")
+  }
+  if (is.null(masterRmdFile)) {
+    masterRmdFile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
+  }
+  
+  html_filename=paste0(basename(outputFileName))
+  # html_filename=gsub(".Rmd",".html",basename(masterRmdFile))
+  rmarkdown::render(masterRmdFile,
+                    knit_root_dir=dirname(masterRmdFile),
                     output_format="all", output_file=html_filename,
                     params = list(
-                      maffile=filePath,
-                      titletext=outputFileTitle
-                    ))
+                      maffile=MAFfilePath,
+                      titletext=outputFileTitle,
+                      plot_list=plotList
+                      )
+                    )
   ### rmarkdown::render doesn't let you select output destination (it uses the path of the Rmd file)
   ##  So this bit will move the report to the path in the 'out_dir' variable
-  if (!dir.exists(outputFilePath)) { outputFilePath = getwd()}#dir.create(outputFilePath, recursive = T) }
-  file.rename(file.path(dirname(MAFRmdfile),html_filename), file.path(outputFilePath,html_filename))
+  outputFilePath=dirname(outputFileName)
+  if (!dir.exists(outputFilePath)) { dir.create(outputFilePath, recursive = T) }
+  file.rename(file.path(dirname(masterRmdFile),html_filename), file.path(outputFilePath,html_filename))
 }

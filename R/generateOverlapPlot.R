@@ -17,12 +17,13 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #generateOverlapPlot(MAFObject)
+#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' generateOverlapPlot(read.maf(laml.maf))
 #'
 generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
                             summarize_by="gene",
                             plotType=c("ribbon","heatmap"),
-                            savename="overlap_plot.pdf",
+                            savename=NULL,
                             savewidth=8, saveheight=8){
 
   ### Add checks for the conditions
@@ -38,9 +39,6 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
   plotType <- ensurer::ensure_that(plotType,
                                        !is.null(.) && (class(.) == "character"),
                                        err_desc = "Please enter the plotType in correct format.")
-  savename <- ensurer::ensure_that(savename,
-                                   !is.null(.) && (class(.) == "character"),
-                                   err_desc = "Please enter the plot name in correct format.")
   savewidth <- ensurer::ensure_that(savewidth,
                                     !is.null(.) && (class(.) == "numeric"),
                                     err_desc = "Please enter the savewidth in correct format.")
@@ -84,7 +82,7 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
 
   hm_data <- pw_combinations
 
-  pdf(savename, width=savewidth, height=saveheight)
+  if (!is.null(savename)) {pdf(savename, width=savewidth, height=saveheight)}
   if ("heatmap" %in% plotType) {
     #library(pheatmap)
     pheatmap(hm_data,cluster_rows = T, cluster_cols = T,
@@ -113,5 +111,5 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
                   facing = "clockwise", niceFacing = TRUE, adj = c(-0.2, 0))
     }, bg.border = NA) # here set bg.border to NA is important
   }
-  dev.off()
+  if (!is.null(savename)) {dev.off()}
 }

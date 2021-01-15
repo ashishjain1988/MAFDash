@@ -1,98 +1,35 @@
-#### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
+MAFDash
+------------------------------------------------------------
+*Once you call the variants, it's a MAFDash to the finish line*
 
-## Getting started
+
+**An easy-to-use dashboard builder for mutation data**
+
 ### Installation from Github
 ```
-install.packages(devtools)
-library(devtools)
-devtools::install_github("ashishjain1988/MAFDashRPackage")
-```
-<!--
-* Install Dependencies
-* `install.packages(c("dplyr","ensurer","ggplot2","tidyr","DT","rmarkdown","knitr","flexdashboard","htmltools","data.table","ggbeeswarm","RColorBrewer","plotly","circlize","canvasXpress","crosstalk","bsplus"))`
-* `install.packages("BiocManager","maftools","ComplexHeatmap")`
-* `BiocManager::install(c("TCGAbiolinks",))`
-* Now install the `devtools` package
-* `install.packages(devtools)`
-* `library(devtools)`
-* Run command `install_github("ashishjain1988/MAFDashRPackage")`-->
-
-### Get some mutation data in MAF format
-See [this page](https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/tcga-study-abbreviations) for a list of TCGA codes
-```
-library("MAFDashRPackage")
-
-# Download MAF data from TCGA
-CancerCode <- "ACC"
-inputFolderPath <- "tcga_data" ## This folder will be created if it doesn't exist 
-maf <- getMAFdataTCGA(cancerCode = CancerCode, outputFolder = inputFolderPath)
+# install.packages(devtools)  ## Install devtools if necessary
+devtools::install_github("mtandon09/MAFDashRPackage")
 ```
 
-### Make the dashboard
-```
-getMAFDashboard(maf, outputFilePath = ".", outputFileName="output", outputFileTitle=paste0("MAF Dashboard - TCGA-",CancerCode))
-```
-### Details
-- The `getMAFdataTCGA` function is a wrapper around `TCGABiolinks`, and can be used to download MAF data from TCGA website.
-- The first argument of `getMAFDashboard` can be anything that's accepted by maftools's [`read.maf`](https://rdrr.io/bioc/maftools/man/read.maf.html) function (path to a file, or a `MAF` , `data.frame`, or `data.table` object)
-
-
-
-## Installing Dependencies
-A lot of this should be handled during package installation, but here's a complete list of required packages and some code to install them.
-
-**Required libraries**
-Here's some code that will try to install required libraries that are not already installed (from [my Gist](https://gist.github.com/mtandon09/4a870bf4addbe46e784059bce0e5d8d6) about this)
-
-```
-all_pkgs<-c("rmarkdown", 
-            "knitr",
-            "flexdashboard",
-            "htmltools",
-            "DT",
-            "bsplus",
-            "crosstalk",
-            "plotly",
-            "canvasXpress",
-            "maftools",
-            "dplyr",
-            "ComplexHeatmap",
-            "circlize",
-            "RColorBrewer",
-            "ggbeeswarm"
-            "data.table",
-            "ensurer",
-            "ggplot2")
-            
-### Figure out which ones are available in Bioconductor and install any new that are not already present
-bioc_universe <- BiocManager::available()
-bioc_packages <- intersect(bioc_universe, pkglist)
-print(paste0(length(bioc_packages), " of ", length(pkglist), " packages found in Bioconductor."))
-bioc_packages <- bioc_packages[!(bioc_packages %in% installed.packages()[,"Package"])]
-print(paste0("Installing ",length(bioc_packages), " new packages from Bioconductor..."))
-if(length(bioc_packages)) BiocManager::install(bioc_packages)
-
-### Figure out which ones are available in CRAN and install any new that are not already present
-cran_universe <- available.packages(repos="https://cloud.r-project.org")[,"Package"]
-cran_packages <- intersect(cran_universe, pkglist)
-print(paste0(length(cran_packages), " of ", length(pkglist), " packages found in CRAN."))
-cran_packages <- cran_packages[!(cran_packages %in% installed.packages()[,"Package"])]
-print(paste0("Installing ",length(cran_packages), " new packages from CRAN..."))
-if(length(cran_packages)) install.packages(cran_packages, repos="https://cloud.r-project.org")
-```
-
-## Example
-Here are some example dashboards created using TCGA data:
-- [TCGA-UVM](https://mtandon09.github.io/MAFDash/output/TCGA-UVM.MAFDash.html)
-- [TCGA-BRCA](https://mtandon09.github.io/MAFDash/output/TCGA-BRCA.MAFDash.html)
-
-## Scope
+### Description
 [Mutation Annotation Format (MAF)](https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/) is a tabular data format used for storing genetic mutation data. For example, [The Cancer Genome Atlas (TCGA)](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga) project has made MAF files from each project publicly available.
 
-This repo -- **MAFDash** -- contains a set of R tools to easily create an HTML dashboard to summarize and visualize data from MAF file.
+MAFDash is an R package that helps to quickly create an HTML dashboard to summarize and visualize data from MAF files. The resulting HTML file serves as a self-contained report that can be used to explore and share the results.
 
-The resulting HTML file serves as a self-contained report that can be used to explore the result.  Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information. 
+Currently, MAFDash produces mostly static plots powered by [maftools](https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html),  [ComplexHeatmap](https://github.com/jokergoo/ComplexHeatmap) and [circlize](https://github.com/jokergoo/circlize), as well as interactive visualizations using [canvasXpress](https://cran.r-project.org/web/packages/canvasXpress/vignettes/getting_started.html) and [plotly](https://plotly.com/r/).  The report is generated with a parameterized [R Markdown](https://rmarkdown.rstudio.com/) script that uses [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) to arrange all the information.
 
-This repo is a companion to the Shiny app, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard is an attempt to try some of those things using client-side javascript functionality.
+### How to use
 
+- [Quick Start](https://mtandon09.github.io/MAFDashRPackage/articles/Quick_Start.html)
+- [Customizing](https://mtandon09.github.io/MAFDashRPackage/articles/Customizing.html)
+- [Real-world example](https://mtandon09.github.io/MAFDashRPackage/articles/Advanced_Example.html)
 
+### Example dashboards from the vignette
+Here are some example dashboards created using TCGA data:
+
+- [Default dashboard using TCGA-LAML](https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html)
+- [Customized dashboard using TCGA-UVM](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html)
+- [Arbitrary plots using `iris` dataset](https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html)
+
+#### Other notes
+- This repo was born out of a Shiny app, [MAFWiz](https://github.com/mtandon09/mafwiz).  Instead of relying on a Shiny server, this dashboard was an attempt to try some of those things using client-side javascript functionality.

@@ -5,23 +5,31 @@
 \title{Function to generate a dashboard from a MAF file.}
 \usage{
 getMAFDashboard(
-  filePath,
-  outputFilePath,
-  outputFileName = "output",
-  outputFileTitle = "MAF Dash"
+  MAFfilePath = NULL,
+  plotList = NULL,
+  outputFileName = "dashboard.html",
+  outputFileTitle = "MAF Dash",
+  masterRmdFile = NULL
 )
 }
 \arguments{
-\item{filePath}{The path of the file containing the mutation
+\item{MAFfilePath}{The path of the file containing the mutation
 information in the MAF format}
 
-\item{outputFilePath}{The path of the output html dashboard
-file}
+\item{plotList}{A named list denoting which plots to draw.
+List elements can be:
+- boolean, if the name matches one of built-in plots: "summary_plot","burden","oncoplot","cooccurence","heatmap"
+- ggplot, ComplexHeatmap, or plotly object
+- file path to image (must be absolute path)
+The default value (if set to NULL) is 'list("summary_plot"=TRUE,"burden"=TRUE,"oncoplot"=TRUE,"cooccurence"=TRUE,"heatmap"=TRUE)'
+The order of the list determines the order of the tabs, and list names are used as tab titles.}
 
 \item{outputFileName}{The name of the output html dashboard
 file}
 
-\item{outputFileTitle}{The title of the output html dashboard
+\item{outputFileTitle}{The title of the output html dashboard}
+
+\item{masterRmdFile}{Alternate Rmd file.  This argument is meant only for testing and development.
 file}
 }
 \value{

@@ -1,0 +1,7 @@
+
+``` {r, fig.width=12, fig.height=6 , output=FALSE}
+# ``` {r, fig.width=12, fig.height=6 , output=FALSE, echo = FALSE, message=FALSE, fig.align='center', fig.cap='Some cool caption', out.width='0.75\\linewidth', fig.pos='H'
+
+knitr::include_graphics(plot_input)
+
+```
