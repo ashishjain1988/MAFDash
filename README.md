@@ -20,9 +20,9 @@ Currently, MAFDash produces mostly static plots powered by [maftools](https://bi
 
 ### How to use
 
-- [Quick Start](articles/Quick_Start.html)
-- [Customizing](articles/Customizing.html)
-- [Real-world example](articles/Advanced_Example.html)
+- [Quick Start](https://mtandon09.github.io/MAFDashRPackage/articles/Quick_Start.html)
+- [Customizing](https://mtandon09.github.io/MAFDashRPackage/articles/Customizing.html)
+- [Real-world example](https://mtandon09.github.io/MAFDashRPackage/articles/Advanced_Example.html)
 
 ### Example dashboards from the vignette
 Here are some example dashboards created using TCGA data:
