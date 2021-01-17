@@ -17,8 +17,8 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' generateOverlapPlot(read.maf(laml.maf))
+#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' #generateOverlapPlot(read.maf(laml.maf))
 #'
 generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
                             summarize_by="gene",

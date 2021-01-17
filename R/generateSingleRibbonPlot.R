@@ -18,10 +18,10 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' MAFfilePath <-  system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' generateRibbonPlot(read.maf(MAFfilePath))
+#' #MAFfilePath <-  system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' #generateRibbonPlot(read.maf(MAFfilePath))
 #'
-generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL, 
+generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                   pval_high=0.1,  ## All interactions with less than this p-value will be shown
                                   pval_low=0.05,  ## Links with p-value less than this will be highlighted with a dashed border
                                   plot_type="ribbon",  ## 'ribbon' returns a customized chord diagram, 'matrix' returns maftools's somaticInteractions() plot
@@ -34,7 +34,7 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
 ){
   # pval_low <- 0.05
   # browser()
-  require(circlize)
+  #require(circlize)
   if (!is.null(save_name)) {
     if (! dir.exists(dirname(save_name))) {
       dir.create(dirname(save_name))
@@ -90,7 +90,7 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                       paste0( " p-val < ", ifelse(cooccur_data$pValue < pval_low, pval_low, pval_high)))
   chord_data$color_val <- sig_colors[chord_data$color_category]
 
-  require(RColorBrewer)
+  #require(RColorBrewer)
   # browser()
   interacting_genes <- unique(unlist(chord_data[,1:2]))
   if (is.null(gene_colors)) {

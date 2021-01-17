@@ -13,9 +13,9 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
-#' generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
+#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' #generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
+#' #generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 #'
 generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
 

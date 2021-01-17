@@ -30,9 +30,9 @@ using the MAF data.
 }
 \examples{
 library(MAFDashRPackage)
-laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
-generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
+#laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
+#generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 
 }
 \author{

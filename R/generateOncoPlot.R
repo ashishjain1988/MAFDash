@@ -6,7 +6,10 @@
 #' @param cohort_freq_thresh Fraction of cohort that a gene must be mutated to select for display
 #' @param auto_adjust_cohort_freq Whether or not to automatically adjust the frequen
 #' @param genes_to_plot Character vector, data frame, or tab-delimited file name with genes to plot. Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally, a column named "Reason" for labeling the plot
+#' @param include_all Flag to include all the samples including the missing one (Default: False)
 #' @param oncomat_only Whether or not to return just the oncoplot matrix
+#' @param title_text The title of the plot
+#' @param custom_column_order A list containing the order of samples to show in the plot (Optional)
 #' @param add_clinical_annotations Whether or not to try to plot column annotations from the 'clinical.data' slot of the MAF object
 #' @param clin_data_colors Named list of colors for clinical annoations
 #' @export
@@ -14,13 +17,13 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' generateOncoPlot(read.maf(laml.maf))
+#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' #generateOncoPlot(read.maf(laml.maf))
 #'
 generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=T,
                            genes_to_plot=NULL, include_all=F,
                            oncomat_only=F, title_text="",
-                           custom_column_order=NULL, 
+                           custom_column_order=NULL,
                            add_clinical_annotations=F, clin_data_colors=NULL){
 
   ### Add checks for the conditions
@@ -36,7 +39,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   oncomat_only <- ensurer::ensure_that(oncomat_only,
                                     !is.null(.) && (class(.) == "logical"),
                                     err_desc = "Please enter the oncomat_only flag in correct format.")
-  
+
   ### Structure info about the fraction of the cohort that has each gene mutated
   frac_mut <- data.frame(Hugo_Symbol=maf@gene.summary$Hugo_Symbol,
                          frac_mut=(maf@gene.summary$MutatedSamples/as.numeric(maf@summary$summary[3])),
@@ -44,7 +47,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
 
   selected_genes <- geneSelectParser(genes_to_plot)
   selected_genes <- selected_genes[selected_genes$Hugo_Symbol %in% frac_mut$Hugo_Symbol,]
-  
+
   freq_genes_df <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
   if (!is.null(cohort_freq_thresh)) {
     ngene_max=25
@@ -67,7 +70,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
                                Reason=paste0("Cohort Freq > ",round(cohort_freq_thresh, digits = 3)),
                                stringsAsFactors = F)
     }
-  
+
   }
   # browser()
   genes_for_oncoplot <- rbind(freq_genes_df, selected_genes)
@@ -85,12 +88,12 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   split_colors <- rainbow(length(unique(split_idx)))
   names(split_colors) <- as.character(genes_for_oncoplot$Reason[!duplicated(genes_for_oncoplot$Reason)])
   split_colors <- list(Reason=split_colors)
-  
+
   ### Make matrix to plot, and order it correctly
   oncomat <- createOncoMatrix(maf, g=genes_for_oncoplot$Hugo_Symbol, add_missing = include_all)$oncoMatrix
   oncomat <- oncomat[match(genes_for_oncoplot$Hugo_Symbol,rownames(oncomat)), ]
   onco_genes <- rownames(oncomat)
-  
+
   if (include_all) {
     missing_samples <- setdiff(maf@variants.per.sample$Tumor_Sample_Barcode, colnames(oncomat))
     emptydata <- matrix(data="",nrow=nrow(oncomat), ncol=length(missing_samples))
@@ -110,7 +113,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   col_order_idx <- col_order_idx[col_order_idx>0]
   oncomat.plot <- oncomat[,col_order_idx]
   # oncomat.plot <- oncomat
-  
+
 
   ### Set the height of the plot based on number of genes
   # onco_height=NULL
@@ -137,7 +140,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
     }
     add_clinical_annotations=T
   }
-  
+
   if (is.logical(add_clinical_annotations) && add_clinical_annotations) {
     if (!is.null(clin_data_colors)) {
       continuous_color_columns <- names(clin_data_colors)[unlist(lapply(clin_data_colors, class))=="function"]
@@ -149,7 +152,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
     myanno <- make_column_annotation(my_clin_dat = clin_anno_data[,..anno_columns],names_to_match = colnames(oncomat.plot), my_colors = clin_data_colors)
   }
 
-  
+
   ## Show total burden for top annotation
   variant_type_data <- data.frame(maf@variant.classification.summary)
   rownames(variant_type_data) <- variant_type_data$Tumor_Sample_Barcode
@@ -157,7 +160,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   variant_type_data <- variant_type_data[,c(-1,-ncol(variant_type_data))]
   variant_type_data <- variant_type_data[match(colnames(oncomat.plot), rownames(variant_type_data)),
                                          rev(order(colSums(variant_type_data)))]
-  
+
   mutation_colors <- my_mutation_colors()
   var_anno_colors <- mutation_colors[match(colnames(variant_type_data), names(mutation_colors))]
   top_ha = HeatmapAnnotation("Total\nMutations" = anno_barplot(variant_type_data, gp = gpar(fill = var_anno_colors), border = F),
@@ -169,7 +172,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   left_ha = rowAnnotation("Cohort Pct"=anno_text(pct_anno,gp = gpar(cex=0.7)), show_annotation_name=F)
   # print(oncomat.plot)
   ### Make the oncoplot
-  onco_plot <- oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(), 
+  onco_plot <- oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(),
                          col=mutation_colors,
                          row_order=1:nrow(oncomat.plot),
                          column_order=1:ncol(oncomat.plot),

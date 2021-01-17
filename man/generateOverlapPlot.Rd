@@ -38,8 +38,8 @@ using the MAF data.
 }
 \examples{
 library(MAFDashRPackage)
-laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-generateOverlapPlot(read.maf(laml.maf))
+#laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#generateOverlapPlot(read.maf(laml.maf))
 
 }
 \author{

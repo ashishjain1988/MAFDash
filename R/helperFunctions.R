@@ -205,7 +205,7 @@ generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
   if (use_syn) {
     output_data <- rbind(output_data, maf@maf.silent)
   }
-  
+
   if (all(c("Tumor_Seq_Allele1","Tumor_Seq_Allele2") %in% colnames(output_data))) {
     output_data$tumor_genotype <- apply(output_data[,c("Tumor_Seq_Allele1","Tumor_Seq_Allele2")], 1, paste, collapse="/")
   }
@@ -276,25 +276,25 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   ##### This function will read the target regions BED file and
   #####  compute the sum of the lengths of the regions
   # require(GenomicRanges)
-  
+
   ## This bit will only read in the first three columns
   num_fields <- max(count.fields(targets_bed_file, sep = "\t"))
   my_classes <- c("character","integer","integer", rep("NULL", num_fields-3))
-  
+
   ## Read the BED file as a table
-  bed_data <- read.table(targets_bed_file, sep="\t",colClasses = my_classes, 
+  bed_data <- read.table(targets_bed_file, sep="\t",colClasses = my_classes,
                          stringsAsFactors = F)
   colnames(bed_data) <- c("chr","start","end")
-  
+
   ## Convert to a GenomicRanges object
   bed.gr <- makeGRangesFromDataFrame(bed_data)
-  
+
   ## Collapse any overlapping features
   bed.gr.collapse <- reduce(bed.gr)
-  
+
   ## Sum up the widths of each range
   total_exome_coverage = sum(width(bed.gr.collapse))
-  
+
   if (! is.null(out_file)) {
     ## Write to a file
     write.table(total_exome_coverage,file = out_file, col.names =F, row.names = F)
@@ -304,10 +304,18 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   }
 }
 
+
+#' Function to the extact the Gene symbol from the input genes
+#' @description Function to the extact the Gene symbol from the input genes
+#' @param genes_arg genes_arg
+#' @export
+#' @return List of genes with gene symbols
+#' @examples
+#' library(MAFDashRPackage)
 geneSelectParser <- function(genes_arg=NULL) {
-  
+
   genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
-  
+
   if (! is.null(genes_arg)) {
     if (class(genes_arg)=="character") {
       if (length(genes_arg)==1) {
@@ -333,17 +341,26 @@ geneSelectParser <- function(genes_arg=NULL) {
     } else {
       stop(paste0("Don't know what to do with 'genes_arg' of class: ",class(genes_arg)))
     }
-    
+
     genes_for_oncoplot <- genes_for_oncoplot[,c("Hugo_Symbol","Reason")]
     genes_for_oncoplot <- data.frame(apply(genes_for_oncoplot,2,as.character), stringsAsFactors = F)
     # genes_for_oncoplot <- genes_for_oncoplot[genes_for_oncoplot$Hugo_Symbol %in% maf.filtered@gene.summary$Hugo_Symbol, ]
   }
-  
+
   return(genes_for_oncoplot)
 }
 
+#' Make the annotation data frame from the TCGA clinical dataset
+#' @description This function creates a annotation data frame from the TCGA clinical dataset
+#' @param my_clin_dat Clinical dataset in a data frame
+#' @param names_to_match The list containing the matched patient's name
+#' @param my_colors my_colors
+#' @export
+#' @return The clinical annotation data
+#' @examples
+#' library(MAFDashRPackage)
 make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) {
-  
+
   myanno <- NULL
   # browser()
   # my_clin_dat <- as.data.frame(my_clin_dat)
@@ -353,7 +370,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
     ## Try to guess column containing sample IDs
     tsb_idx <- which(apply(my_clin_dat,2, function(x) { sum(names_to_match %in% x)/length(names_to_match)})>0.9)[1]
   }
-  
+
   if ( is.na(tsb_idx) ) {
     warning("No Tumor Sample Barcode match found")
   } else {
@@ -363,10 +380,10 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
     colnames(my_clin_dat)[tsb_idx] <- "Tumor_Sample_Barcode"
     rownames(anno_data) <- anno_data$Tumor_Sample_Barcode
     anno_data <- anno_data[,colnames(anno_data)!="Tumor_Sample_Barcode", drop=F]
-    
+
     anno_data <- anno_data[match(names_to_match,rownames(anno_data)),,drop=F]
     anno_data <- anno_data[,unlist(lapply(anno_data,function(x){!all(is.na(x))}))]
-    
+
     if (ncol(anno_data) > 0) {
       if (ncol(anno_data) > 10) {
         warning("Too many columns for annotation, using only the first 10...")
@@ -375,14 +392,14 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
       make_legends <- unlist(lapply(anno_data,function(x) {
         ret_val=TRUE
         if (is.factor(x) && length(levels(x))>12) {
-          ret_val=FALSE 
+          ret_val=FALSE
         }
         return(ret_val)
       }))
       if (sum(!make_legends) > 0) {
         warning(paste0("Suppressing legends for: ", paste0(names(make_legends)[!make_legends], collapse=", ")))
       }
-      
+
       # browser()
       if (!is.null(my_colors)) {
         # testcolors <- my_colors[1]
@@ -390,26 +407,31 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
                                     which="column",
                                     col = my_colors,
                                     # col = testcolors,
-                                    show_legend = make_legends, 
+                                    show_legend = make_legends,
                                     show_annotation_name = TRUE,
                                     annotation_name_side = "right")
         # draw(myanno)
-        
+
       } else {
         myanno <- HeatmapAnnotation(df=anno_data,
                                     which="column",
-                                    show_legend = make_legends, 
+                                    show_legend = make_legends,
                                     show_annotation_name = TRUE,
                                     annotation_name_side = "right")
       }
     }
-    
+
   }
-  
+
   return(myanno)
 }
 
-### Define colors for mutation types
+#' Returns the colors for each mutation
+#' @description This function returns the colors for each mutation
+#' @export
+#' @return The mutation color data frame
+#' @examples
+#' library(MAFDashRPackage)
 my_mutation_colors <- function() {
   mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
                        In_Frame_Ins="#ff008c",Splice_Site="#FF7F00",Multi_Hit="#FFFF33",Frame_Shift_Ins="#A65628",
@@ -419,9 +441,14 @@ my_mutation_colors <- function() {
   return(mutation_colors)
 }
 
-### List defining functions for color and shape of cells in oncoplot
+#' Returns the mutation colors for oncoplot function
+#' @description This function returns the mutation colors for oncoplot function
+#' @export
+#' @return The mutation color data frame
+#' @examples
+#' library(MAFDashRPackage)
 oncoplot_annotation_func <- function() {
-  
+
   mutation_colors <- my_mutation_colors()
   alter_fun = list(
     background = function(x, y, w, h) {

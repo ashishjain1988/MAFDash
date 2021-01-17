@@ -26,7 +26,13 @@ generateOncoPlot(
 
 \item{genes_to_plot}{Character vector, data frame, or tab-delimited file name with genes to plot. Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally, a column named "Reason" for labeling the plot}
 
+\item{include_all}{Flag to include all the samples including the missing one (Default: False)}
+
 \item{oncomat_only}{Whether or not to return just the oncoplot matrix}
+
+\item{title_text}{The title of the plot}
+
+\item{custom_column_order}{A list containing the order of samples to show in the plot (Optional)}
 
 \item{add_clinical_annotations}{Whether or not to try to plot column annotations from the 'clinical.data' slot of the MAF object}
 
@@ -41,8 +47,8 @@ different figures and plots explaining the MAF dataset.
 }
 \examples{
 library(MAFDashRPackage)
-laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-generateOncoPlot(read.maf(laml.maf))
+#laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#generateOncoPlot(read.maf(laml.maf))
 
 }
 \author{

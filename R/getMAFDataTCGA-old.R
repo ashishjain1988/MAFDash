@@ -1,7 +1,7 @@
 #' Function to extract the mutation data in MAF format from TCGA
 #' @description This function download and extract the mutation
 #'  data in MAF format from TCGA.
-#' @author Mayank Tandon, Ashish Jain
+#' @author Mayank Tondon, Ashish Jain
 #' @param cancerCode The TCGA cancer code
 #' @param outputFolder The path of the file containing the mutation
 #' information in the MAF format
@@ -29,7 +29,7 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 
   if (!file.exists(tcga_maf_file)) {
     if(!dir.exists(outputFolder)) {dir.create(outputFolder, recursive = T)}
-    tcga_maf <- GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
+    tcga_maf <- TCGAbiolinks::GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
     tcga_maf$Tumor_Sample_Barcode_original <- tcga_maf$Tumor_Sample_Barcode
     tcga_maf$Tumor_Sample_Barcode <-unlist(lapply(strsplit(tcga_maf$Tumor_Sample_Barcode, "-"), function(x) {paste0(x[1:3], collapse="-")}))
     tcga_maf$caller <- variant_caller
@@ -54,7 +54,7 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 #' Function to extract the clinical annotations from TCGA
 #' @description This function download and extract the clinical
 #' annotations from TCGA.
-#' @author Mayank Tandon, Ashish Jain
+#' @author Mayank Tondon, Ashish Jain
 #' @param cancerCode The TCGA cancer code
 #' @param outputFolder The path of the file containing the clinical
 #' annotations from TCGA
@@ -130,53 +130,4 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
 
   return(list(colorList=anno_colors, annodata=anno_data, HManno=myanno))
 
-}
-
-#' Makes reasonable colors for some TCGA clinical annoations
-#' @description This will return a list of colors that can be used with TCGA clinical annotations
-#' @author Mayank Tandon, Ashish Jain
-#' @param ageRange The range of patient's age to generate color vector from RColorBrewer
-#' @export
-#' @return List containing the TCGA clinical annotations
-#'
-#' @examples
-#' library(MAFDashRPackage)
-#' #colorList <- getTCGAClinicalColors()
-getTCGAClinicalColors <- function(ageRange=c(0,100)) {
-  #require(RColorBrewer)
-  #suppressPackageStartupMessages(require(circlize))
-  # tcga_pheno_columns <- c("Tumor_Sample_Barcode","ajcc_pathologic_stage","age_at_diagnosis","gender","race","vital_status","tissue_or_organ_of_origin")
-  tcga_pheno_columns <- c("ajcc_pathologic_stage","age_at_diagnosis","gender","race","vital_status")
-
-  # if (is.null(stages)) {
-    stages <- paste("Stage",c("X",paste(rep(c("I","II","III","IV"), each=4),c("","A","B","C"), sep="")))
-  # }
-  stage_colors <- setNames(colorRampPalette(brewer.pal(n = 5, name = "Reds"))(length(stages)), stages)
-
-  # browser()
-  ageRange=sort(ageRange)
-  age_range=round(c(max(c(0,ageRange[1]-4)),ageRange[2]+4),-1)
-  age_color_length=10
-  age_breaks=round(seq(age_range[1], age_range[2], length.out=age_color_length),0)
-  age_color_vals=colorRampPalette(c("lightblue1","royalblue1","navy"))(age_color_length)
-  age_colors=colorRamp2(age_breaks, age_color_vals)
-
-  gender_colors=c(female="hotpink", male="cornflowerblue")
-  vitstat_colors <- c(Alive="darkgreen",Dead="darkred","Not Reported"="grey80")
-
-  races=c("american indian or alaska native","asian","black or african american","native hawaiian or other pacific islander","white","not allowed to collect","not reported","other","unknown")
-  race_colors <- setNames(brewer.pal(n = length(races), name = "Set1"), races)
-
-
-  # tissues=sort(unique(anno_data$tissue_or_organ_of_origin))
-  # tissue_colors <- setNames(brewer.pal(n = length(tissues), name = "Dark2"), tissues)
-
-  # dataset_colors <- setNames(c("mediumorchid1","darkolivegreen1"),
-  # dataset_colors <- setNames(c("grey30","darkolivegreen1"),
-  #                            c(cancerCode, "Other"))
-
-  anno_colors <- setNames(list(stage_colors, age_colors, gender_colors, race_colors, vitstat_colors),
-                          tcga_pheno_columns)
-
-  return(anno_colors)
 }

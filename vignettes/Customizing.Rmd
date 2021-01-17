@@ -10,7 +10,7 @@ output:
 fig_width: 8 
 fig_height: 5 
 vignette: >
-  %\VignetteIndexEntry{MAFDashRPackage}
+  %\VignetteIndexEntry{Customizing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

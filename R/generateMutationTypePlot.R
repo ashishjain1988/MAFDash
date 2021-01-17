@@ -13,8 +13,8 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' generateMutationTypePlot(read.maf(laml.maf))
+#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
+#' #generateMutationTypePlot(read.maf(laml.maf))
 #'
 generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   ### Add checks for the conditions
