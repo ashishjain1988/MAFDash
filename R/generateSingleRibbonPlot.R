@@ -81,8 +81,8 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
     sig_colors <- sig_colors[-3]
   }
   names(sig_colors) <- paste0(rep(c("Co-occurence", "Mutually Exclusive"), each=2), " p-val < ",c(pval_low, pval_high, pval_high, pval_low ))
-  color_legend <- Legend(labels=names(sig_colors),
-                         legend_gp = gpar(fill = sig_colors, col=sig_colors),background = sig_colors,size=unit(0.08,"npc"),
+  color_legend <- ComplexHeatmap::Legend(labels=names(sig_colors),
+                         legend_gp = grid::gpar(fill = sig_colors, col=sig_colors),background = sig_colors,size=unit(0.08,"npc"),
                          type="points",direction="vertical")
 
 
@@ -131,7 +131,7 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
     circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index,
                 facing = "clockwise", niceFacing = TRUE, adj = c(-0.5, 0.5))
   }, bg.border = NA) # here set bg.border to NA is important
-  draw(color_legend, x = unit(0.05, "npc"), y = unit(0.5, "npc"), just = c("left"))
+  ComplexHeatmap::draw(color_legend, x = unit(0.05, "npc"), y = unit(0.5, "npc"), just = c("left"))
   # draw(line_legend, x = unit(0.5, "npc"), y = unit(0.97, "npc"), just = c("center"))
 
   if (!is.null(save_name)) {

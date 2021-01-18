@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
+
 #' Function to extract the mutation data in MAF format from TCGA
 #' @description This function download and extract the mutation
 #'  data in MAF format from TCGA.
@@ -126,7 +129,7 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
 
   mycols <- which(!colnames(anno_data) %in% c("Tumor_Sample_Barcode"))
   anno_df <- anno_data[,..mycols]
-  myanno <- HeatmapAnnotation(df=anno_df,col = anno_colors)
+  myanno <- ComplexHeatmap::HeatmapAnnotation(df=anno_df,col = anno_colors)
 
   return(list(colorList=anno_colors, annodata=anno_data, HManno=myanno))
 

@@ -1,3 +1,5 @@
+## To Supress Note
+utils::globalVariables(c(".", "..anno_columns"))
 #' Function to generate a dashboard from a MAF file
 #' @description This function created an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
@@ -163,16 +165,16 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
 
   mutation_colors <- my_mutation_colors()
   var_anno_colors <- mutation_colors[match(colnames(variant_type_data), names(mutation_colors))]
-  top_ha = HeatmapAnnotation("Total\nMutations" = anno_barplot(variant_type_data, gp = gpar(fill = var_anno_colors), border = F),
-                             annotation_name_side = "left",annotation_name_rot=90,annotation_name_gp = gpar(cex=0.7))
+  top_ha = ComplexHeatmap::HeatmapAnnotation("Total\nMutations" = ComplexHeatmap::anno_barplot(variant_type_data, gp = grid::gpar(fill = var_anno_colors), border = F),
+                             annotation_name_side = "left",annotation_name_rot=90,annotation_name_gp = grid::gpar(cex=0.7))
 
   # browser()
 
   pct_anno <- paste0(prettyNum(frac_mut$frac_mut[match(onco_genes, frac_mut$Hugo_Symbol)]*100,digits=1),"%")
-  left_ha = rowAnnotation("Cohort Pct"=anno_text(pct_anno,gp = gpar(cex=0.7)), show_annotation_name=F)
+  left_ha = ComplexHeatmap::rowAnnotation("Cohort Pct"=ComplexHeatmap::anno_text(pct_anno,gp = grid::gpar(cex=0.7)), show_annotation_name=F)
   # print(oncomat.plot)
   ### Make the oncoplot
-  onco_plot <- oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(),
+  onco_plot <- ComplexHeatmap::oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(),
                          col=mutation_colors,
                          row_order=1:nrow(oncomat.plot),
                          column_order=1:ncol(oncomat.plot),

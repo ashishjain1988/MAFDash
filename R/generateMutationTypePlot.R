@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c(".", "Variant_Classification", "n",
+                         "Tumor_Sample_Barcode", "total","type"))
 #' Function to generate silent and non-silent mutation plot
 #' @description This function generates silent and non-silent
 #' mutation plot using the MAF data.
@@ -27,7 +30,7 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
 
   nonsilent_summary <- mymaf@variant.classification.summary[,c("Tumor_Sample_Barcode","total")]
   nonsilent_summary$type <- "Non-Silent"
-  silent_classif_data <- mymaf@maf.silent %>% group_by(Tumor_Sample_Barcode, Variant_Classification) %>% summarise(count=n())
+  silent_classif_data <- mymaf@maf.silent %>% dplyr::group_by(Tumor_Sample_Barcode, Variant_Classification) %>% dplyr::summarise(count=n())
   silent_classif_data <- reshape2::dcast(silent_classif_data,Tumor_Sample_Barcode ~ Variant_Classification, value.var = "count")
   silent_summary <- data.frame(Tumor_Sample_Barcode = silent_classif_data$Tumor_Sample_Barcode,
                                total = rowSums(silent_classif_data[,-1], na.rm=T),
@@ -36,7 +39,7 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
 
   # browser()
   plotdata <- rbind(nonsilent_summary, silent_summary)
-  tots <- plotdata %>% group_by(Tumor_Sample_Barcode) %>% summarise(tot=sum(total))
+  tots <- plotdata %>% dplyr::group_by(Tumor_Sample_Barcode) %>% dplyr::summarise(tot=sum(total))
   plotdata$Tumor_Sample_Barcode <- factor(plotdata$Tumor_Sample_Barcode,
                                           levels=as.character(tots$Tumor_Sample_Barcode)[order(tots$tot,decreasing = T)])
   myplot <- ggplot(plotdata, aes(x=Tumor_Sample_Barcode, y = total, fill=type)) +

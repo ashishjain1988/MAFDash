@@ -85,7 +85,7 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
   if (!is.null(savename)) {pdf(savename, width=savewidth, height=saveheight)}
   if ("heatmap" %in% plotType) {
     #library(pheatmap)
-    pheatmap(hm_data,cluster_rows = T, cluster_cols = T,
+    ComplexHeatmap::pheatmap(hm_data,cluster_rows = T, cluster_cols = T,
              clustering_method = "complete",
              # annotation_colors = hm_anno_colors,
              # annotation_col = hm_anno_data,annotation_row = hm_anno_data,

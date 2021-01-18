@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c(".", "mut_burden", "classification",
+                         "Tumor_Sample_Barcode", "hoverlabel"))
 #' Function to generate Burden plot
 #' @description This function generates burden plot
 #' using the MAF data.
@@ -44,7 +47,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
   #### 5. Generate plots for mutation burden
 
   ## Pick colors
-  median_mut_burdens <- num_var_data %>% summarise(median=median(mut_burden))
+  median_mut_burdens <- num_var_data %>% dplyr::summarise(median=median(mut_burden))
 
   num_var_data$xlabel <- factor(num_var_data$xlabel,
                                 levels=num_var_data$xlabel[order(num_var_data$mut_burden, decreasing = T)])
@@ -65,7 +68,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
                                           levels=variant_type_per_sample$Tumor_Sample_Barcode[order(variant_type_per_sample$total, decreasing = T)])
   plotdata$classification <- gsub("_"," ",plotdata$classification)
 
-  class_means <- plotdata %>% group_by(classification) %>% summarise(mean=mean(mut_burden))
+  class_means <- plotdata %>% dplyr::group_by(classification) %>% dplyr::summarise(mean=mean(mut_burden))
   plotdata$classification <- factor(as.character(plotdata$classification),
                                     levels=class_means$classification[order(class_means$mean, decreasing = F)])
 

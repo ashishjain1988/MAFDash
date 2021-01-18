@@ -1,5 +1,5 @@
 ## To Supress Note
-utils::globalVariables(c("%>%"))
+utils::globalVariables(c("%>%","."))
 
 #' Function to filter the mutations
 #' @description This function filter the mutations in the MAF format using thresholds on various features

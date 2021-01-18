@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
+                         "Hugo_Symbol", "Variant_Classification"))
 #' A function to detect MAF genome
 #' @description A function to detect MAF genome
 #' @param maf The MAF object
@@ -287,13 +290,13 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   colnames(bed_data) <- c("chr","start","end")
 
   ## Convert to a GenomicRanges object
-  bed.gr <- makeGRangesFromDataFrame(bed_data)
+  bed.gr <- GenomicRanges::makeGRangesFromDataFrame(bed_data)
 
   ## Collapse any overlapping features
-  bed.gr.collapse <- reduce(bed.gr)
+  bed.gr.collapse <- GenomicRanges::reduce(bed.gr)
 
   ## Sum up the widths of each range
-  total_exome_coverage = sum(width(bed.gr.collapse))
+  total_exome_coverage = sum(IRanges::width(bed.gr.collapse))
 
   if (! is.null(out_file)) {
     ## Write to a file
@@ -403,7 +406,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
       # browser()
       if (!is.null(my_colors)) {
         # testcolors <- my_colors[1]
-        myanno <- HeatmapAnnotation(df=anno_data,
+        myanno <- ComplexHeatmap::HeatmapAnnotation(df=anno_data,
                                     which="column",
                                     col = my_colors,
                                     # col = testcolors,
@@ -413,7 +416,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
         # draw(myanno)
 
       } else {
-        myanno <- HeatmapAnnotation(df=anno_data,
+        myanno <- ComplexHeatmap::HeatmapAnnotation(df=anno_data,
                                     which="column",
                                     show_legend = make_legends,
                                     show_annotation_name = TRUE,
@@ -452,57 +455,57 @@ oncoplot_annotation_func <- function() {
   mutation_colors <- my_mutation_colors()
   alter_fun = list(
     background = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = "#CCCCCC", col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = "#CCCCCC", col = NA))
     },
     # "0" = function(x, y, w, h) {
     #   grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
     #             gp = gpar(fill = "#CCCCCC", col = NA))
     # },
     "Nonsense Mutation" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Nonsense Mutation"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Nonsense Mutation"], col = NA))
     },
     "Missense Mutation" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Missense Mutation"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Missense Mutation"], col = NA))
     },
     "Frame Shift Del" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Frame Shift Del"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Frame Shift Del"], col = NA))
     },
     "In Frame Ins" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["In Frame Ins"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["In Frame Ins"], col = NA))
     },
     "Splice Site" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Splice Site"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Splice Site"], col = NA))
     },
     "Multi Hit" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Multi Hit"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Multi Hit"], col = NA))
     },
     "Frame Shift Ins" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Frame Shift Ins"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Frame Shift Ins"], col = NA))
     },
     "In Frame Del" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["In Frame Del"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["In Frame Del"], col = NA))
     },
     "Nonstop Mutation" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Nonstop Mutation"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Nonstop Mutation"], col = NA))
     },
     "Translation Start Site" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
-                gp = gpar(fill = mutation_colors["Translation Start Site"], col = NA))
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+                gp = grid::gpar(fill = mutation_colors["Translation Start Site"], col = NA))
     },
     "no variants" = function(x, y, w, h) {
-      grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
+      grid::grid.rect(x, y, w-unit(0.5, "mm"), h-unit(0.5, "mm"),
                 # gp = gpar(fill = "#e0e0e0", col = NA))
-                gp = gpar(fill = "#CCCCCC", col = NA))
+                gp = grid::gpar(fill = "#CCCCCC", col = NA))
     }
   )
   return(alter_fun)

@@ -32,7 +32,9 @@ Depends:
     ensurer (>= 1.1.0),
     data.table (>= 1.13.2),
     reshape2 (>= 1.4.4),
-    pheatmap (>= 1.0.12)
+    pheatmap (>= 1.0.12),
+    GenomicRanges (>= 1.42.0),
+    IRanges (>= 2.24.0)
 URL: https://github.com/mtandon09/MAFDashRPackage
 Suggests: jsonlite
 Encoding: UTF-8
