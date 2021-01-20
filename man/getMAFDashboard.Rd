@@ -9,6 +9,7 @@ getMAFDashboard(
   plotList = NULL,
   outputFileName = "dashboard.html",
   outputFileTitle = "MAF Dash",
+  outputFilePath = NULL,
   masterRmdFile = NULL
 )
 }
@@ -28,6 +29,8 @@ The order of the list determines the order of the tabs, and list names are used 
 file}
 
 \item{outputFileTitle}{The title of the output html dashboard}
+
+\item{outputFilePath}{The path of the output html dashboard}
 
 \item{masterRmdFile}{Alternate Rmd file.  This argument is meant only for testing and development.
 file}
