@@ -24,7 +24,21 @@
 #' library(MAFDashRPackage)
 #' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #t <- getMAFDashboard(file = MAFfilePath)
+#' @importFrom rmarkdown render
+#' @importFrom knitr knit
+#' @importFrom plotly plot_ly ggplotly
+#' @import maftools
+#' @import htmltools
+#' @import bsplus
+#' @import crosstalk
+#' @import circlize
+#' @import canvasXpress
+#' @import TCGAbiolinks
+#' @import RColorBrewer
+#' @import DT
+#' @import flexdashboard
 #'
+
 getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath=NULL,masterRmdFile=NULL){
 
   if (all(is.null(c(MAFfilePath,plotList)))) {

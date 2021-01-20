@@ -18,6 +18,7 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #' library(MAFDashRPackage)
 #' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
 #' #generateMutationTypePlot(read.maf(laml.maf))
+#' @importFrom data.table dcast setDF
 #'
 generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   ### Add checks for the conditions
@@ -31,7 +32,7 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   nonsilent_summary <- mymaf@variant.classification.summary[,c("Tumor_Sample_Barcode","total")]
   nonsilent_summary$type <- "Non-Silent"
   silent_classif_data <- mymaf@maf.silent %>% dplyr::group_by(Tumor_Sample_Barcode, Variant_Classification) %>% dplyr::summarise(count=n())
-  silent_classif_data <- reshape2::dcast(silent_classif_data,Tumor_Sample_Barcode ~ Variant_Classification, value.var = "count")
+  silent_classif_data <- data.table::dcast(silent_classif_data,Tumor_Sample_Barcode ~ Variant_Classification, value.var = "count")
   silent_summary <- data.frame(Tumor_Sample_Barcode = silent_classif_data$Tumor_Sample_Barcode,
                                total = rowSums(silent_classif_data[,-1], na.rm=T),
                                type = "Silent"

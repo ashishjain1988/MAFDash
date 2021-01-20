@@ -27,7 +27,6 @@ mutation plot using the MAF data.
 library(MAFDashRPackage)
 #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
 #generateMutationTypePlot(read.maf(laml.maf))
-
 }
 \author{
 Mayank Tondon, Ashish Jain

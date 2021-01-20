@@ -20,6 +20,11 @@ utils::globalVariables(c(".", "mut_burden", "classification",
 #' #generateBurdenPlot(read.maf(laml.maf), plotType="Dotplot")
 #' #generateBurdenPlot(read.maf(laml.maf), plotType="Barplot")
 #'
+#' @importFrom dplyr summarise group_by %>%
+#' @importFrom reshape2 melt
+#' @import ggplot2
+#' @importFrom ggbeeswarm geom_quasirandom
+#'
 generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
 
   num_var_data <- mymaf@variants.per.sample

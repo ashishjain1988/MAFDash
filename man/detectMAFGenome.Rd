@@ -19,4 +19,5 @@ A function to detect MAF genome
 \examples{
 library(MAFDashRPackage)
 #g<-detectMAFGenome(maf)
+
 }

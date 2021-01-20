@@ -46,7 +46,6 @@ different figures and plots explaining the MAF dataset.
 library(MAFDashRPackage)
 #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #t <- getMAFDashboard(file = MAFfilePath)
-
 }
 \author{
 Mayank Tondon, Ashish Jain

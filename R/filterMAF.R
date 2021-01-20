@@ -27,6 +27,8 @@ utils::globalVariables(c("%>%","."))
 #' library(MAFDashRPackage)
 #' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
 #' #filteredMAF <- filterMAF(mafFilePath = MAFfilePath)
+#' @importFrom ensurer ensure_that
+#'
 
 filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=FALSE,
                     norm_alt_max=1,t_alt_min=1,t_depth_min=20,

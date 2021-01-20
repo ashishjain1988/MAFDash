@@ -10,6 +10,16 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @examples
 #' library(MAFDashRPackage)
 #' #g<-detectMAFGenome(maf)
+#'
+#' @importFrom grDevices colorRampPalette dev.off pdf rainbow
+#' @importFrom graphics strwidth
+#' @importFrom stats dist hclust median setNames
+#' @importFrom utils count.fields read.table write.table globalVariables
+#' @importFrom GenomicRanges makeGRangesFromDataFrame reduce
+#' @importFrom IRanges width
+#' @importFrom ComplexHeatmap HeatmapAnnotation rowAnnotation oncoPrint pheatmap Legend draw
+#' @importFrom plotly plot_ly ggplotly
+
 detectMAFGenome<-function(maf){
   ### Add checks for the conditions
   maf <- ensurer::ensure_that(maf,
