@@ -18,7 +18,8 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @importFrom utils count.fields read.table write.table globalVariables
 #' @importFrom GenomicRanges makeGRangesFromDataFrame reduce
 #' @importFrom IRanges width
-#' @importFrom ComplexHeatmap HeatmapAnnotation rowAnnotation oncoPrint pheatmap Legend draw
+#' @importFrom ComplexHeatmap HeatmapAnnotation rowAnnotation oncoPrint Legend draw
+#' @importFrom pheatmap pheatmap
 #' @importFrom plotly plot_ly ggplotly
 
 detectMAFGenome<-function(maf){
