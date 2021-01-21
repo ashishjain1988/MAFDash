@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 ### Download MAF file using `TCGABiolinks`
 MAFDash provides a wrapper function that tries to simplify retrieving data using `TCGABiolinks`.  Valid project codes can be viewed by running `TCGABiolinks::getGDCprojects()` and checking the "tumor" column.
 ```
-library(MAFDashRPackage)
+library(MAFDash)
 library(TCGABiolinks)
 
 tcga_code = "UVM"    ## Uveal Melanoma

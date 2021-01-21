@@ -1,4 +1,4 @@
-Package: MAFDashRPackage
+Package: MAFDash
 Type: Package
 Title: MAFDashRPackage: R package to easily create an HTML dashboard to summarize and visualize data from Mutation Annotation Format (MAF) file
 Version: 1.0.0
