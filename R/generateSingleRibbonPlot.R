@@ -18,8 +18,8 @@
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #MAFfilePath <-  system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' #generateRibbonPlot(read.maf(MAFfilePath))
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' generateRibbonPlot(read.maf(maf))
 #'
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                   pval_high=0.1,  ## All interactions with less than this p-value will be shown

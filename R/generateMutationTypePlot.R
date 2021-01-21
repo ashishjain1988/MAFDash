@@ -16,8 +16,8 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' #generateMutationTypePlot(read.maf(laml.maf))
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' generateMutationTypePlot(read.maf(maf))
 #' @importFrom data.table dcast setDF
 #'
 generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){

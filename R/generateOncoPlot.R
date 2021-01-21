@@ -19,8 +19,8 @@ utils::globalVariables(c(".", "..anno_columns"))
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#' #generateOncoPlot(read.maf(laml.maf))
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' generateOncoPlot(read.maf(maf))
 #'
 generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=T,
                            genes_to_plot=NULL, include_all=F,

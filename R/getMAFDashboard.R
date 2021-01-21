@@ -15,15 +15,13 @@
 #' file
 #' @param outputFileTitle The title of the output html dashboard
 #' @param outputFilePath The path of the output html dashboard
-#' @param masterRmdFile Alternate Rmd file.  This argument is meant only for testing and development.
-#' file
 #' @export
 #' @return The dashboard html file
 #'
 #' @examples
 #' library(MAFDashRPackage)
-#' #MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#' #t <- getMAFDashboard(file = MAFfilePath)
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
 #' @importFrom plotly plot_ly ggplotly
@@ -37,16 +35,15 @@
 #' @import RColorBrewer
 #' @import DT
 #' @import flexdashboard
-#'
 
-getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath=NULL,masterRmdFile=NULL){
+getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath="."){
 
   if (all(is.null(c(MAFfilePath,plotList)))) {
     stop("Need to define at least a MAF file or a plot list.")
   }
-  if (is.null(masterRmdFile)) {
-    masterRmdFile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
-  }
+  # if (is.null(masterRmdFile)) {
+  #   masterRmdFile <- system.file('extdata', 'MAFDash.Rmd', package = 'MAFDashRPackage')
+  # }
   ### Add checks for the conditions
   outputFilePath <- ensurer::ensure_that(outputFilePath,
                               !is.null(.) && (file.exists(outputFilePath)),
@@ -54,8 +51,8 @@ getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboa
 
   html_filename=paste0(basename(outputFileName))
   # html_filename=gsub(".Rmd",".html",basename(masterRmdFile))
+  masterRmdFile <- system.file("extdata", "MAFDash.Rmd", package = "MAFDashRPackage")
   rmarkdown::render(masterRmdFile,
-                    knit_root_dir=dirname(masterRmdFile),
                     output_format="all", output_file=html_filename,
                     output_dir = outputFilePath,
                     params = list(

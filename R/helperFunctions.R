@@ -9,7 +9,8 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' information
 #' @examples
 #' library(MAFDashRPackage)
-#' #g<-detectMAFGenome(maf)
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' detectMAFGenome(read.maf(maf))
 #'
 #' @importFrom grDevices colorRampPalette dev.off pdf rainbow
 #' @importFrom graphics strwidth
@@ -59,7 +60,8 @@ detectMAFGenome<-function(maf){
 #' @return The list of objects required for oncoplot function
 #' @examples
 #' library(MAFDashRPackage)
-#' #g<-createOncoMatrix(maf)
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 
   ### Add checks for the conditions
@@ -68,7 +70,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
                               err_desc = "Please enter correct MAF object")
   ### Add checks for the conditions
   g <- ensurer::ensure_that(g,
-                              !is.null(.) && (class(.) == "character"),
+                              !is.null(.) && (class(.) == "character") && (length(.) >= 2),
                               err_desc = "Please provde at least two genes")
   add_missing <- ensurer::ensure_that(add_missing,
                                     !is.null(.) && (class(.) == "logical"),
@@ -200,7 +202,8 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' @return Data frame containing the variant information
 #' @examples
 #' library(MAFDashRPackage)
-#' #g<-generateVariantTable(maf)
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' variantTable<-generateVariantTable(read.maf(maf))
 generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
   ### Add checks for the conditions
   maf.filter <- ensurer::ensure_that(maf,
@@ -325,6 +328,7 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 #' @return List of genes with gene symbols
 #' @examples
 #' library(MAFDashRPackage)
+#' geneSelectParser()
 geneSelectParser <- function(genes_arg=NULL) {
 
   genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
@@ -445,6 +449,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
 #' @return The mutation color data frame
 #' @examples
 #' library(MAFDashRPackage)
+#' my_mutation_colors()
 my_mutation_colors <- function() {
   mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
                        In_Frame_Ins="#ff008c",Splice_Site="#FF7F00",Multi_Hit="#FFFF33",Frame_Shift_Ins="#A65628",
@@ -460,6 +465,7 @@ my_mutation_colors <- function() {
 #' @return The mutation color data frame
 #' @examples
 #' library(MAFDashRPackage)
+#' oncoplot_annotation_func()
 oncoplot_annotation_func <- function() {
 
   mutation_colors <- my_mutation_colors()
