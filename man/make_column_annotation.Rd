@@ -20,5 +20,5 @@ The clinical annotation data
 This function creates a annotation data frame from the TCGA clinical dataset
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 }

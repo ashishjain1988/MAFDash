@@ -51,7 +51,7 @@ If 'save_name' is not provided, then the plot is printed to the current graphics
 This function provides an alternate visualization for maftools::somaticInteractions()
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 generateRibbonPlot(read.maf(maf))
 

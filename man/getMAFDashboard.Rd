@@ -39,7 +39,7 @@ This function creates an HTML file containing the
 different figures and plots explaining the MAF dataset.
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 }

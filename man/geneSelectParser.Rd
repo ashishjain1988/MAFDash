@@ -16,6 +16,6 @@ List of genes with gene symbols
 Function to the extact the Gene symbol from the input genes
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 geneSelectParser()
 }

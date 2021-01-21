@@ -16,7 +16,7 @@ List containing the TCGA clinical annotations
 This will return a list of colors that can be used with TCGA clinical annotations
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 #colorList <- getTCGAClinicalColors()
 }
 \author{

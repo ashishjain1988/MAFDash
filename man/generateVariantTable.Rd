@@ -20,7 +20,7 @@ Data frame containing the variant information
 Make variant table from maf file
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 variantTable<-generateVariantTable(read.maf(maf))
 }

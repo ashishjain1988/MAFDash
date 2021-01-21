@@ -29,7 +29,7 @@ This function generates burden plot
 using the MAF data.
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 generateBurdenPlot(read.maf(maf), plotType="Dotplot")
 generateBurdenPlot(read.maf(maf), plotType="Barplot")

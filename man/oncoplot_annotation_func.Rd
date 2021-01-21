@@ -13,6 +13,6 @@ The mutation color data frame
 This function returns the mutation colors for oncoplot function
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 oncoplot_annotation_func()
 }

@@ -20,7 +20,7 @@ The list of objects required for oncoplot function
 Creates matrix for oncoplot from maf file
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 }

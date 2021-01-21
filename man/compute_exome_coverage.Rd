@@ -18,6 +18,6 @@ Integer value of the sum of the length of the covered regions
 This function will take a bed file, and return the sum of the lengths of unique regions
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 #coverage<-computeExomeCoverage("/path/to/bed/file")
 }

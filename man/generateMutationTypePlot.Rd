@@ -24,7 +24,7 @@ This function generates silent and non-silent
 mutation plot using the MAF data.
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 generateMutationTypePlot(read.maf(maf))
 }

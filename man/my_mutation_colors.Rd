@@ -13,6 +13,6 @@ The mutation color data frame
 This function returns the colors for each mutation
 }
 \examples{
-library(MAFDashRPackage)
+library(MAFDash)
 my_mutation_colors()
 }
