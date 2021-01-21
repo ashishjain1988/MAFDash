@@ -17,7 +17,7 @@
 #' @return If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' generateRibbonPlot(read.maf(maf))
 #'

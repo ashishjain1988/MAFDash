@@ -19,7 +19,7 @@
 #' @return The dashboard html file
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 #' @importFrom rmarkdown render

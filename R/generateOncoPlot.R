@@ -18,7 +18,7 @@ utils::globalVariables(c(".", "..anno_columns"))
 #' @return A ComplexHeatmap object.  Or a character matrix if 'oncomat_only' is TRUE.
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' generateOncoPlot(read.maf(maf))
 #'

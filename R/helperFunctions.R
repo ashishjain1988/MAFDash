@@ -8,7 +8,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @return The list of object containing the genome
 #' information
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' detectMAFGenome(read.maf(maf))
 #'
@@ -59,7 +59,7 @@ detectMAFGenome<-function(maf){
 #' @export
 #' @return The list of objects required for oncoplot function
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
@@ -201,7 +201,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' @export
 #' @return Data frame containing the variant information
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' variantTable<-generateVariantTable(read.maf(maf))
 generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
@@ -286,7 +286,7 @@ generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
 #' @export
 #' @return Integer value of the sum of the length of the covered regions
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' #coverage<-computeExomeCoverage("/path/to/bed/file")
 compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   ##### This function will read the target regions BED file and
@@ -327,7 +327,7 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 #' @export
 #' @return List of genes with gene symbols
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' geneSelectParser()
 geneSelectParser <- function(genes_arg=NULL) {
 
@@ -375,7 +375,7 @@ geneSelectParser <- function(genes_arg=NULL) {
 #' @export
 #' @return The clinical annotation data
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) {
 
   myanno <- NULL
@@ -448,7 +448,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
 #' @export
 #' @return The mutation color data frame
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' my_mutation_colors()
 my_mutation_colors <- function() {
   mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
@@ -464,7 +464,7 @@ my_mutation_colors <- function() {
 #' @export
 #' @return The mutation color data frame
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' oncoplot_annotation_func()
 oncoplot_annotation_func <- function() {
 

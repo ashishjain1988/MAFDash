@@ -13,7 +13,7 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
 #' @return A list containing path of mutation annotation file
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' cancerCode <- "ACC"
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
@@ -66,7 +66,7 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 #' @return List containing the TCGA clinical annotations
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' cancerCode <- "ACC"
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
@@ -143,7 +143,7 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
 #' @return List containing the TCGA clinical annotations
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' #colorList <- getTCGAClinicalColors()
 getTCGAClinicalColors <- function(ageRange=c(0,100)) {
   #require(RColorBrewer)

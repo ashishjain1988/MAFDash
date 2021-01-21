@@ -24,7 +24,7 @@ utils::globalVariables(c("%>%","."))
 #' @return The filtered MAF object
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' filteredMAF <- filterMAF(mafFilePath = maf)
 #'

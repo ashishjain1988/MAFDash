@@ -15,7 +15,7 @@ utils::globalVariables(c(".", "mut_burden", "classification",
 #' @return The ggplot object
 #'
 #' @examples
-#' library(MAFDashRPackage)
+#' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
 #' generateBurdenPlot(read.maf(maf), plotType="Dotplot")
 #' generateBurdenPlot(read.maf(maf), plotType="Barplot")
