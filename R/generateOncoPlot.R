@@ -19,7 +19,7 @@ utils::globalVariables(c(".", "..anno_columns"))
 #'
 #' @examples
 #' library(MAFDash)
-#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateOncoPlot(read.maf(maf))
 #'
 generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=T,

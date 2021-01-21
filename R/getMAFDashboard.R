@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' library(MAFDash)
-#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
@@ -51,7 +51,7 @@ getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboa
 
   html_filename=paste0(basename(outputFileName))
   # html_filename=gsub(".Rmd",".html",basename(masterRmdFile))
-  masterRmdFile <- system.file("extdata", "MAFDash.Rmd", package = "MAFDashRPackage")
+  masterRmdFile <- system.file("extdata", "MAFDash.Rmd", package = "MAFDash")
   rmarkdown::render(masterRmdFile,
                     output_format="all", output_file=html_filename,
                     output_dir = outputFilePath,

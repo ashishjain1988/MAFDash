@@ -16,7 +16,7 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #'
 #' @examples
 #' library(MAFDash)
-#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateMutationTypePlot(read.maf(maf))
 #' @importFrom data.table dcast setDF
 #'

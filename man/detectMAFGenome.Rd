@@ -18,7 +18,7 @@ A function to detect MAF genome
 }
 \examples{
 library(MAFDash)
-maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 detectMAFGenome(read.maf(maf))
 
 }

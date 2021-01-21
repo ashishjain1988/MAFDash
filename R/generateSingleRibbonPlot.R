@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' library(MAFDash)
-#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+#' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateRibbonPlot(read.maf(maf))
 #'
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
