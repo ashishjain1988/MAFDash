@@ -14,4 +14,5 @@ This function returns the colors for each mutation
 }
 \examples{
 library(MAFDashRPackage)
+my_mutation_colors()
 }

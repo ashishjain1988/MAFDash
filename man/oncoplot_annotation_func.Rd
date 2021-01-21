@@ -14,4 +14,5 @@ This function returns the mutation colors for oncoplot function
 }
 \examples{
 library(MAFDashRPackage)
+oncoplot_annotation_func()
 }

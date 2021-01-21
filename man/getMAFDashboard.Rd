@@ -9,8 +9,7 @@ getMAFDashboard(
   plotList = NULL,
   outputFileName = "dashboard.html",
   outputFileTitle = "MAF Dash",
-  outputFilePath = NULL,
-  masterRmdFile = NULL
+  outputFilePath = "."
 )
 }
 \arguments{
@@ -31,9 +30,6 @@ file}
 \item{outputFileTitle}{The title of the output html dashboard}
 
 \item{outputFilePath}{The path of the output html dashboard}
-
-\item{masterRmdFile}{Alternate Rmd file.  This argument is meant only for testing and development.
-file}
 }
 \value{
 The dashboard html file
@@ -44,8 +40,8 @@ different figures and plots explaining the MAF dataset.
 }
 \examples{
 library(MAFDashRPackage)
-#MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#t <- getMAFDashboard(file = MAFfilePath)
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 }
 \author{
 Mayank Tondon, Ashish Jain

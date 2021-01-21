@@ -59,8 +59,9 @@ This function filter the mutations in the MAF format using thresholds on various
 }
 \examples{
 library(MAFDashRPackage)
-#MAFfilePath <- system.file('extdata', 'test.maf', package = 'MAFDashRPackage')
-#filteredMAF <- filterMAF(mafFilePath = MAFfilePath)
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+filteredMAF <- filterMAF(mafFilePath = maf)
+
 }
 \author{
 Mayank Tondon, Ashish Jain

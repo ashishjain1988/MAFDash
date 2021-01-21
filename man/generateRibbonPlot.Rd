@@ -52,8 +52,8 @@ This function provides an alternate visualization for maftools::somaticInteracti
 }
 \examples{
 library(MAFDashRPackage)
-#MAFfilePath <-  system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
-#generateRibbonPlot(read.maf(MAFfilePath))
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+generateRibbonPlot(read.maf(maf))
 
 }
 \author{

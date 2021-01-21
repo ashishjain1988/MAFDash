@@ -17,4 +17,5 @@ Function to the extact the Gene symbol from the input genes
 }
 \examples{
 library(MAFDashRPackage)
+geneSelectParser()
 }

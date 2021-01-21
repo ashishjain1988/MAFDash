@@ -21,5 +21,6 @@ Creates matrix for oncoplot from maf file
 }
 \examples{
 library(MAFDashRPackage)
-#g<-createOncoMatrix(maf)
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDashRPackage")
+oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 }
