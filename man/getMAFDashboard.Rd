@@ -41,7 +41,7 @@ different figures and plots explaining the MAF dataset.
 \examples{
 library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
+#t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 }
 \author{
 Mayank Tondon, Ashish Jain
