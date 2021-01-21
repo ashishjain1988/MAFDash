@@ -38,7 +38,7 @@ Depends:
     GenomicRanges (>= 1.38.0),
     IRanges (>= 2.20.0),
     pheatmap (>= 1.0.0)
-URL: https://github.com/mtandon09/MAFDashRPackage
+URL: https://github.com/ashishjain1988/MAFDash/
 Suggests: jsonlite
 Encoding: UTF-8
 LazyData: true
