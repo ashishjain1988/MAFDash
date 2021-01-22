@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 # MAFDash
 #### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
 
-# How to get help for TissueEnrich
+# How to get help for MAFDash
 Please post all the questions or queries related to MAFDash package on **Github Issues**. This will help us to build an information repository which can be used by other users.
 
 [https://github.com/ashishjain1988/MAFDash/issues](https://github.com/ashishjain1988/MAFDash/issues)
