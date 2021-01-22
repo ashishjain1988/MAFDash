@@ -13,18 +13,7 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-library(plotly)
-library(dplyr)
-library(crosstalk)
-library(flexdashboard)
-library(DT)
-library(htmltools)
-library(bsplus)
-library(knitr)
-library(maftools)
-library(canvasXpress)
-library(ggbeeswarm)
-library(ComplexHeatmap)
+library(MAFDash)
 
 maf_file <- params$maffile
 title_text <- params$titletext
