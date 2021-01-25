@@ -19,6 +19,7 @@ utils::globalVariables(c(".", "..anno_columns"))
 #'
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateOncoPlot(read.maf(maf))
 #'

@@ -30,6 +30,7 @@ library(MAFDash)
 cancerCode <- "ACC"
 outputFolderPath <- "."
 #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+
 }
 \author{
 Mayank Tandon, Ashish Jain

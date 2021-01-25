@@ -9,6 +9,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' information
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' detectMAFGenome(read.maf(maf))
 #'
@@ -61,6 +62,7 @@ detectMAFGenome<-function(maf){
 #' @return The list of objects required for oncoplot function
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
@@ -203,6 +205,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' @return Data frame containing the variant information
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' variantTable<-generateVariantTable(read.maf(maf))
 generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {

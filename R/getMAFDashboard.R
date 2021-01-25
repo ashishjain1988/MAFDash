@@ -31,7 +31,6 @@
 #' @import crosstalk
 #' @import circlize
 #' @import canvasXpress
-#' @import TCGAbiolinks
 #' @import RColorBrewer
 #' @import DT
 #' @import flexdashboard

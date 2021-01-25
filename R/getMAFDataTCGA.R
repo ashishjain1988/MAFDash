@@ -17,6 +17,8 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
 #' cancerCode <- "ACC"
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+#' @importFrom TCGAbiolinks GDCquery_Maf
+#' @importFrom ensurer ensure_that
 
 getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant_caller="mutect2"){
 
@@ -32,7 +34,7 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 
   if (!file.exists(tcga_maf_file)) {
     if(!dir.exists(outputFolder)) {dir.create(outputFolder, recursive = T)}
-    tcga_maf <- GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
+    tcga_maf <- TCGAbiolinks::GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
     tcga_maf$Tumor_Sample_Barcode_original <- tcga_maf$Tumor_Sample_Barcode
     tcga_maf$Tumor_Sample_Barcode <-unlist(lapply(strsplit(tcga_maf$Tumor_Sample_Barcode, "-"), function(x) {paste0(x[1:3], collapse="-")}))
     tcga_maf$caller <- variant_caller
@@ -70,6 +72,8 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 #' cancerCode <- "ACC"
 #' outputFolderPath <- "."
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+#'
+#' @importFrom TCGAbiolinks GDCquery_clinic
 getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("data"), plotdata=NULL) {
   cancerCode <- ensurer::ensure_that(cancerCode,
                                      !is.null(.) && (class(.) == "character"),
@@ -81,7 +85,7 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
   tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
   if (! file.exists(tcga_clinical_file)) {
     if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
-    tcga_clinical <- GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
+    tcga_clinical <- TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
     write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
   }
   tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = T,stringsAsFactors = F)

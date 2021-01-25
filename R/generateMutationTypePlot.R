@@ -16,9 +16,11 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #'
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateMutationTypePlot(read.maf(maf))
 #' @importFrom data.table dcast setDF
+#' @importFrom dplyr summarise n
 #'
 generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   ### Add checks for the conditions

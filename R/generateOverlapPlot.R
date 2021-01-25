@@ -17,6 +17,7 @@
 #'
 #' @examples
 #' library(MAFDash)
+#' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' #generateOverlapPlot(read.maf(maf))
 #'

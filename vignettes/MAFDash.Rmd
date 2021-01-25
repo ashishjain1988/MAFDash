@@ -95,6 +95,7 @@ The oncoplot shows the number and types of mutations in a set of genes across th
 
 ```{r eval=TRUE}
 library(MAFDash)
+library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 generateOncoPlot(read.maf(maf))
 ```
@@ -104,6 +105,7 @@ The burdenplot compares the total number of mutations between the samples using 
 
 ```{r eval=TRUE}
 library(MAFDash)
+library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 generateBurdenPlot(read.maf(maf), plotType="Dotplot")
 generateBurdenPlot(read.maf(maf), plotType="Barplot")
@@ -114,6 +116,7 @@ This function generates silent and non-silent mutation plot using the MAF data.
 
 ```{r eval=TRUE}
 library(MAFDash)
+library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 generateMutationTypePlot(read.maf(maf))
 ```

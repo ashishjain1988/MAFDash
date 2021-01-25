@@ -21,6 +21,7 @@ Make variant table from maf file
 }
 \examples{
 library(MAFDash)
+library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 variantTable<-generateVariantTable(read.maf(maf))
 }
