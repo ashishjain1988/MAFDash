@@ -373,10 +373,7 @@ geneSelectParser <- function(genes_arg=NULL) {
 #' @param my_clin_dat Clinical dataset in a data frame
 #' @param names_to_match The list containing the matched patient's name
 #' @param my_colors my_colors
-#' @export
-#' @return The clinical annotation data
-#' @examples
-#' library(MAFDash)
+#' @noRd
 make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) {
 
   myanno <- NULL
@@ -446,11 +443,7 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
 
 #' Returns the colors for each mutation
 #' @description This function returns the colors for each mutation
-#' @export
-#' @return The mutation color data frame
-#' @examples
-#' library(MAFDash)
-#' my_mutation_colors()
+#' @noRd
 my_mutation_colors <- function() {
   mutation_colors <- c(Nonsense_Mutation="#ad7aff",Missense_Mutation="#377EB8",Frame_Shift_Del="#4DAF4A",
                        In_Frame_Ins="#ff008c",Splice_Site="#FF7F00",Multi_Hit="#FFFF33",Frame_Shift_Ins="#A65628",
@@ -462,11 +455,7 @@ my_mutation_colors <- function() {
 
 #' Returns the mutation colors for oncoplot function
 #' @description This function returns the mutation colors for oncoplot function
-#' @export
-#' @return The mutation color data frame
-#' @examples
-#' library(MAFDash)
-#' oncoplot_annotation_func()
+#' @noRd
 oncoplot_annotation_func <- function() {
 
   mutation_colors <- my_mutation_colors()

@@ -1,7 +1,7 @@
 Package: MAFDash
 Type: Package
-Title: MAFDash: R package to easily create an HTML dashboard to summarize and visualize data from Mutation Annotation Format (MAF) file
-Version: 1.0.0
+Title: MAFDash: R Package to Easily Create an HTML Dashboard to Summarize and Visualize Data from Mutation Annotation Format (MAF) File
+Version: 0.1.0
 Authors@R: c(
     person("Mayank", "Tandon", role = c("aut"), email = "mayank.tandon@nih.gov"),
     person("Ashish", "Jain", role = c("aut", "cre"), email = "ashish.jain2@nih.gov"),
@@ -14,7 +14,7 @@ Description: Mutation Annotation Format (MAF) is a tabular data format used for 
 License: GPL
 VignetteBuilder: knitr
 Depends:
-    R (>= 3.6.3),
+    R (>= 4.0.0),
     rmarkdown (>= 2.5.0),
     knitr (>= 1.3),
     flexdashboard (>= 0.5.2),
