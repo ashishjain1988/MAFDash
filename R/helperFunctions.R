@@ -22,6 +22,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @importFrom ComplexHeatmap HeatmapAnnotation rowAnnotation oncoPrint Legend draw
 #' @importFrom pheatmap pheatmap
 #' @importFrom plotly plot_ly ggplotly
+#' @importFrom dplyr mutate select all_of
 
 detectMAFGenome<-function(maf){
   ### Add checks for the conditions

@@ -19,6 +19,7 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
 #' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
 #' @importFrom TCGAbiolinks GDCquery_Maf
 #' @importFrom ensurer ensure_that
+#' @importFrom dplyr mutate group_by
 
 getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant_caller="mutect2"){
 

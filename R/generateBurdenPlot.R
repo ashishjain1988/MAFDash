@@ -88,7 +88,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
     } else {
       xaxis_text <- element_blank()
     }
-    burden_plot <- ggplot(plotdata, aes(x=Tumor_Sample_Barcode, y=mut_burden, text=hoverlabel)) +
+    burden_plot <- ggplot2::ggplot(plotdata, aes(x=Tumor_Sample_Barcode, y=mut_burden, text=hoverlabel)) +
       geom_bar(aes(fill=classification), stat="identity",width=1,size=0.3, color="black") +
       scale_fill_manual(values=my_class_colors) +
       theme_linedraw(base_size = 12) +

@@ -24,7 +24,7 @@
 #' #t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
-#' @importFrom plotly plot_ly ggplotly
+#' @importFrom plotly plot_ly ggplotly plotly layout
 #' @import maftools
 #' @import htmltools
 #' @import bsplus
@@ -32,7 +32,7 @@
 #' @import circlize
 #' @import canvasXpress
 #' @import RColorBrewer
-#' @import DT
+#' @importFrom DT datatable formatStyle JS
 #' @import flexdashboard
 
 getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath="."){

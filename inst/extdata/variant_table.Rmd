@@ -8,12 +8,12 @@ column_labels <- setNames(colnames(mydf), make.names(colnames(mydf)))
 colnames(mydf) <- names(column_labels)
 
 n_samples <- length(unique(mydf$Sample.ID))
-extra_data <- mydf %>% group_by(Hugo.Symbol) %>% mutate(Gene.Altered.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
+extra_data <- mydf %>% dplyr::group_by(Hugo.Symbol) %>% dplyr::mutate(Gene.Altered.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
 extra_cols <- c("Gene.Altered.in.Cohort.frac")
 
 if ("Protein.Change" %in% colnames(extra_data)) {
-  extra_data <- extra_data %>% group_by(Hugo.Symbol, Protein.Change) %>%
-                               mutate(Variant.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
+  extra_data <- extra_data %>% dplyr::group_by(Hugo.Symbol, Protein.Change) %>%
+                               dplyr::mutate(Variant.in.Cohort.frac=length(unique(Sample.ID))/n_samples)
   extra_cols <- c(extra_cols,"Variant.in.Cohort.frac")
 }
 
@@ -33,10 +33,10 @@ for (colname in columns_to_round) {
 
 # mydf[,"Tumor.Depth"] <-  as.numeric(as.character(mydf[,"Tumor.Depth"]))
 
-mydf <- mutate(mydf, mean.freq.normals = round(rowMeans(select(mydf, all_of(normdb_cols)), na.rm = TRUE),3))
+mydf <- dplyr::mutate(mydf, mean.freq.normals = round(rowMeans(dplyr::select(mydf, dplyr::all_of(normdb_cols)), na.rm = TRUE),3))
 
 
-mycounts <- mydf %>% group_by(Sample.ID) %>% summarise(num_mut=n(), .groups="drop")
+mycounts <- mydf %>% dplyr::group_by(Sample.ID) %>% dplyr::summarise(num_mut=dplyr::n(), .groups="drop")
 mydf$Sample.ID <- factor(as.character(mydf$Sample.ID), levels=unique(as.character(mycounts$Sample.ID)[order(mycounts$num_mut,decreasing = T)]))
 
 
@@ -132,7 +132,7 @@ Row {data-height=500}
 ### Mutation Info Table
 
 ```{r render-full-table }
-datatable(variant_sd, extensions=c("Scroller","FixedColumns","Buttons","ColReorder"), style="bootstrap", class=c("compact","display"), width="90%",
+DT::datatable(variant_sd, extensions=c("Scroller","FixedColumns","Buttons","ColReorder"), style="bootstrap", class=c("compact","display"), width="90%",
           fillContainer=F,
           escape = F,
           selection = "none",

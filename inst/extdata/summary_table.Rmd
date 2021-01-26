@@ -12,7 +12,7 @@ summaryTable <- data.frame(Genome=summaryInfo$summary[summaryInfo$ID=="NCBI_Buil
                            Mean_Variants=prettyNum(summaryInfo$Mean[summaryInfo$ID=="total"],digits=4),
                            Median_Variants=prettyNum(summaryInfo$Median[summaryInfo$ID=="total"], digits=4)
 )
-datatable(summaryTable, style="bootstrap4", class=c("display"),
+DT::datatable(summaryTable, style="bootstrap4", class=c("display"),
           fillContainer=T,
           escape = F,
           selection = "none",
@@ -21,7 +21,7 @@ datatable(summaryTable, style="bootstrap4", class=c("display"),
           options=list(dom = 't',ordering=F,autoWidth=F,
                        columnDefs = list(list(width = '80px', targets = "_all"),
                                          list(className = 'dt-center', targets = "_all")),
-          initComplete = JS(
+          initComplete = DT::JS(
             "function(settings, json) {",
             "$(this.api().table().header()).css({'font-size': '120%', 'background-color': '#ace1fa', 'color': '#424242'});",
             "}")             
