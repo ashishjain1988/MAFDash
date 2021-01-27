@@ -1,4 +1,4 @@
-[![github release](https://img.shields.io/github/release/MAFDash/MAFDash.svg?label=current+release)](https://github.com/ashishjain1988/MAFDash/releases)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashishjain1988/MAFDash)
 ![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
 
