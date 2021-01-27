@@ -1,3 +1,8 @@
+[![github release](https://img.shields.io/github/release/MAFDash/MAFDash.svg?label=current+release)](https://github.com/ashishjain1988/MAFDash/releases)
+![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
+
+
 MAFDash
 ------------------------------------------------------------
 *Once you call the variants, it's a MAFDash to the finish line*
