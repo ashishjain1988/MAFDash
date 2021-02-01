@@ -12,7 +12,7 @@ compute_exome_coverage(targets_bed_file, out_file = NULL)
 \item{out_file}{A file name to which the number of covered bases will be written, instead of returning the value}
 }
 \value{
-Integer value of the sum of the length of the covered regions
+An integer value of the sum of the length of the covered regions
 }
 \description{
 This function will take a bed file, and return the sum of the lengths of unique regions

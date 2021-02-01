@@ -15,7 +15,7 @@ generateMutationTypePlot(mymaf, savename = NULL, returndata = FALSE)
 returndata = FALSE)}
 }
 \value{
-The ggplot object if returndata is FALSE or a list
+A ggplot object if returndata is FALSE or a list
 containing the ggplot object and plot data if returndata
 is TRUE
 }

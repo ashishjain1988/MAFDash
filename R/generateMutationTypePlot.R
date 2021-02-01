@@ -10,7 +10,7 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #' @param returndata Flag to output the plot data (By Default
 #' returndata = FALSE)
 #' @export
-#' @return The ggplot object if returndata is FALSE or a list
+#' @return A ggplot object if returndata is FALSE or a list
 #' containing the ggplot object and plot data if returndata
 #' is TRUE
 #'
@@ -44,7 +44,7 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   plotdata <- rbind(nonsilent_summary, silent_summary)
   tots <- plotdata %>% dplyr::group_by(Tumor_Sample_Barcode) %>% dplyr::summarise(tot=sum(total))
   plotdata$Tumor_Sample_Barcode <- factor(plotdata$Tumor_Sample_Barcode,
-                                          levels=as.character(tots$Tumor_Sample_Barcode)[order(tots$tot,decreasing = T)])
+                                          levels=as.character(tots$Tumor_Sample_Barcode)[order(tots$tot,decreasing = TRUE)])
   myplot <- ggplot(plotdata, aes(x=Tumor_Sample_Barcode, y = total, fill=type)) +
     geom_col() + scale_fill_brewer(palette="Set1") +
     theme_linedraw(base_size = 12) +
@@ -54,7 +54,7 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
           axis.ticks.x = element_blank())
 
   if (!is.null(savename)) {
-    if (! dir.exists(dirname(savename))) {dir.create(dirname(savename), recursive = T)}
+    if (! dir.exists(dirname(savename))) {dir.create(dirname(savename), recursive = TRUE)}
     ggsave(savename,width=6, height=6)
   }
   return_val <- myplot

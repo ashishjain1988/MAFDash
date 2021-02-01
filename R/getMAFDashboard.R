@@ -1,3 +1,6 @@
+## To Supress Note
+utils::globalVariables(c(".","tempdir"))
+
 #' Function to generate a dashboard from a MAF file.
 #' @description This function creates an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
@@ -16,12 +19,12 @@
 #' @param outputFileTitle The title of the output html dashboard
 #' @param outputFilePath The path of the output html dashboard
 #' @export
-#' @return The dashboard html file
+#' @return No return value, the MAF dashboard html file is created in the given output folder
 #'
 #' @examples
 #' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#' #t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
+#' \donttest{getMAFDashboard(MAFfilePath = maf,outputFilePath=tempdir())}
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
 #' @importFrom plotly plot_ly ggplotly plotly layout
@@ -35,7 +38,7 @@
 #' @importFrom DT datatable formatStyle JS
 #' @import flexdashboard
 
-getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath="."){
+getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath=tempdir()){
 
   if (all(is.null(c(MAFfilePath,plotList)))) {
     stop("Need to define at least a MAF file or a plot list.")

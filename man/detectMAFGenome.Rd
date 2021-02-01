@@ -10,8 +10,7 @@ detectMAFGenome(maf)
 \item{maf}{The MAF object}
 }
 \value{
-The list of object containing the genome
-information
+A list containing the genome information
 }
 \description{
 A function to detect MAF genome

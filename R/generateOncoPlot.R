@@ -7,15 +7,17 @@ utils::globalVariables(c(".", "..anno_columns"))
 #' @param maf The MAF object
 #' @param cohort_freq_thresh Fraction of cohort that a gene must be mutated to select for display
 #' @param auto_adjust_cohort_freq Whether or not to automatically adjust the frequen
-#' @param genes_to_plot Character vector, data frame, or tab-delimited file name with genes to plot. Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally, a column named "Reason" for labeling the plot
-#' @param include_all Flag to include all the samples including the missing one (Default: False)
+#' @param genes_to_plot Character vector, data frame, or tab-delimited file name with genes to plot.
+#' Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally,
+#' a column named "Reason" for labeling the plot
+#' @param include_all Flag to include all the samples including the missing one (Default: FALSE)
 #' @param oncomat_only Whether or not to return just the oncoplot matrix
 #' @param title_text The title of the plot
 #' @param custom_column_order A list containing the order of samples to show in the plot (Optional)
 #' @param add_clinical_annotations Whether or not to try to plot column annotations from the 'clinical.data' slot of the MAF object
 #' @param clin_data_colors Named list of colors for clinical annoations
 #' @export
-#' @return A ComplexHeatmap object.  Or a character matrix if 'oncomat_only' is TRUE.
+#' @return A ComplexHeatmap object if 'oncomat_only' is FALSE or a character matrix if 'oncomat_only' is TRUE.
 #'
 #' @examples
 #' library(MAFDash)
@@ -23,9 +25,9 @@ utils::globalVariables(c(".", "..anno_columns"))
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' generateOncoPlot(read.maf(maf))
 #'
-generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=T,
-                           genes_to_plot=NULL, include_all=F,
-                           oncomat_only=F, title_text="",
+generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_freq=TRUE,
+                           genes_to_plot=NULL, include_all=FALSE,
+                           oncomat_only=FALSE, title_text="",
                            custom_column_order=NULL,
                            add_clinical_annotations=F, clin_data_colors=NULL){
 
@@ -46,15 +48,15 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   ### Structure info about the fraction of the cohort that has each gene mutated
   frac_mut <- data.frame(Hugo_Symbol=maf@gene.summary$Hugo_Symbol,
                          frac_mut=(maf@gene.summary$MutatedSamples/as.numeric(maf@summary$summary[3])),
-                         stringsAsFactors = F)
+                         stringsAsFactors = FALSE)
 
   selected_genes <- geneSelectParser(genes_to_plot)
   selected_genes <- selected_genes[selected_genes$Hugo_Symbol %in% frac_mut$Hugo_Symbol,]
 
-  freq_genes_df <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
+  freq_genes_df <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = FALSE)
   if (!is.null(cohort_freq_thresh)) {
     ngene_max=25
-    target_frac = sort(frac_mut$frac_mut, decreasing = T)[min(ngene_max,nrow(frac_mut))]
+    target_frac = sort(frac_mut$frac_mut, decreasing = TRUE)[min(ngene_max,nrow(frac_mut))]
     if (auto_adjust_cohort_freq) {
       cohort_freq_thresh <- max(c(cohort_freq_thresh,target_frac))
     }
@@ -127,9 +129,9 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   oncomat.plot <- gsub("_"," ",oncomat.plot)
 
   ### Column labels get cluttered if too many samples
-  show_sample_names=T
+  show_sample_names=TRUE
   if (ncol(oncomat.plot) > 20) {
-    show_sample_names=F
+    show_sample_names=FALSE
   }
 
   # browser()
@@ -141,7 +143,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
     if (length(anno_columns) < 2) {
       warning("Annotation columns not found in clinical data, skipping...")
     }
-    add_clinical_annotations=T
+    add_clinical_annotations=TRUE
   }
 
   if (is.logical(add_clinical_annotations) && add_clinical_annotations) {
@@ -166,13 +168,13 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
 
   mutation_colors <- my_mutation_colors()
   var_anno_colors <- mutation_colors[match(colnames(variant_type_data), names(mutation_colors))]
-  top_ha = ComplexHeatmap::HeatmapAnnotation("Total\nMutations" = ComplexHeatmap::anno_barplot(variant_type_data, gp = grid::gpar(fill = var_anno_colors), border = F),
+  top_ha = ComplexHeatmap::HeatmapAnnotation("Total\nMutations" = ComplexHeatmap::anno_barplot(variant_type_data, gp = grid::gpar(fill = var_anno_colors), border = FALSE),
                              annotation_name_side = "left",annotation_name_rot=90,annotation_name_gp = grid::gpar(cex=0.7))
 
   # browser()
 
   pct_anno <- paste0(prettyNum(frac_mut$frac_mut[match(onco_genes, frac_mut$Hugo_Symbol)]*100,digits=1),"%")
-  left_ha = ComplexHeatmap::rowAnnotation("Cohort Pct"=ComplexHeatmap::anno_text(pct_anno,gp = grid::gpar(cex=0.7)), show_annotation_name=F)
+  left_ha = ComplexHeatmap::rowAnnotation("Cohort Pct"=ComplexHeatmap::anno_text(pct_anno,gp = grid::gpar(cex=0.7)), show_annotation_name=FALSE)
   # print(oncomat.plot)
   ### Make the oncoplot
   onco_plot <- ComplexHeatmap::oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(),
@@ -183,7 +185,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
                          remove_empty_columns=!include_all,
                          name="oncoplot",
                          row_title=title_text,
-                         show_pct = F,
+                         show_pct = FALSE,
                          row_split=split_idx,
                          bottom_annotation = myanno,
                          top_annotation = top_ha,

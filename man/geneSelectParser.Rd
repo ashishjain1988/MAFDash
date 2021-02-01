@@ -10,7 +10,7 @@ geneSelectParser(genes_arg = NULL)
 \item{genes_arg}{genes_arg}
 }
 \value{
-List of genes with gene symbols
+A character vector containing the list of genes with gene symbols
 }
 \description{
 Function to the extact the Gene symbol from the input genes

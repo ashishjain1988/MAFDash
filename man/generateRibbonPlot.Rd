@@ -24,7 +24,7 @@ generateRibbonPlot(
 
 \item{onco_genes}{A list of genes to restrict the analysis.  Passed to maftools::somaticInteractions()}
 
-\item{save_name}{A filename to write to PDF}
+\item{save_name}{The name and path of the output PDF}
 
 \item{pval_high}{All interactions with less than this p-value will be shown}
 
@@ -45,7 +45,7 @@ generateRibbonPlot(
 \item{gene_colors}{Color(s) for gene segments.  By default, they're colored randomly.}
 }
 \value{
-If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
+No return value. If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
 }
 \description{
 This function provides an alternate visualization for maftools::somaticInteractions()
@@ -54,7 +54,7 @@ This function provides an alternate visualization for maftools::somaticInteracti
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#generateRibbonPlot(read.maf(maf))
+generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"ribbonPlot.pdf"))
 
 }
 \author{

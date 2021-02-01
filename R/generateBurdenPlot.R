@@ -12,7 +12,7 @@ utils::globalVariables(c(".", "mut_burden", "classification",
 #' @param save_data_to_file The name and path of the output file
 #'
 #' @export
-#' @return The ggplot object
+#' @return A ggplot object containing the burden plot
 #'
 #' @examples
 #' library(MAFDash)
@@ -47,7 +47,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
   # browser()
   ## Re-jigger the factor levels so they're ordered by decreasing mutation burden (for the plotting)
   num_var_data$Tumor_Sample_Barcode <- factor(num_var_data$Tumor_Sample_Barcode,
-                                              levels=num_var_data$Tumor_Sample_Barcode[order(num_var_data$mut_burden, decreasing = T)])
+                                              levels=num_var_data$Tumor_Sample_Barcode[order(num_var_data$mut_burden, decreasing = TRUE)])
 
   ########################################################
   #### 5. Generate plots for mutation burden
@@ -56,7 +56,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
   median_mut_burdens <- num_var_data %>% dplyr::summarise(median=median(mut_burden))
 
   num_var_data$xlabel <- factor(num_var_data$xlabel,
-                                levels=num_var_data$xlabel[order(num_var_data$mut_burden, decreasing = T)])
+                                levels=num_var_data$xlabel[order(num_var_data$mut_burden, decreasing = TRUE)])
   num_var_data$hoverlabel <- paste0("Sample: ",num_var_data$Tumor_Sample_Barcode,"\nMutations: ", num_var_data$mut_burden)
 
   ### Mutation burden stacked with variant classification counts
@@ -71,12 +71,12 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
 
   plotdata <- var_type.melt[var_type.melt$classification != "total",]
   plotdata$Tumor_Sample_Barcode <- factor(as.character(plotdata$Tumor_Sample_Barcode),
-                                          levels=variant_type_per_sample$Tumor_Sample_Barcode[order(variant_type_per_sample$total, decreasing = T)])
+                                          levels=variant_type_per_sample$Tumor_Sample_Barcode[order(variant_type_per_sample$total, decreasing = TRUE)])
   plotdata$classification <- gsub("_"," ",plotdata$classification)
 
   class_means <- plotdata %>% dplyr::group_by(classification) %>% dplyr::summarise(mean=mean(mut_burden))
   plotdata$classification <- factor(as.character(plotdata$classification),
-                                    levels=class_means$classification[order(class_means$mean, decreasing = F)])
+                                    levels=class_means$classification[order(class_means$mean, decreasing = FALSE)])
 
   my_class_colors <- my_mutation_colors()
 
@@ -144,7 +144,7 @@ generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to
       outdata$total_per_mb <- outdata$total/mb_covered
       outdata$mb_covered <- mb_covered
       print(paste0("Saving plot data to ", save_data_to_file))
-      write.table(outdata, file = save_data_to_file, sep="\t", quote=F,row.names = F)
+      write.table(outdata, file = save_data_to_file, sep="\t", quote=FALSE,row.names = FALSE)
     } else {
       warning("Path for output data file not found! Skipping...")
     }

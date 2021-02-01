@@ -14,7 +14,7 @@ createOncoMatrix(maf, g = NULL, add_missing = FALSE)
 \item{add_missing}{add_missing}
 }
 \value{
-The list of objects required for oncoplot function
+A list of objects to be used as an input for \link[MAFDash]{generateOncoPlot} function
 }
 \description{
 Creates matrix for oncoplot from maf file

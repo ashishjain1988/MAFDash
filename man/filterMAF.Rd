@@ -27,7 +27,7 @@ information in the MAF format}
 
 \item{flag_genes}{The list of genes used as flag genes}
 
-\item{save_name}{The name of the filtered MAF object}
+\item{save_name}{The name and path of the output file to save filtered MAFs}
 
 \item{no_filter}{Flag to filter the MAF (Default no_filter=FALSE)}
 
@@ -52,7 +52,7 @@ information in the MAF format}
 \item{variant_caller}{variant_caller}
 }
 \value{
-The filtered MAF object
+An object of class MAF with the filtered mutations
 }
 \description{
 This function filter the mutations in the MAF format using thresholds on various features

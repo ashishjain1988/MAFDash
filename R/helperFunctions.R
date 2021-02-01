@@ -5,8 +5,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @description A function to detect MAF genome
 #' @param maf The MAF object
 #' @export
-#' @return The list of object containing the genome
-#' information
+#' @return A list containing the genome information
 #' @examples
 #' library(MAFDash)
 #' library(maftools)
@@ -60,7 +59,7 @@ detectMAFGenome<-function(maf){
 #' @param g g
 #' @param add_missing add_missing
 #' @export
-#' @return The list of objects required for oncoplot function
+#' @return A list of objects to be used as an input for \link[MAFDash]{generateOncoPlot} function
 #' @examples
 #' library(MAFDash)
 #' library(maftools)
@@ -203,13 +202,13 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' @param use_syn Whether or not to include synonymous variants (default is FALSE, i.e. returns non-synonymous mutations only)
 #' @param extra_cols Vector of column names to include from the MAF file.  If it's a named vector, the names will be used in the output table.
 #' @export
-#' @return Data frame containing the variant information
+#' @return A data frame containing the variant information
 #' @examples
 #' library(MAFDash)
 #' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' variantTable<-generateVariantTable(read.maf(maf))
-generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
+generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
   ### Add checks for the conditions
   maf.filter <- ensurer::ensure_that(maf,
                               !is.null(.) && (class(.) == "MAF"),
@@ -289,10 +288,11 @@ generateVariantTable <- function(maf, use_syn=F, extra_cols=c()) {
 #' @param targets_bed_file Path to a bed file with exome target regions
 #' @param out_file A file name to which the number of covered bases will be written, instead of returning the value
 #' @export
-#' @return Integer value of the sum of the length of the covered regions
+#' @return An integer value of the sum of the length of the covered regions
 #' @examples
 #' library(MAFDash)
-#' #coverage<-computeExomeCoverage("/path/to/bed/file")
+#' bedFile <- system.file("extdata", "test.bed", package = "MAFDash")
+#' coverage<-computeExomeCoverage(bedFile)
 compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   ##### This function will read the target regions BED file and
   #####  compute the sum of the lengths of the regions
@@ -304,7 +304,7 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 
   ## Read the BED file as a table
   bed_data <- read.table(targets_bed_file, sep="\t",colClasses = my_classes,
-                         stringsAsFactors = F)
+                         stringsAsFactors = FALSE)
   colnames(bed_data) <- c("chr","start","end")
 
   ## Convert to a GenomicRanges object
@@ -318,7 +318,7 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 
   if (! is.null(out_file)) {
     ## Write to a file
-    write.table(total_exome_coverage,file = out_file, col.names =F, row.names = F)
+    write.table(total_exome_coverage,file = out_file, col.names =FALSE, row.names = FALSE)
     invisible()
   } else {
     return(total_exome_coverage)
@@ -330,13 +330,13 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 #' @description Function to the extact the Gene symbol from the input genes
 #' @param genes_arg genes_arg
 #' @export
-#' @return List of genes with gene symbols
+#' @return A character vector containing the list of genes with gene symbols
 #' @examples
 #' library(MAFDash)
 #' geneSelectParser()
 geneSelectParser <- function(genes_arg=NULL) {
 
-  genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = F)
+  genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = FALSE)
 
   if (! is.null(genes_arg)) {
     if (class(genes_arg)=="character") {
@@ -344,7 +344,7 @@ geneSelectParser <- function(genes_arg=NULL) {
         ## Then it's either a file name or a single gene
         if (file.exists(genes_arg)) {
           ### Need to parse file type and read accordingly; assuming tsv for now
-          gene_data <- read.table(genes_arg,sep="\t", header=T)
+          gene_data <- read.table(genes_arg,sep="\t", header=TRUE)
           if (sum(c("Hugo_Symbol","Reason") %in% colnames(gene_data)) != 2) {
             stop("Can't find Hugo Symbol or Reason in custom gene input.")
           }
@@ -353,7 +353,7 @@ geneSelectParser <- function(genes_arg=NULL) {
           stop(paste0("Can't find file: ",genes_arg))
         }
       } else {
-        genes_for_oncoplot <- data.frame(Hugo_Symbol=genes_arg,Reason="Selected Genes", stringsAsFactors = F)
+        genes_for_oncoplot <- data.frame(Hugo_Symbol=genes_arg,Reason="Selected Genes", stringsAsFactors = FALSE)
       }
     } else if (class(genes_arg)=="data.frame") {
       genes_for_oncoplot <- genes_arg
@@ -365,7 +365,7 @@ geneSelectParser <- function(genes_arg=NULL) {
     }
 
     genes_for_oncoplot <- genes_for_oncoplot[,c("Hugo_Symbol","Reason")]
-    genes_for_oncoplot <- data.frame(apply(genes_for_oncoplot,2,as.character), stringsAsFactors = F)
+    genes_for_oncoplot <- data.frame(apply(genes_for_oncoplot,2,as.character), stringsAsFactors = FALSE)
     # genes_for_oncoplot <- genes_for_oncoplot[genes_for_oncoplot$Hugo_Symbol %in% maf.filtered@gene.summary$Hugo_Symbol, ]
   }
 
@@ -393,14 +393,14 @@ make_column_annotation <- function(my_clin_dat, names_to_match, my_colors=NULL) 
   if ( is.na(tsb_idx) ) {
     warning("No Tumor Sample Barcode match found")
   } else {
-    anno_data <- as.data.frame(my_clin_dat, stringsAsFactors = F)
+    anno_data <- as.data.frame(my_clin_dat, stringsAsFactors = FALSE)
     # anno_data <- my_clin_dat
     # browser()
     colnames(my_clin_dat)[tsb_idx] <- "Tumor_Sample_Barcode"
     rownames(anno_data) <- anno_data$Tumor_Sample_Barcode
-    anno_data <- anno_data[,colnames(anno_data)!="Tumor_Sample_Barcode", drop=F]
+    anno_data <- anno_data[,colnames(anno_data)!="Tumor_Sample_Barcode", drop=FALSE]
 
-    anno_data <- anno_data[match(names_to_match,rownames(anno_data)),,drop=F]
+    anno_data <- anno_data[match(names_to_match,rownames(anno_data)),,drop=FALSE]
     anno_data <- anno_data[,unlist(lapply(anno_data,function(x){!all(is.na(x))}))]
 
     if (ncol(anno_data) > 0) {

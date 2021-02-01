@@ -22,7 +22,7 @@ normalization}
 \item{save_data_to_file}{The name and path of the output file}
 }
 \value{
-The ggplot object
+A ggplot object containing the burden plot
 }
 \description{
 This function generates burden plot

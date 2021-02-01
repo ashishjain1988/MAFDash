@@ -4,7 +4,7 @@
 \alias{generateVariantTable}
 \title{Make variant table from maf file}
 \usage{
-generateVariantTable(maf, use_syn = F, extra_cols = c())
+generateVariantTable(maf, use_syn = FALSE, extra_cols = c())
 }
 \arguments{
 \item{maf}{The MAF object}
@@ -14,7 +14,7 @@ generateVariantTable(maf, use_syn = F, extra_cols = c())
 \item{extra_cols}{Vector of column names to include from the MAF file.  If it's a named vector, the names will be used in the output table.}
 }
 \value{
-Data frame containing the variant information
+A data frame containing the variant information
 }
 \description{
 Make variant table from maf file

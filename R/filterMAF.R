@@ -1,5 +1,5 @@
 ## To Supress Note
-utils::globalVariables(c("%>%","."))
+utils::globalVariables(c("%>%",".","suppressWarnings"))
 
 #' Function to filter the mutations
 #' @description This function filter the mutations in the MAF format using thresholds on various features
@@ -7,7 +7,7 @@ utils::globalVariables(c("%>%","."))
 #' @param mafFilePath The path of the file containing the mutation
 #' information in the MAF format
 #' @param flag_genes The list of genes used as flag genes
-#' @param save_name The name of the filtered MAF object
+#' @param save_name The name and path of the output file to save filtered MAFs
 #' @param no_filter Flag to filter the MAF (Default no_filter=FALSE)
 #' @param norm_alt_max Alt norm max (Default norm_alt_max=1)
 #' @param t_alt_min Alt t min (Default t_alt_min=1)
@@ -21,7 +21,7 @@ utils::globalVariables(c("%>%","."))
 #' @param variant_caller variant_caller
 #'
 #' @export
-#' @return The filtered MAF object
+#' @return An object of class MAF with the filtered mutations
 #'
 #' @examples
 #' library(MAFDash)
@@ -80,7 +80,7 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
   } else if (flag_genes[1]=="default") {
     flag_genes <- c("TTN","MUC16","OBSCN","AHNAK2","SYNE1","FLG","MUC5B","DNAH17","PLEC","DST","SYNE2","NEB","HSPG2","LAMA5","AHNAK","HMCN1","USH2A","DNAH11","MACF1","MUC17","DNAH5","GPR98","FAT1","PKD1","MDN1","RNF213","RYR1","DNAH2","DNAH3","DNAH8","DNAH1","DNAH9","ABCA13","SRRM2","CUBN","SPTBN5","PKHD1","LRP2","FBN3","CDH23","DNAH10","FAT4","RYR3","PKHD1L1","FAT2","CSMD1","PCNT","COL6A3","FRAS1","FCGBP","RYR2","HYDIN","XIRP2","LAMA1")
   }
-  maf_df.raw <- read.table(mafFilePath, sep="\t", header=T, fill = T, quote="\"", stringsAsFactors = F)
+  maf_df.raw <- read.table(mafFilePath, sep="\t", header=TRUE, fill = TRUE, quote="\"", stringsAsFactors = FALSE)
   maf_df.raw <- maf_df.raw[maf_df.raw$Hugo_Symbol != "Hugo_Symbol",]
   filter_genes=!maf_df.raw$Hugo_Symbol %in% flag_genes
   maf_df.raw <- maf_df.raw[filter_genes,]
@@ -99,7 +99,8 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
   filter_pop_freq=rep(TRUE,nrow(maf_df.raw))
 
   if (!no_filter) {
-    options(warn=-1)
+    #options(warn=-1)
+    #suppressWarnings()
     filter_tumor_depth=as.numeric(maf_df.raw$t_depth) > t_depth_min
     if (!sum(is.na(maf_df.raw$norm_freq)) == nrow(maf_df.raw)){
       filter_norm_alt=maf_df.raw$norm_freq < norm_freq_max
@@ -146,10 +147,11 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
     if (! dir.exists(dirname(save_name))) {
       dir.create(dirname(save_name))
     }
-    write.table(maf_df.raw, sep="\t", quote=F, file = save_name, row.names = F)
+    write.table(maf_df.raw, sep="\t", quote=FALSE, file = save_name, row.names = FALSE)
     print(paste0("Saving filtered maf to ",save_name))
-    return(save_name)
-  } else {
-    return(maf_df.raw)
   }
+  # } else {
+  #   return(maf_df.raw)
+  # }
+  return(maf_df.raw)
 }

@@ -7,10 +7,10 @@
 generateOncoPlot(
   maf,
   cohort_freq_thresh = 0.01,
-  auto_adjust_cohort_freq = T,
+  auto_adjust_cohort_freq = TRUE,
   genes_to_plot = NULL,
-  include_all = F,
-  oncomat_only = F,
+  include_all = FALSE,
+  oncomat_only = FALSE,
   title_text = "",
   custom_column_order = NULL,
   add_clinical_annotations = F,
@@ -24,9 +24,11 @@ generateOncoPlot(
 
 \item{auto_adjust_cohort_freq}{Whether or not to automatically adjust the frequen}
 
-\item{genes_to_plot}{Character vector, data frame, or tab-delimited file name with genes to plot. Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally, a column named "Reason" for labeling the plot}
+\item{genes_to_plot}{Character vector, data frame, or tab-delimited file name with genes to plot.
+Data frame or file should contain a column named "Hugo_Symbol" with gene symbols, and optionally,
+a column named "Reason" for labeling the plot}
 
-\item{include_all}{Flag to include all the samples including the missing one (Default: False)}
+\item{include_all}{Flag to include all the samples including the missing one (Default: FALSE)}
 
 \item{oncomat_only}{Whether or not to return just the oncoplot matrix}
 
@@ -39,7 +41,7 @@ generateOncoPlot(
 \item{clin_data_colors}{Named list of colors for clinical annoations}
 }
 \value{
-A ComplexHeatmap object.  Or a character matrix if 'oncomat_only' is TRUE.
+A ComplexHeatmap object if 'oncomat_only' is FALSE or a character matrix if 'oncomat_only' is TRUE.
 }
 \description{
 This function created an HTML file containing the

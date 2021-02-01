@@ -3,7 +3,7 @@
 #' @author Mayank Tandon, Ashish Jain
 #' @param maf A MAF object
 #' @param onco_genes A list of genes to restrict the analysis.  Passed to maftools::somaticInteractions()
-#' @param save_name A filename to write to PDF
+#' @param save_name The name and path of the output PDF
 #' @param pval_high All interactions with less than this p-value will be shown
 #' @param pval_low Links with p-value less than this will be shown in a darker color
 #' @param plot_type 'ribbon' returns a customized chord diagram, 'matrix' returns the default somaticInteractions() plot
@@ -14,13 +14,13 @@
 #' @param sig_colors Vector of 4 colors for coloring significance
 #' @param gene_colors Color(s) for gene segments.  By default, they're colored randomly.
 #' @export
-#' @return If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
+#' @return No return value. If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
 #'
 #' @examples
 #' library(MAFDash)
 #' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#' #generateRibbonPlot(read.maf(maf))
+#' generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"ribbonPlot.pdf"))
 #'
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                   pval_high=0.1,  ## All interactions with less than this p-value will be shown
@@ -119,7 +119,7 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
   circos.par(canvas.xlim=c(-shrink_factor,shrink_factor),
              canvas.ylim=c(-shrink_factor,shrink_factor),
              start.degree = rotate_plot_degrees,
-             message=F)
+             message=FALSE)
   # circos.par$message = FALSE
   chordDiagram(chord_data[,1:4],grid.col = gene_colors,
                annotationTrack = c("grid",ifelse(plot_frac_mut_axis, "axis", "")),

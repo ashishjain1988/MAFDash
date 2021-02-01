@@ -10,14 +10,14 @@ getTCGAClinicalColors(ageRange = c(0, 100))
 \item{ageRange}{The range of patient's age to generate color vector from RColorBrewer}
 }
 \value{
-List containing the TCGA clinical annotations
+A list containing the TCGA clinical annotations
 }
 \description{
 This will return a list of colors that can be used with TCGA clinical annotations
 }
 \examples{
 library(MAFDash)
-#colorList <- getTCGAClinicalColors()
+colorList <- getTCGAClinicalColors()
 }
 \author{
 Mayank Tandon, Ashish Jain

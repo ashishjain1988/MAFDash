@@ -13,15 +13,15 @@
 #' @param savewidth Width of plot
 #' @param saveheight Height of plot
 #' @export
-#' @return NULL
+#' @return No return value, the plot is saved as a pdf
 #'
 #' @examples
+#'
 #' library(MAFDash)
 #' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#' #generateOverlapPlot(read.maf(maf))
-#'
-generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
+#' \donttest{generateOverlapPlot(read.maf(maf))}
+generateOverlapPlot<-function(mymaf, use_silent_mutations=FALSE,
                             summarize_by="gene",
                             plotType=c("ribbon","heatmap"),
                             savename=NULL,
@@ -86,7 +86,7 @@ generateOverlapPlot<-function(mymaf, use_silent_mutations=F,
   if (!is.null(savename)) {pdf(savename, width=savewidth, height=saveheight)}
   if ("heatmap" %in% plotType) {
     #library(pheatmap)
-    pheatmap::pheatmap(hm_data,cluster_rows = T, cluster_cols = T,
+    pheatmap::pheatmap(hm_data,cluster_rows = TRUE, cluster_cols = TRUE,
              clustering_method = "complete",
              # annotation_colors = hm_anno_colors,
              # annotation_col = hm_anno_data,annotation_row = hm_anno_data,

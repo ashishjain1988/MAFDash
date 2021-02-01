@@ -9,7 +9,7 @@ getMAFDashboard(
   plotList = NULL,
   outputFileName = "dashboard.html",
   outputFileTitle = "MAF Dash",
-  outputFilePath = "."
+  outputFilePath = tempdir()
 )
 }
 \arguments{
@@ -32,7 +32,7 @@ file}
 \item{outputFilePath}{The path of the output html dashboard}
 }
 \value{
-The dashboard html file
+No return value, the MAF dashboard html file is created in the given output folder
 }
 \description{
 This function creates an HTML file containing the
@@ -41,7 +41,7 @@ different figures and plots explaining the MAF dataset.
 \examples{
 library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#t <- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")
+\donttest{getMAFDashboard(MAFfilePath = maf,outputFilePath=tempdir())}
 }
 \author{
 Mayank Tondon, Ashish Jain

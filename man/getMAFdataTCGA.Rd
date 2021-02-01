@@ -19,7 +19,7 @@ information in the MAF format}
 \item{variant_caller}{The type of variant caller in TCGA}
 }
 \value{
-A list containing path of mutation annotation file
+A string containing the path of the downloaded mutation annotation file
 }
 \description{
 This function download and extract the mutation
@@ -28,8 +28,8 @@ This function download and extract the mutation
 \examples{
 library(MAFDash)
 cancerCode <- "ACC"
-outputFolderPath <- "."
-#maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+outputFolderPath <- tempdir()
+\donttest{maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)}
 }
 \author{
 Mayank Tandon, Ashish Jain

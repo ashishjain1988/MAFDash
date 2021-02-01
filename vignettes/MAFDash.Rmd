@@ -70,7 +70,7 @@ This package is a companion to the Shiny app, [MAFWiz](https://github.com/mtando
 ```{r eval=FALSE}
 library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-getMAFDashboard(maf, outputFileName="output", outputFileTitle=paste0("MAF Dashboard - TCGA-",CancerCode),outputFilePath = ".", )
+getMAFDashboard(maf, outputFileName="output", outputFileTitle=paste0("MAF Dashboard - TCGA-",CancerCode),outputFilePath = tempdir(), )
 ```
 ## Example
 Here are some example dashboards created using TCGA data:
@@ -84,7 +84,7 @@ MAFDash also provides a wrapper function `getMAFdataTCGA` around the `TCGABiolin
 library("MAFDash")
 # Download MAF data from TCGA
 CancerCode <- "ACC"
-inputFolderPath <- "tcga_data" ## This folder will be created if it doesn't exist 
+inputFolderPath <- paste0(tempdir(),"/tcga_data") ## This folder will be created if it doesn't exist 
 maf <- getMAFdataTCGA(cancerCode = CancerCode, outputFolder = inputFolderPath)
 ```
 

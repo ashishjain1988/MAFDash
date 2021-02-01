@@ -1,5 +1,5 @@
 ## To Supress Note
-utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
+utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns","tempdir"))
 
 #' Function to extract the mutation data in MAF format from TCGA
 #' @description This function download and extract the mutation
@@ -10,13 +10,13 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns"))
 #' information in the MAF format
 #' @param variant_caller The type of variant caller in TCGA
 #' @export
-#' @return A list containing path of mutation annotation file
+#' @return A string containing the path of the downloaded mutation annotation file
 #'
 #' @examples
 #' library(MAFDash)
 #' cancerCode <- "ACC"
-#' outputFolderPath <- "."
-#' #maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+#' outputFolderPath <- tempdir()
+#' \donttest{maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)}
 #' @importFrom TCGAbiolinks GDCquery_Maf
 #' @importFrom ensurer ensure_that
 #' @importFrom dplyr mutate group_by
@@ -34,12 +34,12 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
   tcga_maf_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".",variant_caller,".maf"))
 
   if (!file.exists(tcga_maf_file)) {
-    if(!dir.exists(outputFolder)) {dir.create(outputFolder, recursive = T)}
+    if(!dir.exists(outputFolder)) {dir.create(outputFolder, recursive = TRUE)}
     tcga_maf <- TCGAbiolinks::GDCquery_Maf(gsub("TCGA-","",cancerCode),pipelines = variant_caller,directory = outputFolder)
     tcga_maf$Tumor_Sample_Barcode_original <- tcga_maf$Tumor_Sample_Barcode
     tcga_maf$Tumor_Sample_Barcode <-unlist(lapply(strsplit(tcga_maf$Tumor_Sample_Barcode, "-"), function(x) {paste0(x[1:3], collapse="-")}))
     tcga_maf$caller <- variant_caller
-    write.table(tcga_maf, file=tcga_maf_file, quote=F, sep="\t", row.names = F, col.names = T)
+    write.table(tcga_maf, file=tcga_maf_file, quote=FALSE, sep="\t", row.names = FALSE, col.names = TRUE)
   }
   # tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
   # if (! file.exists(tcga_clinical_file)) {
@@ -66,7 +66,7 @@ getMAFdataTCGA<-function(cancerCode="ACC",outputFolder=file.path("data"),variant
 #' annotations from TCGA
 #' @param plotdata Flag to plot the annotations
 #' @export
-#' @return List containing the TCGA clinical annotations
+#' @return A list containing the TCGA clinical annotations
 #'
 #' @examples
 #' library(MAFDash)
@@ -85,11 +85,11 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
 
   tcga_clinical_file=file.path(outputFolder,paste0("TCGA_",cancerCode,".clinical.txt"))
   if (! file.exists(tcga_clinical_file)) {
-    if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = T)}
+    if (!dir.exists(dirname(tcga_clinical_file))) {dir.create(dirname(tcga_clinical_file), recursive = TRUE)}
     tcga_clinical <- TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",cancerCode), type = "clinical")
-    write.table(tcga_clinical, file=tcga_clinical_file, quote=T, sep="\t", row.names = F, col.names = T)
+    write.table(tcga_clinical, file=tcga_clinical_file, quote=TRUE, sep="\t", row.names = FALSE, col.names = TRUE)
   }
-  tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = T,stringsAsFactors = F)
+  tcga_clin_data <- read.table(tcga_clinical_file, sep="\t",header = TRUE,stringsAsFactors = FALSE)
   tcga_clin_data$Tumor_Sample_Barcode <- tcga_clin_data$bcr_patient_barcode
   #tcga_clin_data <- tcga_maf_obj@clinical.data
   tcga_pheno_columns <- c("Tumor_Sample_Barcode","ajcc_pathologic_stage","age_at_diagnosis","gender","race","vital_status","tissue_or_organ_of_origin")
@@ -107,7 +107,7 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
   stage_colors <- setNames(brewer.pal(n = length(stages), name = "Reds"), stages)
 
   anno_data$age_at_diagnosis <- as.numeric(as.character(anno_data$age_at_diagnosis))
-  age_range=round(range(anno_data$age_at_diagnosis, na.rm = T),-1)
+  age_range=round(range(anno_data$age_at_diagnosis, na.rm = TRUE),-1)
   age_color_length=10
   age_breaks=round(seq(age_range[1], age_range[2], length.out=age_color_length),0)
   age_color_vals=colorRampPalette(c("lightblue1","royalblue1","navy"))(age_color_length)
@@ -145,11 +145,11 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
 #' @author Mayank Tandon, Ashish Jain
 #' @param ageRange The range of patient's age to generate color vector from RColorBrewer
 #' @export
-#' @return List containing the TCGA clinical annotations
+#' @return A list containing the TCGA clinical annotations
 #'
 #' @examples
 #' library(MAFDash)
-#' #colorList <- getTCGAClinicalColors()
+#' colorList <- getTCGAClinicalColors()
 getTCGAClinicalColors <- function(ageRange=c(0,100)) {
   #require(RColorBrewer)
   #suppressPackageStartupMessages(require(circlize))

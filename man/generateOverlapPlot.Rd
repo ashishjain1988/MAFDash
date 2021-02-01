@@ -6,7 +6,7 @@
 \usage{
 generateOverlapPlot(
   mymaf,
-  use_silent_mutations = F,
+  use_silent_mutations = FALSE,
   summarize_by = "gene",
   plotType = c("ribbon", "heatmap"),
   savename = NULL,
@@ -32,16 +32,19 @@ or "heatmap" or both)}
 
 \item{saveheight}{Height of plot}
 }
+\value{
+No return value, the plot is saved as a pdf
+}
 \description{
 This function generates an overlap plot
 using the MAF data.
 }
 \examples{
+
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#generateOverlapPlot(read.maf(maf))
-
+\donttest{generateOverlapPlot(read.maf(maf))}
 }
 \author{
 Mayank Tondon, Ashish Jain

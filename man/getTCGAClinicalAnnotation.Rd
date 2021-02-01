@@ -19,7 +19,7 @@ annotations from TCGA}
 \item{plotdata}{Flag to plot the annotations}
 }
 \value{
-List containing the TCGA clinical annotations
+A list containing the TCGA clinical annotations
 }
 \description{
 This function download and extract the clinical
