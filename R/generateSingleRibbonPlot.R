@@ -20,7 +20,7 @@
 #' library(MAFDash)
 #' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#' generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"ribbonPlot.pdf"))
+#' \donttest{generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"/ribbonPlot.pdf"))}
 #'
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                   pval_high=0.1,  ## All interactions with less than this p-value will be shown

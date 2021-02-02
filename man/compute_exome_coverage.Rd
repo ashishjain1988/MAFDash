@@ -19,5 +19,6 @@ This function will take a bed file, and return the sum of the lengths of unique 
 }
 \examples{
 library(MAFDash)
-#coverage<-computeExomeCoverage("/path/to/bed/file")
+bedFile <- system.file("extdata", "test.bed", package = "MAFDash")
+coverage<-compute_exome_coverage(bedFile)
 }

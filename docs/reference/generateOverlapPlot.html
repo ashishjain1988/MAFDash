@@ -142,7 +142,7 @@ using the MAF data.</p>
 
     <pre class="usage"><span class='fu'>generateOverlapPlot</span><span class='op'>(</span>
   <span class='va'>mymaf</span>,
-  use_silent_mutations <span class='op'>=</span> <span class='cn'>F</span>,
+  use_silent_mutations <span class='op'>=</span> <span class='cn'>FALSE</span>,
   summarize_by <span class='op'>=</span> <span class='st'>"gene"</span>,
   plotType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ribbon"</span>, <span class='st'>"heatmap"</span><span class='op'>)</span>,
   savename <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -186,17 +186,29 @@ or "heatmap" or both)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>No return value, the plot is saved as a pdf</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Mayank Tondon, Ashish Jain</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ashishjain1988/MAFDash/'>MAFDash</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ashishjain1988/MAFDash/'>MAFDash</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/PoisonAlien/maftools'>maftools</a></span><span class='op'>)</span>
 <span class='va'>maf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"test.mutect2.maf.gz"</span>, package <span class='op'>=</span> <span class='st'>"MAFDash"</span><span class='op'>)</span>
-<span class='co'>#generateOverlapPlot(read.maf(maf))</span>
-
-</div></pre>
+<span class='fu'>generateOverlapPlot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/maftools/man/read.maf.html'>read.maf</a></span><span class='op'>(</span><span class='va'>maf</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; -Reading
+#&gt; -Validating
+#&gt; -Silent variants: 561 
+#&gt; -Summarizing
+#&gt; --Possible FLAGS among top ten genes:
+#&gt;   MACF1
+#&gt;   MUC16
+#&gt; -Processing clinical data
+#&gt; --Missing clinical data
+#&gt; -Finished in 0.258s elapsed (0.236s cpu) </div><div class='img'><img src='generateOverlapPlot-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='generateOverlapPlot-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -292,7 +292,7 @@ generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
 #' @examples
 #' library(MAFDash)
 #' bedFile <- system.file("extdata", "test.bed", package = "MAFDash")
-#' coverage<-computeExomeCoverage(bedFile)
+#' coverage<-compute_exome_coverage(bedFile)
 compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
   ##### This function will read the target regions BED file and
   #####  compute the sum of the lengths of the regions

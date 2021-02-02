@@ -145,7 +145,7 @@ different figures and plots explaining the MAF dataset.</p>
   plotList <span class='op'>=</span> <span class='cn'>NULL</span>,
   outputFileName <span class='op'>=</span> <span class='st'>"dashboard.html"</span>,
   outputFileTitle <span class='op'>=</span> <span class='st'>"MAF Dash"</span>,
-  outputFilePath <span class='op'>=</span> <span class='st'>"."</span>
+  outputFilePath <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -183,7 +183,7 @@ file</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The dashboard html file</p>
+    <p>No return value, the MAF dashboard html file is created in the given output folder</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Mayank Tondon, Ashish Jain</p>
@@ -191,8 +191,125 @@ file</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ashishjain1988/MAFDash/'>MAFDash</a></span><span class='op'>)</span>
 <span class='va'>maf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"test.mutect2.maf.gz"</span>, package <span class='op'>=</span> <span class='st'>"MAFDash"</span><span class='op'>)</span>
-<span class='co'>#t &lt;- getMAFDashboard(MAFfilePath = maf,outputFilePath="~")</span>
-</div></pre>
+<span class='fu'>getMAFDashboard</span><span class='op'>(</span>MAFfilePath <span class='op'>=</span> <span class='va'>maf</span>,outputFilePath<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>processing file: MAFDash.Rmd</span></div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |......                                                                |   9%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |.............                                                         |  18%
+#&gt; label: setup (with options) 
+#&gt; List of 1
+#&gt;  $ include: logi FALSE
+#&gt; 
+#&gt;   |                                                                              |...................                                                   |  27%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |.........................                                             |  36%
+#&gt; label: read-MAF-file (with options) 
+#&gt; List of 1
+#&gt;  $ results: chr "hide"
+#&gt; 
+#&gt;   |                                                                              |................................                                      |  45%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |......................................                                |  55%
+#&gt; label: make-summary-table
+#&gt;   |                                                                              |.............................................                         |  64%
+#&gt;    inline R code fragments
+#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |...................................                                   |  50%
+#&gt;    inline R code fragments
+#&gt; 
+#&gt;   |                                                                              |......................................................................| 100%
+#&gt; label: make-summary-table  (with options) 
+#&gt; List of 1
+#&gt;  $ output: logi FALSE
+#&gt; 
+#&gt; 
+#&gt;   |                                                                              |...................................................                   |  73%
+#&gt; label: make-plot-tabs
+#&gt;   |                                                                              |.........................................................             |  82%
+#&gt;    inline R code fragments
+#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |.......                                                               |  10%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |..............                                                        |  20%
+#&gt; label: make-summary-maftools (with options) 
+#&gt; List of 2
+#&gt;  $ fig.width : num 12
+#&gt;  $ fig.height: num 8
+#&gt; </div><div class='output co'>#&gt;   |                                                                              |.....................                                                 |  30%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |............................                                          |  40%
+#&gt; label: make-burden-plot-dot
+#&gt;   |                                                                              |...................................                                   |  50%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |..........................................                            |  60%
+#&gt; label: make-oncoplot (with options) 
+#&gt; List of 2
+#&gt;  $ fig.width : num 12
+#&gt;  $ fig.height: num 6
+#&gt; </div><div class='output co'>#&gt; <span class='message'>All mutation types: Missense Mutation, Frame Shift Del, Nonsense</span>
+#&gt; <span class='message'>Mutation, Splice Site, Multi Hit, In Frame Del, Frame Shift Ins.</span></div><div class='output co'>#&gt; <span class='message'>`alter_fun` is assumed vectorizable. If it does not generate correct</span>
+#&gt; <span class='message'>plot, please set `alter_fun_is_vectorized = FALSE` in `oncoPrint()`.</span></div><div class='output co'>#&gt;   |                                                                              |.................................................                     |  70%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |........................................................              |  80%
+#&gt; label: somatic-interactions (with options) 
+#&gt; List of 3
+#&gt;  $ fig.width : num 12
+#&gt;  $ fig.height: num 6
+#&gt;  $ output    : logi FALSE
+#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: display list redraw incomplete</span></div><div class='output co'>#&gt;   |                                                                              |...............................................................       |  90%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |......................................................................| 100%
+#&gt; label: make-interactive-heatmap (with options) 
+#&gt; List of 2
+#&gt;  $ fig.width : num 12
+#&gt;  $ fig.height: num 8
+#&gt; 
+#&gt; 
+#&gt;   |                                                                              |................................................................      |  91%
+#&gt; label: make-variant-table
+#&gt;   |                                                                              |......................................................................| 100%
+#&gt;    inline R code fragments
+#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |........                                                              |  11%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |................                                                      |  22%
+#&gt; label: make-data-table (with options) 
+#&gt; List of 1
+#&gt;  $ results: chr "hide"
+#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: Not outputting these columns: gnomAD_AF, AF</span></div><div class='output co'>#&gt;   |                                                                              |.......................                                               |  33%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |...............................                                       |  44%
+#&gt; label: set-up-variant-filters
+#&gt;   |                                                                              |.......................................                               |  56%
+#&gt;    inline R code fragments
+#&gt; 
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |......................................................................| 100%
+#&gt; label: unnamed-chunk-2
+#&gt; 
+#&gt;   |                                                                              |...............................................                       |  67%
+#&gt; label: unnamed-chunk-1
+#&gt;   |                                                                              |......................................................                |  78%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt;   |                                                                              |..............................................................        |  89%
+#&gt; label: render-full-table
+#&gt;   |                                                                              |......................................................................| 100%
+#&gt;   ordinary text without R code
+#&gt; 
+#&gt; 
+#&gt; </div><div class='output co'>#&gt; <span class='message'>output file: /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpbuomKm/file1011fa024a2f/MAFDash.knit.md</span></div><div class='output co'>#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpbuomKm/file1011fa024a2f/MAFDash.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpbuomKm/dashboard.html --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/latex-div.lua --email-obfuscation none --self-contained --standalone --section-divs --template /Users/jaina13/Library/R/4.0/library/flexdashboard/rmarkdown/templates/flex_dashboard/resources/default.html --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/rmarkdown-str1011f1c5458cb.html --variable 'theme:yeti' --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/rmarkdown-str1011f229b37ec.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/file1011f7c7478b3html --include-before-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/file1011f5d184d6.html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/file1011f7e680095.html --highlight-style pygments --include-before-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/file1011f42a06f9a.html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpbuomKm/file1011f32ff09a2.html </div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Output created: /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpbuomKm/dashboard.html</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
