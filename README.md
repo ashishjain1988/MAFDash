@@ -12,7 +12,7 @@ MAFDash
 
 ### Installation from CRAN
 ```
-install.packages(MAFDash)
+install.packages("MAFDash")
 ```
 
 ### Installation from Github
