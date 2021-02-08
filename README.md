@@ -10,6 +10,11 @@ MAFDash
 
 **An easy-to-use dashboard builder for mutation data**
 
+### Installation from CRAN
+```
+install.packages(MAFDash)
+```
+
 ### Installation from Github
 ```
 # install.packages(devtools)  ## Install devtools if necessary
