@@ -96,7 +96,8 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
 
   ### Make matrix to plot, and order it correctly
   oncomat <- createOncoMatrix(maf, g=genes_for_oncoplot$Hugo_Symbol, add_missing = include_all)$oncoMatrix
-  oncomat <- oncomat[match(genes_for_oncoplot$Hugo_Symbol,rownames(oncomat)), ]
+  ##AJ Update: drop=FALSE for #samples=1
+  oncomat <- oncomat[match(genes_for_oncoplot$Hugo_Symbol,rownames(oncomat)), ,drop=FALSE]
   onco_genes <- rownames(oncomat)
 
   if (include_all) {
@@ -116,7 +117,8 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   # browser()
   col_order_idx <- match(custom_column_order, colnames(oncomat), nomatch=0)
   col_order_idx <- col_order_idx[col_order_idx>0]
-  oncomat.plot <- oncomat[,col_order_idx]
+  ##AJ Update: drop=FALSE for #samples=1
+  oncomat.plot <- oncomat[,col_order_idx,drop=FALSE]
   # oncomat.plot <- oncomat
 
 
@@ -177,6 +179,7 @@ generateOncoPlot<-function(maf, cohort_freq_thresh = 0.01, auto_adjust_cohort_fr
   left_ha = ComplexHeatmap::rowAnnotation("Cohort Pct"=ComplexHeatmap::anno_text(pct_anno,gp = grid::gpar(cex=0.7)), show_annotation_name=FALSE)
   # print(oncomat.plot)
   ### Make the oncoplot
+  ##TODO: Where oncoplot_annotation_func is coming or defined?
   onco_plot <- ComplexHeatmap::oncoPrint(oncomat.plot, alter_fun = oncoplot_annotation_func(),
                          col=mutation_colors,
                          row_order=1:nrow(oncomat.plot),
