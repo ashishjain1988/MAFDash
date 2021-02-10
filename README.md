@@ -1,6 +1,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashishjain1988/MAFDash)
-![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
+<!--![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)-->
 
 
 MAFDash
@@ -9,6 +9,11 @@ MAFDash
 
 
 **An easy-to-use dashboard builder for mutation data**
+
+### Installation from CRAN
+```
+install.packages("MAFDash")
+```
 
 ### Installation from Github
 ```
