@@ -41,6 +41,7 @@ Imports:
     IRanges (>= 2.20.0),
     pheatmap (>= 1.0.0)
 URL: https://github.com/ashishjain1988/MAFDash/
+BugReports: https://github.com/ashishjain1988/MAFDash/issues
 Suggests: jsonlite
 Encoding: UTF-8
 LazyData: true
