@@ -22,3 +22,6 @@ library(MAFDash)
 bedFile <- system.file("extdata", "test.bed", package = "MAFDash")
 coverage<-compute_exome_coverage(bedFile)
 }
+\author{
+Mayank Tandon, Ashish Jain
+}

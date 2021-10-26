@@ -22,3 +22,6 @@ maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 detectMAFGenome(read.maf(maf))
 
 }
+\author{
+Mayank Tandon, Ashish Jain
+}

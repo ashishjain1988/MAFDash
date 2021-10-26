@@ -5,7 +5,7 @@
 \title{Function to generate a dashboard from a MAF file.}
 \usage{
 getMAFDashboard(
-  MAFfilePath = NULL,
+  maf = NULL,
   plotList = NULL,
   outputFileName = "dashboard.html",
   outputFileTitle = "MAF Dash",
@@ -13,7 +13,7 @@ getMAFDashboard(
 )
 }
 \arguments{
-\item{MAFfilePath}{The path of the file containing the mutation
+\item{maf}{MAF object or MAF file path
 information in the MAF format}
 
 \item{plotList}{A named list denoting which plots to draw.
@@ -41,8 +41,8 @@ different figures and plots explaining the MAF dataset.
 \examples{
 library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-\donttest{getMAFDashboard(MAFfilePath = maf,outputFilePath=tempdir())}
+\donttest{getMAFDashboard(maf = maf,outputFilePath=tempdir())}
 }
 \author{
-Mayank Tondon, Ashish Jain
+Mayank Tandon, Ashish Jain
 }
