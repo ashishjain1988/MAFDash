@@ -4,7 +4,7 @@ utils::globalVariables(c(".", "Variant_Classification", "n",
 #' Function to generate silent and non-silent mutation plot
 #' @description This function generates silent and non-silent
 #' mutation plot using the MAF data.
-#' @author Mayank Tondon, Ashish Jain
+#' @author Mayank Tandon, Ashish Jain
 #' @param mymaf The MAF object
 #' @param savename The name and path of the output file
 #' @param returndata Flag to output the plot data (By Default
