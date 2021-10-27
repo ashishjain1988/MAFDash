@@ -10,7 +10,7 @@ generateRibbonPlot(
   save_name = NULL,
   pval_high = 0.1,
   pval_low = 0.05,
-  plot_type = "ribbon",
+  plot_type = "matrix",
   plot_frac_mut_axis = TRUE,
   rotate_plot_degrees = 0,
   shrink_factor = 1.3,

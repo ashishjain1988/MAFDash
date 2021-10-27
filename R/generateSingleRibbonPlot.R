@@ -25,7 +25,7 @@
 generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                   pval_high=0.1,  ## All interactions with less than this p-value will be shown
                                   pval_low=0.05,  ## Links with p-value less than this will be highlighted with a dashed border
-                                  plot_type="ribbon",  ## 'ribbon' returns a customized chord diagram, 'matrix' returns maftools's somaticInteractions() plot
+                                  plot_type="matrix",  ## 'ribbon' returns a customized chord diagram, 'matrix' returns maftools's somaticInteractions() plot
                                   plot_frac_mut_axis=TRUE,  ## Whether or not to draw a numerical axis on the perimeter
                                   rotate_plot_degrees=0,   ## For custom rotation
                                   shrink_factor=1.3, # Higher = more shrinkage; use to control whitespace (or lack thereof) around figure
