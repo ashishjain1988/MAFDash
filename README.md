@@ -1,10 +1,9 @@
 [![Build Status](https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master)](https://travis-ci.com/ashishjain1988/MAFDash)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashishjain1988/MAFDash)
-![Downloads](https://cranlogs.r-pkg.org/badges/MAFDash)
-![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MAFDash)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
 <!--![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)-->
-
+<!-- ![Downloads](https://cranlogs.r-pkg.org/badges/MAFDash)
+![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MAFDash) -->
 
 MAFDash
 ------------------------------------------------------------
