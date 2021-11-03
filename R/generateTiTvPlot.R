@@ -1,16 +1,18 @@
-#' Function to generate the frequency of Transitions and Transversions of gene mutations
-#' @description This function generate the frequency of Transitions and Transversions of gene mutations
+## To Supress Note
+utils::globalVariables(c("value","variable","V1"))
+
+#' Function to plot the frequency of Transitions and Transversions of gene mutations
+#' @description This function plot the frequency of Transitions and Transversions of gene mutations
 #' @author Mayank Tandon, Ashish Jain
 #' @param maf A MAF object
 #' @param use_silent_mutations Include synonymous variants in analysis. Defaults to FALSE.
-#' @param plotType Can be 'bar', 'box' or 'both'. Defaults to 'both'
+#' @param sampleOrder Sample names in which the barplot should be ordered. Default NULL
 #' @param color named vector of colors for each coversion class.
 #' @param showBarcodes Whether to include sample names for barplot
-#' @param sampleOrder Sample names in which the barplot should be ordered. Default NULL
 #' @param textSize fontsize if showBarcodes is TRUE. Deafult 2.
 #' @param baseFontSize font size. Deafult 1.
 #' @param axisTextSize text size x and y tick labels. Default c(1,1).
-#' @param plotNotch logical. Include notch in boxplot.
+#' @param save_name The name and path of the output file
 #' @export
 #' @return No return value. If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
 #'
@@ -18,19 +20,20 @@
 #' library(MAFDash)
 #' library(maftools)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
+#' plots<-generateTiTvPlot(read.maf(maf))
 #'
-generateTiTvPlot<-function(maf,use_silent_mutations = FALSE,plotType = 'both', sampleOrder = NULL,
+generateTiTvPlot<-function(maf,use_silent_mutations = FALSE, sampleOrder = NULL,
                            color = NULL, showBarcodes = FALSE, textSize = 0.8, baseFontSize = 1,
-                           axisTextSize = c(1, 1), plotNotch = FALSE,save_name=NULL){
+                           axisTextSize = c(1, 1),save_name=NULL){
 
   maf <- ensurer::ensure_that(maf,!is.null(.) && (class(.) == "MAF"),
                               err_desc = "Please enter correct MAF object")
   use_silent_mutations <- ensurer::ensure_that(use_silent_mutations,
                                                !is.null(.) && (class(.) == "logical"),
                                                err_desc = "Please enter the use_silent_mutations flag in correct format.")
-  plotType <- ensurer::ensure_that(plotType,
-                                   !is.null(.) && (class(.) == "character") && ((.) %in% c("bar","box","both")),
-                                   err_desc = "Please enter plotType in correct format.")
+  # plotType <- ensurer::ensure_that(plotType,
+  #                                  !is.null(.) && (class(.) == "character") && ((.) %in% c("bar","box","both")),
+  #                                  err_desc = "Please enter plotType in correct format.")
 
   tiTvResults <- maftools::titv(maf,useSyn=use_silent_mutations,plot = FALSE)
 
@@ -57,10 +60,10 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE,plotType = 'both', s
   orderlvl = as.character(titv.order$variable)
   titv.frac.melt$variable = factor(x = titv.frac.melt$variable, levels = rev(orderlvl))
 
-  tf = tiTvResults$TiTv.fractions
-  data.table::setDF(x = tf)
-  rownames(tf) = tf$Tumor_Sample_Barcode
-  tf = tf[,-1]
+  # tf = tiTvResults$TiTv.fractions
+  # data.table::setDF(x = tf)
+  # rownames(tf) = tf$Tumor_Sample_Barcode
+  # tf = tf[,-1]
 
   # if(plotType == 'bar'){
 
@@ -71,9 +74,12 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE,plotType = 'both', s
     ggplot2::scale_y_continuous(expand = c(0, 0),limits = c(0,100.2)) +
     ggplot2::xlab("") + ggplot2::ylab("% of Mutations") +
     ggplot2::guides(fill = guide_legend(title = "TiTv")) +
-    ggplot2::theme_classic(base_size = 10)+
-    ggplot2::theme(axis.text.x = element_blank())
+    ggplot2::theme_classic(base_size = 10)
 
+  if(!showBarcodes)
+  {
+    barplot <- barplot + ggplot2::theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
+  }
   # } else if(plotType == 'box'){
 
   titv.frac.melt$variable = factor(x = titv.frac.melt$variable, levels = orderlvl)
