@@ -68,7 +68,7 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE,plotType = 'both', s
   barplot <- ggplot2::ggplot(titv.frac.melt,aes(x=Tumor_Sample_Barcode,y=value, fill=variable)) +
     ggplot2::geom_bar(stat="identity") +
     ggplot2::scale_fill_manual(values=col) +
-    ggplot2::ylim(0,100.2) +
+    ggplot2::scale_y_continuous(expand = c(0, 0),limits = c(0,100.2)) +
     ggplot2::xlab("") + ggplot2::ylab("% of Mutations") +
     ggplot2::guides(fill = guide_legend(title = "TiTv")) +
     ggplot2::theme_classic(base_size = 10)+
@@ -83,8 +83,9 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE,plotType = 'both', s
     #ggplot2::theme(text=element_text(face = "bold"),axis.text = element_text(size = 20,colour = "black"),axis.title = element_text(size = 20,face = "bold"),legend.background = element_rect(colour = "black")) +
     ggplot2::geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=1, notch=FALSE)+
     scale_fill_manual(values=col) +
+    #ggplot2::guides(fill = guide_legend(title = "TiTv")) +
     #ggplot2::geom_point(size=1.5)+
-    #ggplot2::guides(size="none") +
+    ggplot2::guides(fill="none") +
     ggplot2::labs(x="", y = "% of Mutations")
   #ggplot2::geom_hline(yintercept=-1, linetype="dashed", color = "red") +
   #theme(plot.margin = unit(c(0.5,1,0.5,0.5), "cm"))
