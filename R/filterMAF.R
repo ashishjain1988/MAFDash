@@ -14,11 +14,12 @@ utils::globalVariables(c("%>%",".","suppressWarnings"))
 #' @param t_depth_min Depth t min (Default t_depth_min=20)
 #' @param tumor_freq_min Tumor Frequency Minimum (Default tumor_freq_min=0.05)
 #' @param norm_freq_max norm_freq_max (Default norm_freq_max=0.02)
-#' @param gnomAD_AF_max gnomAD_AF_max (Default gnomAD_AF_max=0.001)
-#' @param AF_max AF_max (Default AF_max=0.001)
-#' @param ExAC_AF_max ExAC_AF_max (Default ExAC_AF_max=0.01)
-#' @param n_callers n_callers (Default n_callers=2)
-#' @param variant_caller variant_caller
+#' @param gnomAD_AF_max Maximum allele frequency in gnomAD database  (Default gnomAD_AF_max=0.001)
+#' @param AF_max Maximum allele frequency in 1000 genome database (Default AF_max=0.001)
+#' @param ExAC_AF_max Maximum allele frequency in ExAC database (Default ExAC_AF_max=0.01)
+#' @param n_callers Minimum number of callers identified mutation. (Default n_callers=2)
+#' @param variant_caller Name of variant caller to be used or "consensus"
+#' to apply filter based on `n_callers` (Default variant_caller=NULL)
 #'
 #' @export
 #' @return An object of class MAF with the filtered mutations
