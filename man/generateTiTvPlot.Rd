@@ -10,9 +10,9 @@ generateTiTvPlot(
   sampleOrder = NULL,
   color = NULL,
   showBarcodes = FALSE,
-  textSize = 0.8,
-  baseFontSize = 1,
-  axisTextSize = c(1, 1),
+  textSize = 15,
+  baseFontSize = 15,
+  axisTextSize = 10,
   save_name = NULL
 )
 }
@@ -21,22 +21,22 @@ generateTiTvPlot(
 
 \item{use_silent_mutations}{Include synonymous variants in analysis. Defaults to FALSE.}
 
-\item{sampleOrder}{Sample names in which the barplot should be ordered. Default NULL}
+\item{sampleOrder}{Sample names in which the barplot should be ordered. Default NULL.}
 
 \item{color}{named vector of colors for each coversion class.}
 
-\item{showBarcodes}{Whether to include sample names for barplot}
+\item{showBarcodes}{Whether to include sample names for barplot.}
 
-\item{textSize}{fontsize if showBarcodes is TRUE. Deafult 2.}
+\item{textSize}{fontsize if showBarcodes is TRUE. Default 15 (in pts).}
 
-\item{baseFontSize}{font size. Deafult 1.}
+\item{baseFontSize}{font size of axis title. Default 15 (in pts).}
 
-\item{axisTextSize}{text size x and y tick labels. Default c(1,1).}
+\item{axisTextSize}{text size x and y tick labels. Default 10 (in pts).}
 
-\item{save_name}{The name and path of the output file}
+\item{save_name}{The name and path of the output file. Default NULL.}
 }
 \value{
-No return value. If 'save_name' is not provided, then the plot is printed to the current graphics device, otherwise a PDF is created at the given path.
+List of objects consisting of different TiTv plots. If 'save_name' is provided, a PDF is created at the given path.
 }
 \description{
 This function plot the frequency of Transitions and Transversions of gene mutations
