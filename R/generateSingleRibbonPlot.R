@@ -79,6 +79,7 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
     return(invisible())
   }
   # browser()
+
   if(!is.null(som_int))
   {
     cooccur_data <- som_int
