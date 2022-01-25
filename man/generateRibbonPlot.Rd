@@ -54,7 +54,7 @@ This function provides an alternate visualization for maftools::somaticInteracti
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-\donttest{generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"/ribbonPlot.pdf"))}
+generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"/ribbonPlot.pdf"))
 
 }
 \author{
