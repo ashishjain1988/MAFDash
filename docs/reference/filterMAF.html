@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ashishjain1988/MAFDash/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -197,23 +197,24 @@ information in the MAF format</p></td>
     </tr>
     <tr>
       <th>gnomAD_AF_max</th>
-      <td><p>gnomAD_AF_max (Default gnomAD_AF_max=0.001)</p></td>
+      <td><p>Maximum allele frequency in gnomAD database  (Default gnomAD_AF_max=0.001)</p></td>
     </tr>
     <tr>
       <th>AF_max</th>
-      <td><p>AF_max (Default AF_max=0.001)</p></td>
+      <td><p>Maximum allele frequency in 1000 genome database (Default AF_max=0.001)</p></td>
     </tr>
     <tr>
       <th>ExAC_AF_max</th>
-      <td><p>ExAC_AF_max (Default ExAC_AF_max=0.01)</p></td>
+      <td><p>Maximum allele frequency in ExAC database (Default ExAC_AF_max=0.01)</p></td>
     </tr>
     <tr>
       <th>n_callers</th>
-      <td><p>n_callers (Default n_callers=2)</p></td>
+      <td><p>Minimum number of callers identified mutation. (Default n_callers=2)</p></td>
     </tr>
     <tr>
       <th>variant_caller</th>
-      <td><p>variant_caller</p></td>
+      <td><p>Name of variant caller to be used or "consensus"
+to apply filter based on `n_callers` (Default variant_caller=NULL)</p></td>
     </tr>
     </table>
 
@@ -222,7 +223,7 @@ information in the MAF format</p></td>
     <p>An object of class MAF with the filtered mutations</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Mayank Tondon, Ashish Jain</p>
+    <p>Mayank Tandon, Ashish Jain</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/ashishjain1988/MAFDash/'>MAFDash</a></span><span class='op'>)</span>
@@ -241,7 +242,7 @@ information in the MAF format</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://github.com/mtandon09'>Mayank Tandon</a>, <a href='https://github.com/ashishjain1988'>Ashish Jain</a>.</p>
+  <p>Developed by <a href='https://github.com/ashishjain1988'>Ashish Jain</a>, <a href='https://github.com/mtandon09'>Mayank Tandon</a>.</p>
 </div>
 
 <div class="pkgdown">

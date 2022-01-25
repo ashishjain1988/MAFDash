@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ashishjain1988/MAFDash/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -85,8 +85,7 @@
 
       
 
-      </header><script src="Advanced_Example_files/header-attrs-2.5/header-attrs.js"></script><link href="Advanced_Example_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Advanced_Example_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="Advanced_Example_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Advanced Example</h1>
@@ -107,21 +106,25 @@
 <a href="#download-maf-file-using-tcgabiolinks" class="anchor"></a>Download MAF file using <code>TCGABiolinks</code>
 </h3>
 <p>MAFDash provides a wrapper function that tries to simplify retrieving data using <code>TCGABiolinks</code>. Valid project codes can be viewed by running <code>TCGABiolinks::getGDCprojects()</code> and checking the “tumor” column.</p>
-<pre><code><a href="https://github.com/ashishjain1988/MAFDash/">library(MAFDash)
-library(TCGABiolinks)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioinformaticsFMRP/TCGAbiolinks">TCGAbiolinks</a></span><span class="op">)</span>
 
-tcga_code = "UVM"    ## Uveal Melanoma
-caller = "mutect2"
-title_label = paste0("TCGA-",tcga_code)
+<span class="va">tcga_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UVM"</span><span class="op">)</span>
+<span class="co">#inputFolderPath &lt;- paste0(tempdir()) ## This folder will be created if it doesn't exist </span>
+<span class="va">caller</span> <span class="op">=</span> <span class="st">"mutect2"</span>
+<span class="va">title_label</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"TCGA-"</span>,<span class="va">tcga_code</span><span class="op">)</span>
 
-maf_file &lt;- getMAFdataTCGA(tcga_code,variant_caller = caller)</a></code></pre>
+<span class="va">maf_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getMAFdataTCGA.html">getMAFdataTCGA</a></span><span class="op">(</span><span class="va">tcga_code</span>,variant_caller <span class="op">=</span> <span class="va">caller</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="download-clinical-data-using-tcgabiolinks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-clinical-data-using-tcgabiolinks" class="anchor"></a>Download clinical data using <code>TCGABiolinks</code>
 </h3>
-<pre><code>tcga_clinical &lt;- TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
-tcga_clinical$Tumor_Sample_Barcode &lt;- tcga_clinical$submitter_id</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># tcga_clinical &lt;- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")</span>
+<span class="co"># tcga_clinical$Tumor_Sample_Barcode &lt;- tcga_clinical$submitter_id</span>
+<span class="va">tcga_clinical</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getTCGAClinicalAnnotation.html">getTCGAClinicalAnnotation</a></span><span class="op">(</span>cancerCodes <span class="op">=</span> <span class="va">tcga_code</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="make-a-customized-oncoplot" class="section level2">
@@ -131,15 +134,17 @@ tcga_clinical$Tumor_Sample_Barcode &lt;- tcga_clinical$submitter_id</code></pre>
 <h3 class="hasAnchor">
 <a href="#filter-data" class="anchor"></a>Filter data</h3>
 <p>The <code>filterMAF</code> function can be used to filter the MAF data in various ways. Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( <a href="https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y">FLAG genes</a> )</p>
-<pre><code>filtered_mafdata &lt;- filterMAF(maf_file)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filtered_mafdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>,<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">maf_files</span>, <span class="kw">function</span><span class="op">(</span><span class="va">maf_file</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="../reference/filter_maf_chunked.html">filter_maf_chunked</a></span><span class="op">(</span><span class="va">maf_file</span><span class="op">)</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="add-clinical-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-clinical-data" class="anchor"></a>Add clinical data</h3>
 <p>The easiest way to add clinical annotations to the oncoplot is to add clinical data to the <code>clinical.data</code> slot of a <code>MAF</code> object before passing it to the <code>generateOncoplot()</code> function.</p>
 <p>MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.</p>
-<pre><code>filtered_maf &lt;- read.maf(filtered_mafdata, clinicalData = tcga_clinical)
-annotation_colors &lt;- getTCGAClinicalColors(ageRange = range(tcga_clinical$age_at_diagnosis, na.rm=T))</code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filtered_maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">filtered_mafdata</span>, clinicalData <span class="op">=</span> <span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">)</span>
+<span class="va">annotation_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getTCGAClinicalColors.html">getTCGAClinicalColors</a></span><span class="op">(</span>ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">$</span><span class="va">age_at_diagnosis</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="make-an-annotated-oncoplot" class="section level3">
 <h3 class="hasAnchor">
@@ -149,9 +154,10 @@ annotation_colors &lt;- getTCGAClinicalColors(ageRange = range(tcga_clinical$age
 <li>A boolean indicating whether or not to add annotations built from the <code>clinical.data</code> slot of the <code>MAF</code> object. Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of <code>clinical.data</code>)</li>
 <li>A character vector of column names provided as clinical data</li>
 </ul>
-<pre><code>custom_onco &lt;- generateOncoPlot(filtered_maf, 
-                                add_clinical_annotations = names(annotation_colors), 
-                                clin_data_colors = annotation_colors)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">custom_onco</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generateOncoPlot.html">generateOncoPlot</a></span><span class="op">(</span><span class="va">filtered_maf</span>, 
+                                add_clinical_annotations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">annotation_colors</span><span class="op">)</span>, 
+                                clin_data_colors <span class="op">=</span> <span class="va">annotation_colors</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="make-some-other-figures" class="section level2">
@@ -161,40 +167,37 @@ annotation_colors &lt;- getTCGAClinicalColors(ageRange = range(tcga_clinical$age
 <h3 class="hasAnchor">
 <a href="#tcga-comparison" class="anchor"></a>TCGA Comparison</h3>
 <p>A lot of <code>maftools</code>’s plots are base graphics, so they’re drawn to a device and not returned. But we can simply save them to a file and provide the file path.</p>
-<pre><code><a href="https://github.com/PoisonAlien/maftools">library(maftools)
-tcgacompare_file &lt;- file.path(getwd(),"tcga_compare.png")
-png(tcgacompare_file,width=8, height=6, units="in", res=400)
-tcgaCompare(filtered_maf,tcga_capture_size = NULL)
-dev.off()</a></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tcgaComparePlot</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTCGAComparePlot.html">generateTCGAComparePlot</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">filtered_maf</span>, cohortName <span class="op">=</span> <span class="st">"test"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="chord-diagram-of-mutation-co-occurrence" class="section level3">
 <h3 class="hasAnchor">
 <a href="#chord-diagram-of-mutation-co-occurrence" class="anchor"></a>Chord Diagram of mutation co-occurrence</h3>
 <p>This function is built on top of <code>maftools</code>’s <code><a href="https://rdrr.io/pkg/maftools/man/somaticInteractions.html">somaticInteractions()</a></code> function. It’s just a different way of visualizing co-occurence or mutual exclusivity between genes.</p>
-<pre><code>ribbonplot_file &lt;- file.path(getwd(),"ribbon.pdf")
-generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ribbonplot_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"ribbon.pdf"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/generateRibbonPlot.html">generateRibbonPlot</a></span><span class="op">(</span><span class="va">filtered_maf</span>,save_name <span class="op">=</span> <span class="va">ribbonplot_file</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="render-the-dashboard" class="section level2">
 <h2 class="hasAnchor">
 <a href="#render-the-dashboard" class="anchor"></a>Render the dashboard</h2>
-<pre><code>customplotlist &lt;- list("summary_plot"=T,
-                       "burden"=T,
-                       "TCGA Comparison"=tcgacompare_file,
-                       "oncoplot"=T,
-                       "Annotated Oncoplot"=custom_onco
-                       )
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">customplotlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"summary_plot"</span><span class="op">=</span><span class="cn">T</span>,
+                       <span class="st">"burden"</span><span class="op">=</span><span class="cn">T</span>,
+                       <span class="st">"TCGA Comparison"</span><span class="op">=</span><span class="va">tcgaComparePlot</span><span class="op">$</span><span class="va">tcga_compare_plot</span>,
+                       <span class="st">"oncoplot"</span><span class="op">=</span><span class="cn">T</span>,
+                       <span class="st">"Annotated Oncoplot"</span><span class="op">=</span><span class="va">custom_onco</span>
+                       <span class="op">)</span>
 
-## Filename to output to; if output directory doesn't exist, it will be created
-html_filename=file.path("examples/TCGA-UVM.custom.mafdash.html")
+<span class="co">## Filename to output to; if output directory doesn't exist, it will be created</span>
+<span class="va">html_filename</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/TCGA-UVM.custom.mafdash.html"</span><span class="op">)</span><span class="op">)</span>
 
-## Render dashboard
-getMAFDashboard(MAFfilePath = filtered_maf,
-                plotList = customplotlist,
-                outputFileName = html_filename, 
-                outputFileTitle = "Customized Dashboard")
-
-</code></pre>
+<span class="co">## Render dashboard</span>
+<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span>MAFfilePath <span class="op">=</span> <span class="va">filtered_maf</span>,
+                plotList <span class="op">=</span> <span class="va">customplotlist</span>,
+                outputFileName <span class="op">=</span> <span class="va">html_filename</span>, 
+                outputFileTitle <span class="op">=</span> <span class="st">"Customized Dashboard"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="output" class="section level2">
 <h2 class="hasAnchor">
@@ -214,7 +217,7 @@ getMAFDashboard(MAFfilePath = filtered_maf,
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/mtandon09">Mayank Tandon</a>, <a href="https://github.com/ashishjain1988">Ashish Jain</a>.</p>
+  <p>Developed by <a href="https://github.com/ashishjain1988">Ashish Jain</a>, <a href="https://github.com/mtandon09">Mayank Tandon</a>.</p>
 </div>
 
 <div class="pkgdown">

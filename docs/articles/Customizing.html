@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ashishjain1988/MAFDash/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -85,8 +85,7 @@
 
       
 
-      </header><script src="Customizing_files/header-attrs-2.5/header-attrs.js"></script><link href="Customizing_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Customizing_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="Customizing_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Customizing</h1>
@@ -99,71 +98,75 @@
 
     
     
-<div id="adding-custom-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-custom-plots" class="anchor"></a>Adding Custom Plots</h2>
+<div id="adding-custom-plots" class="section level1">
+<h1 class="hasAnchor">
+<a href="#adding-custom-plots" class="anchor"></a>Adding Custom Plots</h1>
 <p>The <code><a href="../reference/getMAFDashboard.html">getMAFDashboard()</a></code> function will accept a named list for adding arbitrary objects to the dashboard. Each item in the list will be displayed in separate tabs, and the name of the element will be used as the title of the tab.</p>
 <p>Elements of the list can be:</p>
 <ul>
-<li>A boolean value: indicates whether or not to draw one of the preset plots provided by MAFDasoh</li>
-<li>A file path: any image format (or PDF)</li>
-<li>An R plot object: ggplot, plotly, ComplexHeatmap</li>
+<li>
+<strong>A boolean value</strong>: indicates whether or not to draw one of the preset plots provided by MAFDasoh</li>
+<li>
+<strong>A file path</strong>: any image format (or PDF)</li>
+<li>
+<strong>An R plot object</strong>: ggplot, plotly, ComplexHeatmap</li>
 </ul>
 <p>This functionality can be used with or without providing a MAF file. When MAF data is not provided, the “Variant Table” tab of the dashboard is automatically omitted.</p>
-</div>
 <div id="toy-example-with-iris-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#toy-example-with-iris-data" class="anchor"></a>Toy example with <code>iris</code> data</h2>
-<pre><code><a href="http://ggplot2.tidyverse.org">library(ggplot2)
-library(plotly)
-library(ComplexHeatmap)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap">ComplexHeatmap</a></span><span class="op">)</span>
 
-data(iris)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
 
-## Simple ggplot
-myplot &lt;- ggplot(iris) + geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
+<span class="co">## Simple ggplot</span>
+<span class="va">myplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Sepal.Length</span>, y<span class="op">=</span><span class="va">Sepal.Width</span>, color<span class="op">=</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span>
 
-## Save as PNG (provide absolute file path)
-mycustomimage_png &lt;- file.path(getwd(),"custom_ggplot.png")
-ggsave(mycustomimage_png, plot=myplot, width=5, height=4)
+<span class="co">## Save as PNG (provide absolute file path)</span>
+<span class="va">mycustomimage_png</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.png"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_png</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
-## Save as PDF (provide absolute file path)
-mycustomimage_pdf &lt;- file.path(getwd(),"custom_ggplot.pdf")
-ggsave(mycustomimage_pdf, plot=myplot, width=5, height=4)
+<span class="co">## Save as PDF (provide absolute file path)</span>
+<span class="va">mycustomimage_pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.pdf"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_pdf</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
-## Convert ggplot to plotly
-myplotly &lt;- ggplotly(myplot)
+<span class="co">## Convert ggplot to plotly</span>
+<span class="va">myplotly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">ggplotly</a></span><span class="op">(</span><span class="va">myplot</span><span class="op">)</span>
 
-## Make heatmap with ComplexHeatmap
-hmdata &lt;- t(iris[,1:4])
-hmanno &lt;- HeatmapAnnotation(df=data.frame(Species=iris[,5]))
-myhm &lt;- Heatmap(hmdata, bottom_annotation = hmanno)
+<span class="co">## Make heatmap with ComplexHeatmap</span>
+<span class="va">hmdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="va">hmanno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html">HeatmapAnnotation</a></span><span class="op">(</span>df<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Species<span class="op">=</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="va">myhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">Heatmap</a></span><span class="op">(</span><span class="va">hmdata</span>, bottom_annotation <span class="op">=</span> <span class="va">hmanno</span><span class="op">)</span>
 
-## Customizable plotly from https://github.com/mtandon09/Dynamic_Plotly
-source("https://raw.githubusercontent.com/mtandon09/Dynamic_Plotly/master/make_cutomizable_plotly.R")
-custom_plotly &lt;- make_customizable_plotly(iris)
+<span class="co">## Customizable plotly from https://github.com/mtandon09/Dynamic_Plotly</span>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/mtandon09/Dynamic_Plotly/master/make_cutomizable_plotly.R"</span><span class="op">)</span>
+<span class="va">custom_plotly</span> <span class="op">&lt;-</span> <span class="fu">make_customizable_plotly</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
 
-## Put together objects/filepaths into a list
-toyplotlist &lt;- list("ggplot"= myplot,
-                   "plotly"= myplotly,
-                   "PNG"= mycustomimage_png,
-                   "PDF"= mycustomimage_pdf,
-                   "ComplexHeatmap"= myhm,
-                   "Customizable"= custom_plotly
-)
+<span class="co">## Put together objects/filepaths into a list</span>
+<span class="va">toyplotlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"ggplot"</span><span class="op">=</span> <span class="va">myplot</span>,
+                   <span class="st">"plotly"</span><span class="op">=</span> <span class="va">myplotly</span>,
+                   <span class="st">"PNG"</span><span class="op">=</span> <span class="va">mycustomimage_png</span>,
+                   <span class="st">"PDF"</span><span class="op">=</span> <span class="va">mycustomimage_pdf</span>,
+                   <span class="st">"ComplexHeatmap"</span><span class="op">=</span> <span class="va">myhm</span>,
+                   <span class="st">"Customizable"</span><span class="op">=</span> <span class="va">custom_plotly</span>
+<span class="op">)</span>
 
-## Filename to output to
-html_filename="toy_dash.html"
+<span class="co">## Filename to output to</span>
+<span class="va">html_filename</span><span class="op">=</span><span class="st">"toy_dash.html"</span>
 
-## Render dashboard
-getMAFDashboard(plotList = toyplotlist,
-                outputFileName = html_filename,
-                outputFileTitle = "Iris")</a></code></pre>
+<span class="co">## Render dashboard</span>
+<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span>plotList <span class="op">=</span> <span class="va">toyplotlist</span>,
+                outputFileName <span class="op">=</span> <span class="va">html_filename</span>,
+                outputFileTitle <span class="op">=</span> <span class="st">"Iris"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#output" class="anchor"></a>Output</h2>
 <p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html">here</a>.</p>
+</div>
 </div>
   </div>
 
@@ -178,7 +181,7 @@ getMAFDashboard(plotList = toyplotlist,
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/mtandon09">Mayank Tandon</a>, <a href="https://github.com/ashishjain1988">Ashish Jain</a>.</p>
+  <p>Developed by <a href="https://github.com/ashishjain1988">Ashish Jain</a>, <a href="https://github.com/mtandon09">Mayank Tandon</a>.</p>
 </div>
 
 <div class="pkgdown">

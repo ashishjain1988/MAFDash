@@ -30,28 +30,31 @@ knitr::opts_chunk$set(
 
 ### Download MAF file using `TCGABiolinks`
 MAFDash provides a wrapper function that tries to simplify retrieving data using `TCGABiolinks`.  Valid project codes can be viewed by running `TCGABiolinks::getGDCprojects()` and checking the "tumor" column.
-```
+```{r eval=FALSE}
 library(MAFDash)
-library(TCGABiolinks)
+library(TCGAbiolinks)
 
-tcga_code = c("ACC","UVM")    ## Uveal Melanoma
+tcga_code <- c("UVM")
+#inputFolderPath <- paste0(tempdir()) ## This folder will be created if it doesn't exist 
 caller = "mutect2"
 title_label = paste0("TCGA-",tcga_code)
 
-maf_file <- getMAFdataTCGA(tcga_code,variant_caller = caller)
+maf_files <- getMAFdataTCGA(tcga_code,variant_caller = caller)
 ```
 
 ### Download clinical data using `TCGABiolinks`
-```
-tcga_clinical <- TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
-tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
+```{r eval=FALSE}
+# tcga_clinical <- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
+# tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
+tcga_clinical<-getTCGAClinicalAnnotation(cancerCodes = tcga_code)
+
 ```
 
 ## Make a customized oncoplot
 ### Filter data
 The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
-```
-filtered_mafdata <- filter_maf_chunked(maf_file)
+```{r eval=FALSE}
+filtered_mafdata <- do.call("rbind",lapply(maf_files, function(maf_file){filter_maf_chunked(maf_file)}))
 ```
 
 ### Add clinical data
@@ -59,9 +62,9 @@ The easiest way to add clinical annotations to the oncoplot is to add clinical d
 
 MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.
 
-```
-filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical)
-annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$age_at_diagnosis, na.rm=T))
+```{r eval=FALSE}
+filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical$annodata)
+annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$annodata$age_at_diagnosis, na.rm=T))
 ```
 
 ### Make an annotated oncoplot
@@ -69,7 +72,7 @@ The `add_clinical_annotations` argument can be:
 
 - A boolean indicating whether or not to add annotations built from the `clinical.data` slot of the `MAF` object.  Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of `clinical.data`)
 - A character vector of column names provided as clinical data
-```
+```{r eval=FALSE}
 custom_onco <- generateOncoPlot(filtered_maf, 
                                 add_clinical_annotations = names(annotation_colors), 
                                 clin_data_colors = annotation_colors)
@@ -79,32 +82,28 @@ custom_onco <- generateOncoPlot(filtered_maf,
 ## Make some other figures
 ### TCGA Comparison
 A lot of `maftools`'s plots are base graphics, so they're drawn to a device and not returned.  But we can simply save them to a file and provide the file path.
-```
-library(maftools)
-tcgacompare_file <- file.path(getwd(),"tcga_compare.png")
-png(tcgacompare_file,width=8, height=6, units="in", res=400)
-tcgaCompare(filtered_maf,tcga_capture_size = NULL)
-dev.off()
+```{r eval=FALSE}
+tcgaComparePlot<-generateTCGAComparePlot(maf = filtered_maf, cohortName = "test")
 ```
 
 ### Chord Diagram of mutation co-occurrence
 This function is built on top of `maftools`'s `somaticInteractions()` function. It's just a different way of visualizing co-occurence or mutual exclusivity between genes.
-```
+```{r eval=FALSE}
 ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
 generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)
 ```
 
 ## Render the dashboard
-```
+```{r eval=FALSE}
 customplotlist <- list("summary_plot"=T,
                        "burden"=T,
-                       "TCGA Comparison"=tcgacompare_file,
+                       "TCGA Comparison"=tcgaComparePlot$tcga_compare_plot,
                        "oncoplot"=T,
                        "Annotated Oncoplot"=custom_onco
                        )
 
 ## Filename to output to; if output directory doesn't exist, it will be created
-html_filename=file.path("examples/TCGA-UVM.custom.mafdash.html")
+html_filename=file.path(paste0(tempdir(),"/TCGA-UVM.custom.mafdash.html"))
 
 ## Render dashboard
 getMAFDashboard(MAFfilePath = filtered_maf,
@@ -117,3 +116,4 @@ getMAFDashboard(MAFfilePath = filtered_maf,
 
 ## Output
 The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html).
+

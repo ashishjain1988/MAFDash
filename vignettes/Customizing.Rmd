@@ -15,30 +15,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  fig.width=8, fig.height=5
-)
-```
-
-## Adding Custom Plots
+# Adding Custom Plots
 The `getMAFDashboard()` function will accept a named list for adding arbitrary objects to the dashboard.  Each item in the list will be displayed in separate tabs, and the name of the element will be used as the title of the tab.
 
 Elements of the list can be:
 
-- A boolean value: indicates whether or not to draw one of the preset plots provided by MAFDasoh
-- A file path: any image format (or PDF)
-- An R plot object: ggplot, plotly, ComplexHeatmap
+* **A boolean value**: indicates whether or not to draw one of the preset plots provided by MAFDasoh
+* **A file path**: any image format (or PDF)
+* **An R plot object**: ggplot, plotly, ComplexHeatmap
 
 This functionality can be used with or without providing a MAF file.  When MAF data is not provided, the "Variant Table" tab of the dashboard is automatically omitted.
 
 ## Toy example with `iris` data
-```
+```{r eval=FALSE}
 library(ggplot2)
 library(plotly)
 library(ComplexHeatmap)

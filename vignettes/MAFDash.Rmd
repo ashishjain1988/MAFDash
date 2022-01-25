@@ -20,16 +20,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```
-#{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE
-)
-```
+<!-- ``` -->
+<!-- #{r setup, include = FALSE} -->
+<!-- knitr::opts_chunk$set( -->
+<!--   collapse = TRUE, -->
+<!--   comment = "#>", -->
+<!--   echo = TRUE, -->
+<!--   message = FALSE, -->
+<!--   warning = FALSE -->
+<!-- ) -->
+<!-- ``` -->
 
 # MAFDash
 #### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
