@@ -34,6 +34,7 @@ utils::globalVariables(c(".", "boxplot.stats", ".N",
 #' @references Scalable Open Science Approach for Mutation Calling of Tumor Exomes Using Multiple Genomic Pipelines Kyle Ellrott, Matthew H. Bailey, Gordon Saksena, et. al. Cell Syst. 2018 Mar 28; 6(3): 271–281.e7. https://doi.org/10.1016/j.cels.2018.03.002
 #' @importFrom grDevices boxplot.stats
 #' @importFrom stats pairwise.t.test
+#' @importFrom data.table fread setDT rbindlist data.table
 
 generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size = 35.8, cohortName = NULL, tcga_cohorts = NULL, primarySite = FALSE, col = c('gray70', 'black'), medianCol = 'red', decreasing = FALSE, logscale = TRUE, rm_hyper = FALSE, rm_zero = TRUE){
 

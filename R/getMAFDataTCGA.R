@@ -1,5 +1,5 @@
 ## To Supress Note
-utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns","tempdir"))
+utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns","tempdir","heat.colors","topo.colors"))
 
 #' Function to extract the mutation data in MAF format from TCGA
 #' @description This function download and extract the mutation
@@ -104,7 +104,8 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
   anno_data <- tcga_anno_data
 
   stages=sort(unique(anno_data$ajcc_pathologic_stage))
-  stage_colors <- setNames(brewer.pal(n = length(stages), name = "Reds"), stages)
+  #stage_colors <- setNames(brewer.pal(n = length(stages), name = "Reds"), stages)
+  stage_colors <- setNames(rainbow(length(stages)), stages)
 
   anno_data$age_at_diagnosis <- as.numeric(as.character(anno_data$age_at_diagnosis))
   age_range=round(range(anno_data$age_at_diagnosis, na.rm = TRUE),-1)
@@ -116,13 +117,15 @@ getTCGAClinicalAnnotation <- function(cancerCode="ACC",outputFolder=file.path("d
   gender_colors=c(female="hotpink", male="cornflowerblue")
 
   races=sort(unique(anno_data$race))
-  race_colors <- setNames(rev(brewer.pal(n = length(races), name = "Set1")), races)
+  #race_colors <- setNames(rev(brewer.pal(n = length(races), name = "Set1")), races)
+  race_colors <- setNames(rev(heat.colors(length(races))), races)
 
   statuses=sort(unique(anno_data$vital_status))
   vitstat_colors <- c(Alive="darkgreen",Dead="darkred")
 
   tissues=sort(unique(anno_data$tissue_or_organ_of_origin))
-  tissue_colors <- setNames(brewer.pal(n = length(tissues), name = "Dark2"), tissues)
+  #tissue_colors <- setNames(brewer.pal(n = length(tissues), name = "Dark2"), tissues)
+  tissue_colors <- setNames(topo.colors(length(tissues)), tissues)
 
   # dataset_colors <- setNames(c("mediumorchid1","darkolivegreen1"),
   dataset_colors <- setNames(c("grey30","darkolivegreen1"),
@@ -159,7 +162,8 @@ getTCGAClinicalColors <- function(ageRange=c(0,100)) {
   # if (is.null(stages)) {
     stages <- paste("Stage",c("X",paste(rep(c("I","II","III","IV"), each=4),c("","A","B","C"), sep="")))
   # }
-  stage_colors <- setNames(colorRampPalette(brewer.pal(n = 5, name = "Reds"))(length(stages)), stages)
+  #stage_colors <- setNames(colorRampPalette(brewer.pal(n = 5, name = "Reds"))(length(stages)), stages)
+  stage_colors <- setNames(colorRampPalette(rainbow(5))(length(stages)), stages)
 
   # browser()
   ageRange=sort(ageRange)
@@ -173,7 +177,8 @@ getTCGAClinicalColors <- function(ageRange=c(0,100)) {
   vitstat_colors <- c(Alive="darkgreen",Dead="darkred","Not Reported"="grey80")
 
   races=c("american indian or alaska native","asian","black or african american","native hawaiian or other pacific islander","white","not allowed to collect","not reported","other","unknown")
-  race_colors <- setNames(brewer.pal(n = length(races), name = "Set1"), races)
+  #race_colors <- setNames(brewer.pal(n = length(races), name = "Set1"), races)
+  race_colors <- setNames(heat.colors(length(races)), races)
 
 
   # tissues=sort(unique(anno_data$tissue_or_organ_of_origin))

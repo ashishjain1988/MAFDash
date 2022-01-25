@@ -34,7 +34,6 @@ utils::globalVariables(c(".","tempdir"))
 #' @import crosstalk
 #' @import circlize
 #' @import canvasXpress
-#' @import RColorBrewer
 #' @importFrom DT datatable formatStyle JS
 #' @import flexdashboard
 

@@ -121,6 +121,28 @@ maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 generateMutationTypePlot(read.maf(maf))
 ```
 
+##TiTv plot
+This function plot the frequency of Transitions and Transversions of gene mutations
+```{r eval=TRUE}
+library(MAFDash)
+library(maftools)
+library(plotly)
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
+plots<-generateTiTvPlot(read.maf(maf))
+#plotly::subplot(plotly::subplot(plots$tiTvPatterns,plots$TiTv, nrows = 1, widths = c(1, 0.5)),plots$barplot,nrows = 2)
+```
+
+##TCGA Compare plot
+This function plot the comparison of the mutation load against TCGA cohorts
+```{r eval=TRUE}
+library(MAFDash)
+library(maftools)
+maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
+maf <- read.maf(maf = maf)
+l<-generateTCGAComparePlot(maf = maf, cohortName = "test")
+l$tcga_compare_plot
+```
+
 # Adding Custom Plots
 The `getMAFDashboard()` function will accept a named list for adding arbitrary objects to the dashboard.  Each item in the list will be displayed in separate tabs, and the name of the element will be used as the title of the tab.
 
