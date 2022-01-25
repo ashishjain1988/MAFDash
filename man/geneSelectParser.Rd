@@ -19,3 +19,6 @@ Function to the extact the Gene symbol from the input genes
 library(MAFDash)
 geneSelectParser()
 }
+\author{
+Mayank Tandon, Ashish Jain
+}

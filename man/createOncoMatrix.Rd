@@ -25,3 +25,6 @@ library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 oncoMatrix<-createOncoMatrix(read.maf(maf),g=c("GNA11","MACF1"))
 }
+\author{
+Mayank Tandon, Ashish Jain
+}

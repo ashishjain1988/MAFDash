@@ -4,7 +4,7 @@ utils::globalVariables(c(".", "mut_burden", "classification",
 #' Function to generate Burden plot
 #' @description This function generates burden plot
 #' using the MAF data.
-#' @author Mayank Tondon, Ashish Jain
+#' @author Mayank Tandon, Ashish Jain
 #' @param mymaf The MAF object
 #' @param plotType Type of plot (Either "Dotplot" or "Barplot")
 #' @param mb_covered Total covered bases for mutation count

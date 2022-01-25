@@ -3,9 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
 <!--![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)-->
 <!-- ![Downloads](https://cranlogs.r-pkg.org/badges/MAFDash)
-![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MAFDash)
--->
-
+![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MAFDash) -->
 
 MAFDash
 ------------------------------------------------------------

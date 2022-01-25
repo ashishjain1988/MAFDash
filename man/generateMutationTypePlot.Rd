@@ -30,5 +30,5 @@ maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 generateMutationTypePlot(read.maf(maf))
 }
 \author{
-Mayank Tondon, Ashish Jain
+Mayank Tandon, Ashish Jain
 }

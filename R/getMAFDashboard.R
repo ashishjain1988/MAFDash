@@ -4,8 +4,8 @@ utils::globalVariables(c(".","tempdir"))
 #' Function to generate a dashboard from a MAF file.
 #' @description This function creates an HTML file containing the
 #' different figures and plots explaining the MAF dataset.
-#' @author Mayank Tondon, Ashish Jain
-#' @param MAFfilePath The path of the file containing the mutation
+#' @author Mayank Tandon, Ashish Jain
+#' @param maf MAF object or MAF file path
 #' information in the MAF format
 #' @param plotList A named list denoting which plots to draw.
 #' List elements can be:
@@ -24,7 +24,7 @@ utils::globalVariables(c(".","tempdir"))
 #' @examples
 #' library(MAFDash)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-#' \donttest{getMAFDashboard(MAFfilePath = maf,outputFilePath=tempdir())}
+#' \donttest{getMAFDashboard(maf = maf,outputFilePath=tempdir())}
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
 #' @importFrom plotly plot_ly ggplotly plotly layout
@@ -34,13 +34,12 @@ utils::globalVariables(c(".","tempdir"))
 #' @import crosstalk
 #' @import circlize
 #' @import canvasXpress
-#' @import RColorBrewer
 #' @importFrom DT datatable formatStyle JS
 #' @import flexdashboard
 
-getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath=tempdir()){
+getMAFDashboard<-function(maf=NULL,plotList=NULL,outputFileName="dashboard.html",outputFileTitle="MAF Dash",outputFilePath=tempdir()){
 
-  if (all(is.null(c(MAFfilePath,plotList)))) {
+  if (all(is.null(c(maf,plotList)))) {
     stop("Need to define at least a MAF file or a plot list.")
   }
   # if (is.null(masterRmdFile)) {
@@ -59,7 +58,7 @@ getMAFDashboard<-function(MAFfilePath=NULL,plotList=NULL,outputFileName="dashboa
                     output_dir = outputFilePath,
                     intermediates_dir = tempfile(),
                     params = list(
-                      maffile=MAFfilePath,
+                      maffile=maf,
                       titletext=outputFileTitle,
                       plot_list=plotList
                       )

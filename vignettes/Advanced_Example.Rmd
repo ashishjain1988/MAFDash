@@ -34,7 +34,7 @@ MAFDash provides a wrapper function that tries to simplify retrieving data using
 library(MAFDash)
 library(TCGABiolinks)
 
-tcga_code = "UVM"    ## Uveal Melanoma
+tcga_code = c("ACC","UVM")    ## Uveal Melanoma
 caller = "mutect2"
 title_label = paste0("TCGA-",tcga_code)
 
@@ -51,7 +51,7 @@ tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
 ### Filter data
 The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
 ```
-filtered_mafdata <- filterMAF(maf_file)
+filtered_mafdata <- filter_maf_chunked(maf_file)
 ```
 
 ### Add clinical data

@@ -3,7 +3,7 @@ utils::globalVariables(c("%>%",".","suppressWarnings"))
 
 #' Function to filter the mutations
 #' @description This function filter the mutations in the MAF format using thresholds on various features
-#' @author Mayank Tondon, Ashish Jain
+#' @author Mayank Tandon, Ashish Jain
 #' @param mafFilePath The path of the file containing the mutation
 #' information in the MAF format
 #' @param flag_genes The list of genes used as flag genes
@@ -14,11 +14,12 @@ utils::globalVariables(c("%>%",".","suppressWarnings"))
 #' @param t_depth_min Depth t min (Default t_depth_min=20)
 #' @param tumor_freq_min Tumor Frequency Minimum (Default tumor_freq_min=0.05)
 #' @param norm_freq_max norm_freq_max (Default norm_freq_max=0.02)
-#' @param gnomAD_AF_max gnomAD_AF_max (Default gnomAD_AF_max=0.001)
-#' @param AF_max AF_max (Default AF_max=0.001)
-#' @param ExAC_AF_max ExAC_AF_max (Default ExAC_AF_max=0.01)
-#' @param n_callers n_callers (Default n_callers=2)
-#' @param variant_caller variant_caller
+#' @param gnomAD_AF_max Maximum allele frequency in gnomAD database  (Default gnomAD_AF_max=0.001)
+#' @param AF_max Maximum allele frequency in 1000 genome database (Default AF_max=0.001)
+#' @param ExAC_AF_max Maximum allele frequency in ExAC database (Default ExAC_AF_max=0.01)
+#' @param n_callers Minimum number of callers identified mutation. (Default n_callers=2)
+#' @param variant_caller Name of variant caller to be used or "consensus"
+#' to apply filter based on `n_callers` (Default variant_caller=NULL)
 #'
 #' @export
 #' @return An object of class MAF with the filtered mutations
@@ -29,6 +30,7 @@ utils::globalVariables(c("%>%",".","suppressWarnings"))
 #' filteredMAF <- filterMAF(mafFilePath = maf)
 #'
 #' @importFrom ensurer ensure_that
+#' @importFrom dplyr pull
 
 filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=FALSE,
                     norm_alt_max=1,t_alt_min=1,t_depth_min=20,
@@ -181,6 +183,7 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
 #' @param chunk_lines The number of lines to be read at once
 #' @param save_name The name and path of the output file to save filtered MAFs
 #' @param no_filter Flag to filter the MAF (Default no_filter=FALSE)
+#' @param grep_vcf_filter_col FILTER column
 #' @param n_alt_max Alt norm max (Default n_alt_max=1)
 #' @param non_silent_only Flag to filter non slient SNVs only
 #' (Default non_silent_only=FALSE)
@@ -323,7 +326,7 @@ filter_maf_tbl <- function(flag_genes="default",
     }
 
     all_num_filters <- lapply(numfilter_columns, function(col_name) {
-      currdata <- as.numeric(pull(maf_df.raw,col_name))
+      currdata <- as.numeric(dplyr::pull(maf_df.raw,col_name))
       currdata[is.na(currdata)] <- 0
       filter_vec <- currdata >= maf_num_filter_columns[[col_name]]["min"] & currdata <= maf_num_filter_columns[[col_name]]["max"]
       return(filter_vec)

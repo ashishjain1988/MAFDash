@@ -5,15 +5,15 @@
 \title{Function to extract the clinical annotations from TCGA}
 \usage{
 getTCGAClinicalAnnotation(
-  cancerCode = "ACC",
-  outputFolder = file.path("data"),
+  cancerCodes = "ACC",
+  outputFolder = tempdir(),
   plotdata = NULL
 )
 }
 \arguments{
-\item{cancerCode}{The TCGA cancer code}
+\item{cancerCodes}{A character vector of TCGA cancer codes}
 
-\item{outputFolder}{The path of the file containing the clinical
+\item{outputFolder}{path of the file containing the clinical
 annotations from TCGA}
 
 \item{plotdata}{Flag to plot the annotations}
@@ -27,9 +27,8 @@ annotations from TCGA.
 }
 \examples{
 library(MAFDash)
-cancerCode <- "ACC"
-outputFolderPath <- "."
-#maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)
+cancerCodes <- "ACC"
+#clinicalData <- getTCGAClinicalAnnotation(cancerCodes = cancerCodes)
 
 }
 \author{

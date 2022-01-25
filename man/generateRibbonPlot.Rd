@@ -10,7 +10,7 @@ generateRibbonPlot(
   save_name = NULL,
   pval_high = 0.1,
   pval_low = 0.05,
-  plot_type = "ribbon",
+  plot_type = "matrix",
   plot_frac_mut_axis = TRUE,
   rotate_plot_degrees = 0,
   shrink_factor = 1.3,
@@ -54,7 +54,7 @@ This function provides an alternate visualization for maftools::somaticInteracti
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-\donttest{generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"/ribbonPlot.pdf"))}
+generateRibbonPlot(read.maf(maf),save_name=paste0(tempdir(),"/ribbonPlot.pdf"))
 
 }
 \author{

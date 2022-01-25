@@ -1,7 +1,7 @@
 #' Function to generate Overlap plot
 #' @description This function generates an overlap plot
 #' using the MAF data.
-#' @author Mayank Tondon, Ashish Jain
+#' @author Mayank Tandon, Ashish Jain
 #' @param mymaf The MAF object
 #' @param use_silent_mutations Flag to use the silent mutations
 #' in the plot

@@ -5,21 +5,21 @@
 \title{Function to extract the mutation data in MAF format from TCGA}
 \usage{
 getMAFdataTCGA(
-  cancerCode = "ACC",
-  outputFolder = file.path("data"),
+  cancerCodes = c("ACC"),
+  outputFolder = tempdir(),
   variant_caller = "mutect2"
 )
 }
 \arguments{
-\item{cancerCode}{The TCGA cancer code}
+\item{cancerCodes}{A character vector of TCGA cancer codes}
 
-\item{outputFolder}{The path of the file containing the mutation
+\item{outputFolder}{path of the file containing the mutation
 information in the MAF format}
 
-\item{variant_caller}{The type of variant caller in TCGA}
+\item{variant_caller}{type of variant caller in TCGA}
 }
 \value{
-A string containing the path of the downloaded mutation annotation file
+A vector containing the path of the downloaded mutation annotation files
 }
 \description{
 This function download and extract the mutation
@@ -27,9 +27,9 @@ This function download and extract the mutation
 }
 \examples{
 library(MAFDash)
-cancerCode <- "ACC"
+cancerCodes <- c("ACC","THCA")
 outputFolderPath <- tempdir()
-\donttest{maf <- getMAFdataTCGA(cancerCode = cancerCode,outputFolder = outputFolderPath)}
+\donttest{maf <- getMAFdataTCGA(cancerCodes = cancerCodes,outputFolder = outputFolderPath)}
 }
 \author{
 Mayank Tandon, Ashish Jain

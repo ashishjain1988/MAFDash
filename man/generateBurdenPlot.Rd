@@ -37,5 +37,5 @@ generateBurdenPlot(read.maf(maf), plotType="Barplot")
 
 }
 \author{
-Mayank Tondon, Ashish Jain
+Mayank Tandon, Ashish Jain
 }
