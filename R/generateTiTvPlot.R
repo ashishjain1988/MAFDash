@@ -3,7 +3,7 @@ utils::globalVariables(c("value","variable","V1"))
 
 #' Function to plot the frequency of Transitions and Transversions of gene mutations
 #' @description This function plot the frequency of Transitions and Transversions of gene mutations
-#' @author Mayank Tandon, Ashish Jain
+#' @author Ashish Jain, Mayank Tandon
 #' @param maf A MAF object
 #' @param use_silent_mutations Include synonymous variants in analysis. Defaults to FALSE.
 #' @param sampleOrder Sample names in which the barplot should be ordered. Default NULL.

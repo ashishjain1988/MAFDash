@@ -49,5 +49,5 @@ plots<-generateTiTvPlot(read.maf(maf))
 
 }
 \author{
-Mayank Tandon, Ashish Jain
+Ashish Jain, Mayank Tandon
 }
