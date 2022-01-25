@@ -113,8 +113,8 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE, sampleOrder = NULL,
   if(!is.null(save_name))
   {
     #combinePlot <- cowplot::plot_grid(cowplot::plot_grid(boxplot,boxplot1,ncol = 2,rel_widths = c(2,1)),barplot,nrow = 2)
-    combinePlot <- plotly::subplot(plotly::subplot(boxplot,boxplot1, nrows = 1, widths = c(1, 0.5)),barplot,nrows = 2)
-    ggsave(save_name,combinePlot)
+    combinePlot <- plotly::subplot(plotly::subplot(boxplot,boxplot1, nrows = 1, widths = c(0.5, 0.25)),barplot,nrows = 2,show.legend=FALSE)
+    #ggsave(save_name,combinePlot)
   }
   return(list(tiTvPatterns=boxplot,TiTv = boxplot1,barplot=barplot))
 }
