@@ -89,12 +89,12 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>MAFDash: R package to easily create an HTML dashboard to summarize and visualize data from Mutation Annotation Format (MAF) file</h1>
-                        <h4 class="author"><div class="line-block">Mayank Tandon, Ashish Jain<br>
+                        <h4 class="author"><div class="line-block">Ashish Jain, Mayank Tandon<br>
 Frederick National Laboratory For Cancer Research<br>
 Frederick, Maryland<br>
 </div></h4>
             
-            <h4 class="date">01/25/2022</h4>
+            <h4 class="date">01/26/2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ashishjain1988/MAFDash/blob/master/vignettes/MAFDash.Rmd"><code>vignettes/MAFDash.Rmd</code></a></small>
       <div class="hidden name"><code>MAFDash.Rmd</code></div>
@@ -103,16 +103,6 @@ Frederick, Maryland<br>
 
     
     
-<!-- ``` -->
-<!-- #{r setup, include = FALSE} -->
-<!-- knitr::opts_chunk$set( -->
-<!--   collapse = TRUE, -->
-<!--   comment = "#>", -->
-<!--   echo = TRUE, -->
-<!--   message = FALSE, -->
-<!--   warning = FALSE -->
-<!-- ) -->
-<!-- ``` -->
 <div id="mafdash" class="section level1">
 <h1 class="hasAnchor">
 <a href="#mafdash" class="anchor"></a>MAFDash</h1>
@@ -134,13 +124,14 @@ Frederick, Maryland<br>
 <div id="installation-from-cran" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation-from-cran" class="anchor"></a>Installation from CRAN</h2>
-<p><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("MAFDash")</a></code></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"MAFDash"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="installation-from-github" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation-from-github" class="anchor"></a>Installation from Github</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>,<span class="st">"ensurer"</span>,<span class="st">"ggplot2"</span>,<span class="st">"tidyr"</span>,<span class="st">"DT"</span>,<span class="st">"rmarkdown"</span>,<span class="st">"knitr"</span>,<span class="st">"flexdashboard"</span>,<span class="st">"htmltools"</span>,<span class="st">"data.table"</span>,<span class="st">"ggbeeswarm"</span>,<span class="st">"RColorBrewer"</span>,<span class="st">"plotly"</span>,<span class="st">"circlize"</span>,<span class="st">"canvasXpress"</span>,<span class="st">"crosstalk"</span>,<span class="st">"bsplus"</span>,<span class="st">"BiocManager"</span>,<span class="st">"maftools"</span>,<span class="st">"ComplexHeatmap"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>,<span class="st">"ensurer"</span>,<span class="st">"ggplot2"</span>,<span class="st">"tidyr"</span>,<span class="st">"DT"</span>,<span class="st">"rmarkdown"</span>,<span class="st">"knitr"</span>,<span class="st">"flexdashboard"</span>,<span class="st">"htmltools"</span>,<span class="st">"data.table"</span>,<span class="st">"ggbeeswarm"</span>,<span class="st">"plotly"</span>,<span class="st">"circlize"</span>,<span class="st">"canvasXpress"</span>,<span class="st">"crosstalk"</span>,<span class="st">"bsplus"</span>,<span class="st">"BiocManager"</span>,<span class="st">"maftools"</span>,<span class="st">"ComplexHeatmap"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TCGAbiolinks"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
@@ -159,30 +150,11 @@ Frederick, Maryland<br>
 <h1 class="hasAnchor">
 <a href="#make-the-dashboard" class="anchor"></a>Make the dashboard</h1>
 <p><a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">Mutation Annotation Format (MAF)</a> is a tabular data format used for storing genetic mutation data. For example, <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">The Cancer Genome Atlas (TCGA)</a> project has made MAF files from each project publicly available. The main function of MAFDash (<code>getMAFDashboard</code>) creates an HTML dashboard to summarize and visualize data from MAF files. The resulting HTML file serves as a self-contained report that can be used to explore and share the results. The example below shows how we can create an HTML MAF dashboard file. The first argument of <code>getMAFDashboard</code> can be anything that’s accepted by maftools’s <a href="https://rdrr.io/bioc/maftools/man/read.maf.html"><code>read.maf</code></a> function (path to a file, or a <code>MAF</code> , <code>data.frame</code>, or <code>data.table</code> object)</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## Loading required package: rmarkdown</code></pre>
-<pre><code>## Loading required package: knitr</code></pre>
-<pre><code>## Loading required package: htmltools</code></pre>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre><code>## Loading required package: TCGAbiolinks</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span><span class="va">maf</span>, outputFileName<span class="op">=</span><span class="st">"output"</span>, outputFileTitle<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"MAF Dashboard - Test"</span><span class="op">)</span>,outputFilePath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## processing file: MAFDash.Rmd</code></pre>
-<pre><code>## Warning in DT::datatable(summaryTable, style = "bootstrap4", class =
-## c("display"), : `autoHideNavigation` will be ignored if the `pageLength` option
-## is not provided.</code></pre>
-<pre><code>## All mutation types: Missense Mutation, Frame Shift Del, Nonsense
-## Mutation, Splice Site, Multi Hit, In Frame Del, Frame Shift Ins.</code></pre>
-<pre><code>## `alter_fun` is assumed vectorizable. If it does not generate correct
-## plot, please set `alter_fun_is_vectorized = FALSE` in `oncoPrint()`.</code></pre>
-<pre><code>## Warning in generateVariantTable(maf): Not outputting these columns: gnomAD_AF,
-## AF</code></pre>
-<pre><code>## output file: /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpneQlA5/file163ce4376e51/MAFDash.knit.md</code></pre>
-<pre><code>## /usr/local/bin/pandoc +RTS -K512m -RTS /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpneQlA5/file163ce4376e51/MAFDash.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpneQlA5/output.html --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --standalone --section-divs --template /Users/jaina13/Library/R/4.0/library/flexdashboard/rmarkdown/templates/flex_dashboard/resources/default.html --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/rmarkdown-str163ce532b8a00.html --variable theme=yeti --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/rmarkdown-str163ce50809411.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/file163ce29791161html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/file163ce6afa3759.html --highlight-style pygments --include-before-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/file163ce4b640c8c.html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//RtmpneQlA5/file163ce1573e1ff.html</code></pre>
-<pre><code>## 
-## Output created: /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/RtmpneQlA5/output.html</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
+<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span><span class="va">maf</span>, outputFileName<span class="op">=</span><span class="st">"output"</span>, outputFileTitle<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"MAF Dashboard - Test"</span><span class="op">)</span>,outputFilePath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">## /usr/local/bin/pandoc +RTS -K512m -RTS /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/Rtmpnfmplp/filec0d8043b27/MAFDash.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /private/var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T/Rtmpnfmplp/output.html --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/jaina13/Library/R/4.0/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --variable bs3=TRUE --standalone --section-divs --template /Users/jaina13/Library/R/4.0/library/flexdashboard/rmarkdown/templates/flex_dashboard/resources/default.html --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/rmarkdown-strc0d4dc7818d.html --variable theme=yeti --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/rmarkdown-strc0d7fe9d248.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/filec0d4fecb693html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/filec0d29cabfe4.html --highlight-style pygments --include-before-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/filec0d3dc695e3.html --include-after-body /var/folders/jy/45byld4s14q9wc9qvbwx027m7rhngt/T//Rtmpnfmplp/filec0d389a89c4.html</span></code></pre></div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
@@ -193,7 +165,7 @@ Frederick, Maryland<br>
 <h1 class="hasAnchor">
 <a href="#downloading-tcga-mutation-data-in-maf-format" class="anchor"></a>Downloading TCGA mutation data in MAF format</h1>
 <p>MAFDash also provides a wrapper function <code>getMAFdataTCGA</code> around the <code>TCGABiolinks</code>, which returns the mutation data of different cancers in MAF format from TCGA website. See <a href="https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/tcga-study-abbreviations">this page</a> for a list of TCGA codes.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ashishjain1988/MAFDash/">"MAFDash"</a></span><span class="op">)</span>
 <span class="co"># Download MAF data from TCGA</span>
 <span class="va">CancerCode</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ACC"</span>,<span class="st">"UVM"</span><span class="op">)</span>
@@ -201,133 +173,106 @@ Frederick, Maryland<br>
 <span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getMAFdataTCGA.html">getMAFdataTCGA</a></span><span class="op">(</span>cancerCode <span class="op">=</span> <span class="va">CancerCode</span>, outputFolder <span class="op">=</span> <span class="va">inputFolderPath</span><span class="op">)</span></code></pre></div>
 <p>#Creating individual plots using the MAF dataset</p>
 <p>##Oncoplot The oncoplot shows the number and types of mutations in a set of genes across the samples. The function <code>generateOncoPlot</code> can be used to generate the oncoplot.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
 <span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/generateOncoPlot.html">generateOncoPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.222s elapsed (0.205s cpu)</code></pre>
-<pre><code>## All mutation types: Missense Mutation, Frame Shift Del, Nonsense
-## Mutation, Splice Site, Multi Hit, In Frame Del, Frame Shift Ins.</code></pre>
-<pre><code>## `alter_fun` is assumed vectorizable. If it does not generate correct
-## plot, please set `alter_fun_is_vectorized = FALSE` in `oncoPrint()`.</code></pre>
-<p><img src="MAFDash_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>##Burden Plot The burdenplot compares the total number of mutations between the samples using a dotplot. The figure also have a barplot showing the distribution of different type of mutations across the samples using a barplot.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
-<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/generateBurdenPlot.html">generateBurdenPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span>, plotType<span class="op">=</span><span class="st">"Dotplot"</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.775s elapsed (0.747s cpu)</code></pre>
+<span class="fu"><a href="../reference/generateOncoPlot.html">generateOncoPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.232s elapsed (0.215s cpu)</span></code></pre></div>
 <p><img src="MAFDash_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/generateBurdenPlot.html">generateBurdenPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span>, plotType<span class="op">=</span><span class="st">"Barplot"</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.237s elapsed (0.216s cpu)</code></pre>
-<p><img src="MAFDash_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
-<p>##Mutation Type plot This function generates silent and non-silent mutation plot using the MAF data.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<p>##Burden Plot The burdenplot compares the total number of mutations between the samples using a dotplot. The figure also have a barplot showing the distribution of different type of mutations across the samples using a barplot.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
 <span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/generateMutationTypePlot.html">generateMutationTypePlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.239s elapsed (0.221s cpu)</code></pre>
-<pre><code>## Warning in data.table::dcast(silent_classif_data, Tumor_Sample_Barcode ~ : The
-## dcast generic in data.table has been passed a grouped_df and will attempt to
-## redirect to the reshape2::dcast; please note that reshape2 is deprecated, and
-## this redirection is now deprecated as well. Please do this redirection yourself
-## like reshape2::dcast(silent_classif_data). In the next version, this warning
-## will become an error.</code></pre>
+<span class="fu"><a href="../reference/generateBurdenPlot.html">generateBurdenPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span>, plotType<span class="op">=</span><span class="st">"Dotplot"</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.652s elapsed (0.626s cpu)</span></code></pre></div>
 <p><img src="MAFDash_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>##TiTv plot This function plot the frequency of Transitions and Transversions of gene mutations</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'plotly'</code></pre>
-<pre><code>## The following object is masked from 'package:ggplot2':
-## 
-##     last_plot</code></pre>
-<pre><code>## The following object is masked from 'package:stats':
-## 
-##     filter</code></pre>
-<pre><code>## The following object is masked from 'package:graphics':
-## 
-##     layout</code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="va">plots</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTiTvPlot.html">generateTiTvPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.232s elapsed (0.215s cpu)</code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#plotly::subplot(plotly::subplot(plots$tiTvPatterns,plots$TiTv, nrows = 1, widths = c(1, 0.5)),plots$barplot,nrows = 2)</span></code></pre></div>
-<p>##TCGA Compare plot This function plot the comparison of the mutation load against TCGA cohorts</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/generateBurdenPlot.html">generateBurdenPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span>, plotType<span class="op">=</span><span class="st">"Barplot"</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.285s elapsed (0.255s cpu)</span></code></pre></div>
+<p><img src="MAFDash_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
+<p>##Mutation Type plot This function generates silent and non-silent mutation plot using the MAF data.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
 <span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
-<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">maf</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Reading
-## -Validating
-## -Silent variants: 561 
-## -Summarizing
-## --Possible FLAGS among top ten genes:
-##   MACF1
-##   MUC16
-## -Processing clinical data
-## --Missing clinical data
-## -Finished in 0.189s elapsed (0.178s cpu)</code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTCGAComparePlot.html">generateTCGAComparePlot</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">maf</span>, cohortName <span class="op">=</span> <span class="st">"test"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in FUN(X[[i]], ...): Removed 0 samples with zero mutations.</code></pre>
-<pre><code>## Performing pairwise t-test for differences in mutation burden..</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l</span><span class="op">$</span><span class="va">tcga_compare_plot</span></code></pre></div>
-<p><img src="MAFDash_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<span class="fu"><a href="../reference/generateMutationTypePlot.html">generateMutationTypePlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.226s elapsed (0.210s cpu)</span></code></pre></div>
+<p><img src="MAFDash_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p>##TiTv plot This function plot the frequency of Transitions and Transversions of gene mutations</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span>
+<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
+<span class="va">plots</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTiTvPlot.html">generateTiTvPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">maf</span><span class="op">)</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.215s elapsed (0.201s cpu)</span>
+<span class="co">#plotly::subplot(plotly::subplot(plots$tiTvPatterns,plots$TiTv, nrows = 1, widths = c(1, 0.5)),plots$barplot,nrows = 2)</span></code></pre></div>
+<p>##TCGA Compare plot This function plot the comparison of the mutation load against TCGA cohorts</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
+<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.mutect2.maf.gz"</span>, package <span class="op">=</span> <span class="st">"MAFDash"</span><span class="op">)</span>
+<span class="va">maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">maf</span><span class="op">)</span>
+<span class="co">## -Reading</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 561 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Possible FLAGS among top ten genes:</span>
+<span class="co">##   MACF1</span>
+<span class="co">##   MUC16</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## --Missing clinical data</span>
+<span class="co">## -Finished in 0.190s elapsed (0.178s cpu)</span>
+<span class="va">l</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTCGAComparePlot.html">generateTCGAComparePlot</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">maf</span>, cohortName <span class="op">=</span> <span class="st">"test"</span><span class="op">)</span>
+<span class="va">l</span><span class="op">$</span><span class="va">tcga_compare_plot</span></code></pre></div>
+<p><img src="MAFDash_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 <div id="adding-custom-plots" class="section level1">
 <h1 class="hasAnchor">
@@ -346,7 +291,7 @@ Frederick, Maryland<br>
 <div id="toy-example-with-iris-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#toy-example-with-iris-data" class="anchor"></a>Toy example with <code>iris</code> data</h2>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap">ComplexHeatmap</a></span><span class="op">)</span>
@@ -403,498 +348,427 @@ Frederick, Maryland<br>
 <a href="#download-maf-file-using-tcgabiolinks" class="anchor"></a>Download MAF file using <code>TCGABiolinks</code>
 </h3>
 <p>MAFDash provides a wrapper function that tries to simplify retrieving data using <code>TCGABiolinks</code>. Valid project codes can be viewed by running <code>TCGABiolinks::getGDCprojects()</code> and checking the “tumor” column.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioinformaticsFMRP/TCGAbiolinks">TCGAbiolinks</a></span><span class="op">)</span>
-
-<span class="va">tcga_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ACC"</span>,<span class="st">"UVM"</span><span class="op">)</span>
-<span class="co">#inputFolderPath &lt;- paste0(tempdir()) ## This folder will be created if it doesn't exist </span>
-<span class="va">caller</span> <span class="op">=</span> <span class="st">"mutect2"</span>
-<span class="va">title_label</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"TCGA-"</span>,<span class="va">tcga_code</span><span class="op">)</span>
-
-<span class="va">maf_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getMAFdataTCGA.html">getMAFdataTCGA</a></span><span class="op">(</span><span class="va">tcga_code</span>,variant_caller <span class="op">=</span> <span class="va">caller</span><span class="op">)</span></code></pre></div>
-<pre><code>## ============================================================================</code></pre>
-<pre><code>##  For more information about MAF data please read the following GDC manual and web pages:</code></pre>
-<pre><code>##  GDC manual: https://gdc-docs.nci.nih.gov/Data/PDF/Data_UG.pdf</code></pre>
-<pre><code>##  https://gdc-docs.nci.nih.gov/Data/Bioinformatics_Pipelines/DNA_Seq_Variant_Calling_Pipeline/</code></pre>
-<pre><code>##  https://gdc.cancer.gov/about-gdc/variant-calling-gdc</code></pre>
-<pre><code>## ============================================================================</code></pre>
-<pre><code>## --------------------------------------</code></pre>
-<pre><code>## o GDCquery: Searching in GDC database</code></pre>
-<pre><code>## --------------------------------------</code></pre>
-<pre><code>## Genome of reference: hg38</code></pre>
-<pre><code>## --------------------------------------------</code></pre>
-<pre><code>## oo Accessing GDC. This might take a while...</code></pre>
-<pre><code>## --------------------------------------------</code></pre>
-<pre><code>## ooo Project: TCGA-ACC</code></pre>
-<pre><code>## --------------------</code></pre>
-<pre><code>## oo Filtering results</code></pre>
-<pre><code>## --------------------</code></pre>
-<pre><code>## ooo By access</code></pre>
-<pre><code>## ooo By data.type</code></pre>
-<pre><code>## ooo By workflow.type</code></pre>
-<pre><code>## ----------------</code></pre>
-<pre><code>## oo Checking data</code></pre>
-<pre><code>## ----------------</code></pre>
-<pre><code>## ooo Check if there are duplicated cases</code></pre>
-<pre><code>## ooo Check if there results for the query</code></pre>
-<pre><code>## -------------------</code></pre>
-<pre><code>## o Preparing output</code></pre>
-<pre><code>## -------------------</code></pre>
-<pre><code>## Downloading data for project TCGA-ACC</code></pre>
-<pre><code>## GDCdownload will download: 2.666716 MB</code></pre>
-<pre><code>## Downloading as: TCGA.ACC.mutect.81ac2c46-37db-4dcd-923a-061a7ae626a3.DR-10.0.somatic.maf.gz</code></pre>
-<pre><code>## 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |                                                                      |   1%
-  |                                                                            
-  |=                                                                     |   1%
-  |                                                                            
-  |=                                                                     |   2%
-  |                                                                            
-  |==                                                                    |   2%
-  |                                                                            
-  |==                                                                    |   3%
-  |                                                                            
-  |===                                                                   |   4%
-  |                                                                            
-  |===                                                                   |   5%
-  |                                                                            
-  |====                                                                  |   5%
-  |                                                                            
-  |====                                                                  |   6%
-  |                                                                            
-  |=====                                                                 |   7%
-  |                                                                            
-  |=====                                                                 |   8%
-  |                                                                            
-  |======                                                                |   8%
-  |                                                                            
-  |======                                                                |   9%
-  |                                                                            
-  |=======                                                               |  10%
-  |                                                                            
-  |========                                                              |  11%
-  |                                                                            
-  |========                                                              |  12%
-  |                                                                            
-  |=========                                                             |  12%
-  |                                                                            
-  |=========                                                             |  13%
-  |                                                                            
-  |==========                                                            |  14%
-  |                                                                            
-  |==========                                                            |  15%
-  |                                                                            
-  |===========                                                           |  15%
-  |                                                                            
-  |===========                                                           |  16%
-  |                                                                            
-  |============                                                          |  17%
-  |                                                                            
-  |============                                                          |  18%
-  |                                                                            
-  |=============                                                         |  18%
-  |                                                                            
-  |=============                                                         |  19%
-  |                                                                            
-  |==============                                                        |  19%
-  |                                                                            
-  |==============                                                        |  20%
-  |                                                                            
-  |==============                                                        |  21%
-  |                                                                            
-  |===============                                                       |  21%
-  |                                                                            
-  |===============                                                       |  22%
-  |                                                                            
-  |================                                                      |  22%
-  |                                                                            
-  |================                                                      |  23%
-  |                                                                            
-  |=================                                                     |  24%
-  |                                                                            
-  |=================                                                     |  25%
-  |                                                                            
-  |==================                                                    |  26%
-  |                                                                            
-  |===================                                                   |  27%
-  |                                                                            
-  |===================                                                   |  28%
-  |                                                                            
-  |====================                                                  |  28%
-  |                                                                            
-  |====================                                                  |  29%
-  |                                                                            
-  |=====================                                                 |  30%
-  |                                                                            
-  |======================                                                |  31%
-  |                                                                            
-  |======================                                                |  32%
-  |                                                                            
-  |=======================                                               |  32%
-  |                                                                            
-  |=======================                                               |  33%
-  |                                                                            
-  |========================                                              |  34%
-  |                                                                            
-  |========================                                              |  35%
-  |                                                                            
-  |=========================                                             |  35%
-  |                                                                            
-  |=========================                                             |  36%
-  |                                                                            
-  |==========================                                            |  36%
-  |                                                                            
-  |==========================                                            |  37%
-  |                                                                            
-  |==========================                                            |  38%
-  |                                                                            
-  |===========================                                           |  38%
-  |                                                                            
-  |===========================                                           |  39%
-  |                                                                            
-  |============================                                          |  39%
-  |                                                                            
-  |============================                                          |  40%
-  |                                                                            
-  |============================                                          |  41%
-  |                                                                            
-  |=============================                                         |  41%
-  |                                                                            
-  |=============================                                         |  42%
-  |                                                                            
-  |==============================                                        |  42%
-  |                                                                            
-  |==============================                                        |  43%
-  |                                                                            
-  |===============================                                       |  44%
-  |                                                                            
-  |===============================                                       |  45%
-  |                                                                            
-  |================================                                      |  45%
-  |                                                                            
-  |================================                                      |  46%
-  |                                                                            
-  |=================================                                     |  47%
-  |                                                                            
-  |==================================                                    |  48%
-  |                                                                            
-  |==================================                                    |  49%
-  |                                                                            
-  |===================================                                   |  50%
-  |                                                                            
-  |===================================                                   |  51%
-  |                                                                            
-  |====================================                                  |  51%
-  |                                                                            
-  |====================================                                  |  52%
-  |                                                                            
-  |=====================================                                 |  52%
-  |                                                                            
-  |=====================================                                 |  53%
-  |                                                                            
-  |======================================                                |  54%
-  |                                                                            
-  |======================================                                |  55%
-  |                                                                            
-  |=======================================                               |  55%
-  |                                                                            
-  |=======================================                               |  56%
-  |                                                                            
-  |========================================                              |  57%
-  |                                                                            
-  |=========================================                             |  58%
-  |                                                                            
-  |=========================================                             |  59%
-  |                                                                            
-  |==========================================                            |  60%
-  |                                                                            
-  |===========================================                           |  61%
-  |                                                                            
-  |===========================================                           |  62%
-  |                                                                            
-  |============================================                          |  62%
-  |                                                                            
-  |============================================                          |  63%
-  |                                                                            
-  |=============================================                         |  64%
-  |                                                                            
-  |==============================================                        |  65%
-  |                                                                            
-  |==============================================                        |  66%
-  |                                                                            
-  |===============================================                       |  67%
-  |                                                                            
-  |===============================================                       |  68%
-  |                                                                            
-  |================================================                      |  68%
-  |                                                                            
-  |================================================                      |  69%
-  |                                                                            
-  |=================================================                     |  69%
-  |                                                                            
-  |=================================================                     |  70%
-  |                                                                            
-  |=================================================                     |  71%
-  |                                                                            
-  |==================================================                    |  71%
-  |                                                                            
-  |==================================================                    |  72%
-  |                                                                            
-  |===================================================                   |  72%
-  |                                                                            
-  |===================================================                   |  73%
-  |                                                                            
-  |====================================================                  |  74%
-  |                                                                            
-  |=====================================================                 |  75%
-  |                                                                            
-  |=====================================================                 |  76%
-  |                                                                            
-  |======================================================                |  77%
-  |                                                                            
-  |======================================================                |  78%
-  |                                                                            
-  |=======================================================               |  78%
-  |                                                                            
-  |=======================================================               |  79%
-  |                                                                            
-  |========================================================              |  79%
-  |                                                                            
-  |========================================================              |  80%
-  |                                                                            
-  |========================================================              |  81%
-  |                                                                            
-  |=========================================================             |  81%
-  |                                                                            
-  |=========================================================             |  82%
-  |                                                                            
-  |==========================================================            |  82%
-  |                                                                            
-  |==========================================================            |  83%
-  |                                                                            
-  |===========================================================           |  84%
-  |                                                                            
-  |===========================================================           |  85%
-  |                                                                            
-  |============================================================          |  86%
-  |                                                                            
-  |=============================================================         |  86%
-  |                                                                            
-  |=============================================================         |  87%
-  |                                                                            
-  |==============================================================        |  88%
-  |                                                                            
-  |==============================================================        |  89%
-  |                                                                            
-  |===============================================================       |  90%
-  |                                                                            
-  |================================================================      |  91%
-  |                                                                            
-  |================================================================      |  92%
-  |                                                                            
-  |=================================================================     |  92%
-  |                                                                            
-  |=================================================================     |  93%
-  |                                                                            
-  |=================================================================     |  94%
-  |                                                                            
-  |==================================================================    |  94%
-  |                                                                            
-  |==================================================================    |  95%
-  |                                                                            
-  |===================================================================   |  95%
-  |                                                                            
-  |===================================================================   |  96%
-  |                                                                            
-  |====================================================================  |  97%
-  |                                                                            
-  |====================================================================  |  98%
-  |                                                                            
-  |===================================================================== |  98%
-  |                                                                            
-  |===================================================================== |  99%
-  |                                                                            
-  |======================================================================| 100%
-## 
-indexed 2.79kB in  0s, 316.50MB/s
-                                                                              
-indexed 1.00TB in  0s, 17.18TB/s
-                                                                              </code></pre>
-<pre><code>## ============================================================================</code></pre>
-<pre><code>##  For more information about MAF data please read the following GDC manual and web pages:</code></pre>
-<pre><code>##  GDC manual: https://gdc-docs.nci.nih.gov/Data/PDF/Data_UG.pdf</code></pre>
-<pre><code>##  https://gdc-docs.nci.nih.gov/Data/Bioinformatics_Pipelines/DNA_Seq_Variant_Calling_Pipeline/</code></pre>
-<pre><code>##  https://gdc.cancer.gov/about-gdc/variant-calling-gdc</code></pre>
-<pre><code>## ============================================================================</code></pre>
-<pre><code>## --------------------------------------</code></pre>
-<pre><code>## o GDCquery: Searching in GDC database</code></pre>
-<pre><code>## --------------------------------------</code></pre>
-<pre><code>## Genome of reference: hg38</code></pre>
-<pre><code>## --------------------------------------------</code></pre>
-<pre><code>## oo Accessing GDC. This might take a while...</code></pre>
-<pre><code>## --------------------------------------------</code></pre>
-<pre><code>## ooo Project: TCGA-UVM</code></pre>
-<pre><code>## --------------------</code></pre>
-<pre><code>## oo Filtering results</code></pre>
-<pre><code>## --------------------</code></pre>
-<pre><code>## ooo By access</code></pre>
-<pre><code>## ooo By data.type</code></pre>
-<pre><code>## ooo By workflow.type</code></pre>
-<pre><code>## ----------------</code></pre>
-<pre><code>## oo Checking data</code></pre>
-<pre><code>## ----------------</code></pre>
-<pre><code>## ooo Check if there are duplicated cases</code></pre>
-<pre><code>## ooo Check if there results for the query</code></pre>
-<pre><code>## -------------------</code></pre>
-<pre><code>## o Preparing output</code></pre>
-<pre><code>## -------------------</code></pre>
-<pre><code>## Downloading data for project TCGA-UVM</code></pre>
-<pre><code>## GDCdownload will download: 505.413 KB</code></pre>
-<pre><code>## Downloading as: TCGA.UVM.mutect.6c7b01bc-b068-4e01-8b4d-0362f5959f65.DR-10.0.somatic.maf.gz</code></pre>
-<pre><code>## 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |=                                                                     |   2%
-  |                                                                            
-  |==                                                                    |   3%
-  |                                                                            
-  |===                                                                   |   5%
-  |                                                                            
-  |====                                                                  |   6%
-  |                                                                            
-  |=====                                                                 |   8%
-  |                                                                            
-  |=======                                                               |   9%
-  |                                                                            
-  |========                                                              |  11%
-  |                                                                            
-  |=========                                                             |  13%
-  |                                                                            
-  |==========                                                            |  14%
-  |                                                                            
-  |===========                                                           |  16%
-  |                                                                            
-  |============                                                          |  17%
-  |                                                                            
-  |=============                                                         |  19%
-  |                                                                            
-  |==============                                                        |  21%
-  |                                                                            
-  |===============                                                       |  22%
-  |                                                                            
-  |=================                                                     |  24%
-  |                                                                            
-  |==================                                                    |  25%
-  |                                                                            
-  |===================                                                   |  27%
-  |                                                                            
-  |====================                                                  |  28%
-  |                                                                            
-  |=====================                                                 |  30%
-  |                                                                            
-  |======================                                                |  32%
-  |                                                                            
-  |=======================                                               |  33%
-  |                                                                            
-  |========================                                              |  35%
-  |                                                                            
-  |=========================                                             |  36%
-  |                                                                            
-  |===========================                                           |  38%
-  |                                                                            
-  |============================                                          |  40%
-  |                                                                            
-  |=============================                                         |  41%
-  |                                                                            
-  |==============================                                        |  43%
-  |                                                                            
-  |===============================                                       |  44%
-  |                                                                            
-  |================================                                      |  46%
-  |                                                                            
-  |=================================                                     |  47%
-  |                                                                            
-  |==================================                                    |  49%
-  |                                                                            
-  |===================================                                   |  51%
-  |                                                                            
-  |=====================================                                 |  52%
-  |                                                                            
-  |======================================                                |  54%
-  |                                                                            
-  |=======================================                               |  55%
-  |                                                                            
-  |========================================                              |  57%
-  |                                                                            
-  |=========================================                             |  58%
-  |                                                                            
-  |==========================================                            |  60%
-  |                                                                            
-  |===========================================                           |  62%
-  |                                                                            
-  |============================================                          |  63%
-  |                                                                            
-  |=============================================                         |  65%
-  |                                                                            
-  |==============================================                        |  66%
-  |                                                                            
-  |================================================                      |  68%
-  |                                                                            
-  |=================================================                     |  70%
-  |                                                                            
-  |==================================================                    |  71%
-  |                                                                            
-  |===================================================                   |  73%
-  |                                                                            
-  |====================================================                  |  74%
-  |                                                                            
-  |=====================================================                 |  76%
-  |                                                                            
-  |======================================================                |  77%
-  |                                                                            
-  |=======================================================               |  79%
-  |                                                                            
-  |========================================================              |  81%
-  |                                                                            
-  |==========================================================            |  82%
-  |                                                                            
-  |===========================================================           |  84%
-  |                                                                            
-  |============================================================          |  85%
-  |                                                                            
-  |=============================================================         |  87%
-  |                                                                            
-  |==============================================================        |  89%
-  |                                                                            
-  |===============================================================       |  90%
-  |                                                                            
-  |================================================================      |  92%
-  |                                                                            
-  |=================================================================     |  93%
-  |                                                                            
-  |==================================================================    |  95%
-  |                                                                            
-  |====================================================================  |  96%
-  |                                                                            
-  |===================================================================== |  98%
-  |                                                                            
-  |======================================================================| 100%
-## 
-indexed 2.44kB in  0s, 353.48MB/s
-                                                                              
-indexed 1.00TB in  0s, 83.11TB/s
-                                                                              </code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MAFDash)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TCGAbiolinks)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>tcga_code <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ACC"</span>,<span class="st">"UVM"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#inputFolderPath &lt;- paste0(tempdir()) ## This folder will be created if it doesn't exist </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>caller <span class="ot">=</span> <span class="st">"mutect2"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>title_label <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"TCGA-"</span>,tcga_code)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>maf_files <span class="ot">&lt;-</span> <span class="fu">getMAFdataTCGA</span>(tcga_code,<span class="at">variant_caller =</span> caller)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">|</span>                                                                      <span class="er">|</span>   <span class="dv">0</span>%</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="er">|</span>                                                                      <span class="er">|</span>   <span class="dv">1</span>%</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">1</span>%</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">2</span>%</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==</span>                                                                    <span class="er">|</span>   <span class="dv">2</span>%</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==</span>                                                                    <span class="er">|</span>   <span class="dv">3</span>%</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===</span>                                                                   <span class="er">|</span>   <span class="dv">4</span>%</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===</span>                                                                   <span class="er">|</span>   <span class="dv">5</span>%</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">5</span>%</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">6</span>%</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====</span>                                                                 <span class="er">|</span>   <span class="dv">7</span>%</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====</span>                                                                 <span class="er">|</span>   <span class="dv">8</span>%</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">8</span>%</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======</span>                                                                <span class="er">|</span>   <span class="dv">9</span>%</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======</span>                                                               <span class="er">|</span>  <span class="dv">10</span>%</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">11</span>%</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">12</span>%</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========</span>                                                             <span class="er">|</span>  <span class="dv">12</span>%</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========</span>                                                             <span class="er">|</span>  <span class="dv">13</span>%</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">14</span>%</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">15</span>%</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========</span>                                                           <span class="er">|</span>  <span class="dv">15</span>%</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========</span>                                                           <span class="er">|</span>  <span class="dv">16</span>%</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============</span>                                                          <span class="er">|</span>  <span class="dv">17</span>%</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============</span>                                                          <span class="er">|</span>  <span class="dv">18</span>%</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">18</span>%</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">19</span>%</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">19</span>%</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">20</span>%</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">21</span>%</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">21</span>%</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">22</span>%</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================</span>                                                      <span class="er">|</span>  <span class="dv">22</span>%</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================</span>                                                      <span class="er">|</span>  <span class="dv">23</span>%</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================</span>                                                     <span class="er">|</span>  <span class="dv">24</span>%</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================</span>                                                     <span class="er">|</span>  <span class="dv">25</span>%</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">26</span>%</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================</span>                                                   <span class="er">|</span>  <span class="dv">27</span>%</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">28</span>%</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">29</span>%</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">29</span>%</span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">30</span>%</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">31</span>%</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">31</span>%</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">32</span>%</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================</span>                                               <span class="er">|</span>  <span class="dv">32</span>%</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================</span>                                               <span class="er">|</span>  <span class="dv">33</span>%</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">34</span>%</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">35</span>%</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================</span>                                             <span class="er">|</span>  <span class="dv">35</span>%</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================</span>                                             <span class="er">|</span>  <span class="dv">36</span>%</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================</span>                                            <span class="er">|</span>  <span class="dv">37</span>%</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">38</span>%</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">39</span>%</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================</span>                                          <span class="er">|</span>  <span class="dv">40</span>%</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================</span>                                          <span class="er">|</span>  <span class="dv">41</span>%</span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">41</span>%</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">42</span>%</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================</span>                                        <span class="er">|</span>  <span class="dv">43</span>%</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================</span>                                       <span class="er">|</span>  <span class="dv">44</span>%</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================</span>                                       <span class="er">|</span>  <span class="dv">45</span>%</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================</span>                                      <span class="er">|</span>  <span class="dv">46</span>%</span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================</span>                                     <span class="er">|</span>  <span class="dv">47</span>%</span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">48</span>%</span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">49</span>%</span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">49</span>%</span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">50</span>%</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">51</span>%</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">51</span>%</span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">52</span>%</span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================</span>                                 <span class="er">|</span>  <span class="dv">52</span>%</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================</span>                                 <span class="er">|</span>  <span class="dv">53</span>%</span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">54</span>%</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">55</span>%</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================</span>                               <span class="er">|</span>  <span class="dv">55</span>%</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================</span>                               <span class="er">|</span>  <span class="dv">56</span>%</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================================</span>                              <span class="er">|</span>  <span class="dv">57</span>%</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">58</span>%</span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================================</span>                             <span class="er">|</span>  <span class="dv">59</span>%</span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================================</span>                            <span class="er">|</span>  <span class="dv">60</span>%</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">61</span>%</span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">62</span>%</span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================</span>                          <span class="er">|</span>  <span class="dv">62</span>%</span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================</span>                          <span class="er">|</span>  <span class="dv">63</span>%</span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================</span>                         <span class="er">|</span>  <span class="dv">64</span>%</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================</span>                         <span class="er">|</span>  <span class="dv">65</span>%</span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">65</span>%</span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">66</span>%</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">66</span>%</span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">67</span>%</span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">68</span>%</span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">68</span>%</span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">69</span>%</span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================</span>                     <span class="er">|</span>  <span class="dv">70</span>%</span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">71</span>%</span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">72</span>%</span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================================</span>                   <span class="er">|</span>  <span class="dv">73</span>%</span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">74</span>%</span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================</span>                 <span class="er">|</span>  <span class="dv">75</span>%</span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================</span>                 <span class="er">|</span>  <span class="dv">76</span>%</span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================================</span>                <span class="er">|</span>  <span class="dv">77</span>%</span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">78</span>%</span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">79</span>%</span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================================================</span>              <span class="er">|</span>  <span class="dv">80</span>%</span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">81</span>%</span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">82</span>%</span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================================================</span>            <span class="er">|</span>  <span class="dv">82</span>%</span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================================================</span>            <span class="er">|</span>  <span class="dv">83</span>%</span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================================</span>           <span class="er">|</span>  <span class="dv">84</span>%</span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================================</span>           <span class="er">|</span>  <span class="dv">85</span>%</span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">85</span>%</span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">86</span>%</span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================================</span>         <span class="er">|</span>  <span class="dv">87</span>%</span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================================</span>         <span class="er">|</span>  <span class="dv">88</span>%</span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">88</span>%</span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================================================</span>        <span class="er">|</span>  <span class="dv">89</span>%</span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">89</span>%</span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">90</span>%</span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">91</span>%</span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">91</span>%</span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">92</span>%</span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">92</span>%</span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">93</span>%</span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">94</span>%</span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">94</span>%</span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================================================</span>   <span class="er">|</span>  <span class="dv">95</span>%</span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================================================</span>   <span class="er">|</span>  <span class="dv">96</span>%</span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================================================</span>  <span class="er">|</span>  <span class="dv">97</span>%</span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">98</span>%</span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">99</span>%</span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================================================|</span>  <span class="dv">99</span>%</span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================================================|</span> <span class="dv">100</span>%</span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>indexed <span class="fl">2.79</span>kB <span class="cf">in</span>  0s, <span class="fl">278.82</span>MB<span class="sc">/</span>s</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>                                                                              </span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>indexed <span class="fl">1.00</span>TB <span class="cf">in</span>  0s, <span class="fl">16.97</span>TB<span class="sc">/</span>s</span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>                                                                              </span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a>  <span class="er">|</span>                                                                      <span class="er">|</span>   <span class="dv">0</span>%</span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=</span>                                                                     <span class="er">|</span>   <span class="dv">2</span>%</span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==</span>                                                                    <span class="er">|</span>   <span class="dv">3</span>%</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===</span>                                                                   <span class="er">|</span>   <span class="dv">5</span>%</span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====</span>                                                                  <span class="er">|</span>   <span class="dv">6</span>%</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====</span>                                                                 <span class="er">|</span>   <span class="dv">8</span>%</span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======</span>                                                               <span class="er">|</span>   <span class="dv">9</span>%</span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========</span>                                                              <span class="er">|</span>  <span class="dv">11</span>%</span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========</span>                                                             <span class="er">|</span>  <span class="dv">13</span>%</span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========</span>                                                            <span class="er">|</span>  <span class="dv">14</span>%</span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========</span>                                                           <span class="er">|</span>  <span class="dv">16</span>%</span>
+<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============</span>                                                          <span class="er">|</span>  <span class="dv">17</span>%</span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============</span>                                                         <span class="er">|</span>  <span class="dv">19</span>%</span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============</span>                                                        <span class="er">|</span>  <span class="dv">21</span>%</span>
+<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============</span>                                                       <span class="er">|</span>  <span class="dv">22</span>%</span>
+<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================</span>                                                     <span class="er">|</span>  <span class="dv">24</span>%</span>
+<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================</span>                                                    <span class="er">|</span>  <span class="dv">25</span>%</span>
+<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================</span>                                                   <span class="er">|</span>  <span class="dv">27</span>%</span>
+<span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================</span>                                                  <span class="er">|</span>  <span class="dv">28</span>%</span>
+<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-320"><a href="#cb12-320" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================</span>                                                 <span class="er">|</span>  <span class="dv">30</span>%</span>
+<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================</span>                                                <span class="er">|</span>  <span class="dv">32</span>%</span>
+<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================</span>                                               <span class="er">|</span>  <span class="dv">33</span>%</span>
+<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================</span>                                              <span class="er">|</span>  <span class="dv">35</span>%</span>
+<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================</span>                                             <span class="er">|</span>  <span class="dv">36</span>%</span>
+<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================</span>                                           <span class="er">|</span>  <span class="dv">38</span>%</span>
+<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================</span>                                          <span class="er">|</span>  <span class="dv">40</span>%</span>
+<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================</span>                                         <span class="er">|</span>  <span class="dv">41</span>%</span>
+<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================</span>                                        <span class="er">|</span>  <span class="dv">43</span>%</span>
+<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================</span>                                       <span class="er">|</span>  <span class="dv">45</span>%</span>
+<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================</span>                                     <span class="er">|</span>  <span class="dv">46</span>%</span>
+<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================</span>                                    <span class="er">|</span>  <span class="dv">48</span>%</span>
+<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">50</span>%</span>
+<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================</span>                                   <span class="er">|</span>  <span class="dv">51</span>%</span>
+<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================</span>                                  <span class="er">|</span>  <span class="dv">52</span>%</span>
+<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================</span>                                <span class="er">|</span>  <span class="dv">54</span>%</span>
+<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================</span>                               <span class="er">|</span>  <span class="dv">55</span>%</span>
+<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================================</span>                              <span class="er">|</span>  <span class="dv">57</span>%</span>
+<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================================</span>                              <span class="er">|</span>  <span class="dv">58</span>%</span>
+<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================================</span>                            <span class="er">|</span>  <span class="dv">59</span>%</span>
+<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================</span>                           <span class="er">|</span>  <span class="dv">61</span>%</span>
+<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================</span>                          <span class="er">|</span>  <span class="dv">63</span>%</span>
+<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================</span>                         <span class="er">|</span>  <span class="dv">64</span>%</span>
+<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==============================================</span>                        <span class="er">|</span>  <span class="dv">66</span>%</span>
+<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================</span>                       <span class="er">|</span>  <span class="dv">67</span>%</span>
+<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================</span>                      <span class="er">|</span>  <span class="dv">69</span>%</span>
+<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================</span>                     <span class="er">|</span>  <span class="dv">70</span>%</span>
+<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================================</span>                    <span class="er">|</span>  <span class="dv">72</span>%</span>
+<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================================</span>                  <span class="er">|</span>  <span class="dv">74</span>%</span>
+<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================</span>                 <span class="er">|</span>  <span class="dv">75</span>%</span>
+<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================================</span>                <span class="er">|</span>  <span class="dv">77</span>%</span>
+<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=======================================================</span>               <span class="er">|</span>  <span class="dv">78</span>%</span>
+<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a>  <span class="er">|========================================================</span>              <span class="er">|</span>  <span class="dv">80</span>%</span>
+<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=========================================================</span>             <span class="er">|</span>  <span class="dv">82</span>%</span>
+<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-388"><a href="#cb12-388" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==========================================================</span>            <span class="er">|</span>  <span class="dv">83</span>%</span>
+<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===========================================================</span>           <span class="er">|</span>  <span class="dv">85</span>%</span>
+<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a>  <span class="er">|============================================================</span>          <span class="er">|</span>  <span class="dv">86</span>%</span>
+<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=============================================================</span>         <span class="er">|</span>  <span class="dv">88</span>%</span>
+<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===============================================================</span>       <span class="er">|</span>  <span class="dv">89</span>%</span>
+<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a>  <span class="er">|================================================================</span>      <span class="er">|</span>  <span class="dv">91</span>%</span>
+<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=================================================================</span>     <span class="er">|</span>  <span class="dv">93</span>%</span>
+<span id="cb12-401"><a href="#cb12-401" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a>  <span class="er">|==================================================================</span>    <span class="er">|</span>  <span class="dv">94</span>%</span>
+<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a>  <span class="er">|===================================================================</span>   <span class="er">|</span>  <span class="dv">96</span>%</span>
+<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a>  <span class="er">|====================================================================</span>  <span class="er">|</span>  <span class="dv">97</span>%</span>
+<span id="cb12-407"><a href="#cb12-407" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a>  <span class="er">|=====================================================================</span> <span class="er">|</span>  <span class="dv">99</span>%</span>
+<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a>  <span class="sc">|</span>                                                                            </span>
+<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a>  <span class="er">|======================================================================|</span> <span class="dv">100</span>%</span>
+<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a>indexed <span class="fl">2.44</span>kB <span class="cf">in</span>  0s, <span class="fl">353.48</span>MB<span class="sc">/</span>s</span>
+<span id="cb12-413"><a href="#cb12-413" aria-hidden="true" tabindex="-1"></a>                                                                              </span>
+<span id="cb12-414"><a href="#cb12-414" aria-hidden="true" tabindex="-1"></a>indexed <span class="fl">1.00</span>TB <span class="cf">in</span>  0s, <span class="fl">82.63</span>TB<span class="sc">/</span>s</span>
+<span id="cb12-415"><a href="#cb12-415" aria-hidden="true" tabindex="-1"></a>                                                                              </span></code></pre></div>
 </div>
 <div id="download-clinical-data-using-tcgabiolinks" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-clinical-data-using-tcgabiolinks" class="anchor"></a>Download clinical data using <code>TCGABiolinks</code>
 </h3>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># tcga_clinical &lt;- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")</span>
 <span class="co"># tcga_clinical$Tumor_Sample_Barcode &lt;- tcga_clinical$submitter_id</span>
 <span class="va">tcga_clinical</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getTCGAClinicalAnnotation.html">getTCGAClinicalAnnotation</a></span><span class="op">(</span>cancerCodes <span class="op">=</span> <span class="va">tcga_code</span><span class="op">)</span></code></pre></div>
@@ -907,7 +781,7 @@ indexed 1.00TB in  0s, 83.11TB/s
 <h3 class="hasAnchor">
 <a href="#filter-data" class="anchor"></a>Filter data</h3>
 <p>The <code>filterMAF</code> function can be used to filter the MAF data in various ways. Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( <a href="https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y">FLAG genes</a> )</p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filtered_mafdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>,<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">maf_files</span>, <span class="kw">function</span><span class="op">(</span><span class="va">maf_file</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="../reference/filter_maf_chunked.html">filter_maf_chunked</a></span><span class="op">(</span><span class="va">maf_file</span><span class="op">)</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="add-clinical-data" class="section level3">
@@ -915,19 +789,18 @@ indexed 1.00TB in  0s, 83.11TB/s
 <a href="#add-clinical-data" class="anchor"></a>Add clinical data</h3>
 <p>The easiest way to add clinical annotations to the oncoplot is to add clinical data to the <code>clinical.data</code> slot of a <code>MAF</code> object before passing it to the <code>generateOncoplot()</code> function.</p>
 <p>MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">filtered_maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">filtered_mafdata</span>, clinicalData <span class="op">=</span> <span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">)</span></code></pre></div>
-<pre><code>## -Validating
-## -Silent variants: 4326 
-## -Summarizing
-## --Mutiple centers found
-## BCM;BI--Possible FLAGS among top ten genes:
-##   MUC16
-##   TTN
-## -Processing clinical data
-## -Finished in 0.668s elapsed (0.632s cpu)</code></pre>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">annotation_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getTCGAClinicalColors.html">getTCGAClinicalColors</a></span><span class="op">(</span>ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">$</span><span class="va">age_at_diagnosis</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filtered_maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maftools/man/read.maf.html">read.maf</a></span><span class="op">(</span><span class="va">filtered_mafdata</span>, clinicalData <span class="op">=</span> <span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">)</span>
+<span class="co">## -Validating</span>
+<span class="co">## -Silent variants: 4326 </span>
+<span class="co">## -Summarizing</span>
+<span class="co">## --Mutiple centers found</span>
+<span class="co">## BCM;BI--Possible FLAGS among top ten genes:</span>
+<span class="co">##   MUC16</span>
+<span class="co">##   TTN</span>
+<span class="co">## -Processing clinical data</span>
+<span class="co">## -Finished in 1.071s elapsed (1.030s cpu)</span>
+<span class="va">annotation_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getTCGAClinicalColors.html">getTCGAClinicalColors</a></span><span class="op">(</span>ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">tcga_clinical</span><span class="op">$</span><span class="va">annodata</span><span class="op">$</span><span class="va">age_at_diagnosis</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="make-an-annotated-oncoplot" class="section level3">
 <h3 class="hasAnchor">
@@ -937,14 +810,10 @@ indexed 1.00TB in  0s, 83.11TB/s
 <li>A boolean indicating whether or not to add annotations built from the <code>clinical.data</code> slot of the <code>MAF</code> object. Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of <code>clinical.data</code>)</li>
 <li>A character vector of column names provided as clinical data</li>
 </ul>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">custom_onco</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generateOncoPlot.html">generateOncoPlot</a></span><span class="op">(</span><span class="va">filtered_maf</span>, 
                                 add_clinical_annotations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">annotation_colors</span><span class="op">)</span>, 
                                 clin_data_colors <span class="op">=</span> <span class="va">annotation_colors</span><span class="op">)</span></code></pre></div>
-<pre><code>## All mutation types: Missense Mutation, Frame Shift Del, Splice Site,
-## Multi Hit, Nonsense Mutation, In Frame Del, Frame Shift Ins.</code></pre>
-<pre><code>## `alter_fun` is assumed vectorizable. If it does not generate correct
-## plot, please set `alter_fun_is_vectorized = FALSE` in `oncoPrint()`.</code></pre>
 </div>
 </div>
 <div id="make-some-other-figures" class="section level2">
@@ -954,16 +823,14 @@ indexed 1.00TB in  0s, 83.11TB/s
 <h3 class="hasAnchor">
 <a href="#tcga-comparison" class="anchor"></a>TCGA Comparison</h3>
 <p>A lot of <code>maftools</code>’s plots are base graphics, so they’re drawn to a device and not returned. But we can simply save them to a file and provide the file path.</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tcgaComparePlot</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/generateTCGAComparePlot.html">generateTCGAComparePlot</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">filtered_maf</span>, cohortName <span class="op">=</span> <span class="st">"test"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in FUN(X[[i]], ...): Removed 0 samples with zero mutations.</code></pre>
-<pre><code>## Performing pairwise t-test for differences in mutation burden..</code></pre>
 </div>
 <div id="chord-diagram-of-mutation-co-occurrence" class="section level3">
 <h3 class="hasAnchor">
 <a href="#chord-diagram-of-mutation-co-occurrence" class="anchor"></a>Chord Diagram of mutation co-occurrence</h3>
 <p>This function is built on top of <code>maftools</code>’s <code><a href="https://rdrr.io/pkg/maftools/man/somaticInteractions.html">somaticInteractions()</a></code> function. It’s just a different way of visualizing co-occurence or mutual exclusivity between genes.</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ribbonplot_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"ribbon.pdf"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/generateRibbonPlot.html">generateRibbonPlot</a></span><span class="op">(</span><span class="va">filtered_maf</span>,save_name <span class="op">=</span> <span class="va">ribbonplot_file</span><span class="op">)</span></code></pre></div>
 </div>
@@ -971,7 +838,7 @@ indexed 1.00TB in  0s, 83.11TB/s
 <div id="render-the-dashboard" class="section level2">
 <h2 class="hasAnchor">
 <a href="#render-the-dashboard" class="anchor"></a>Render the dashboard</h2>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">customplotlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"summary_plot"</span><span class="op">=</span><span class="cn">T</span>,
                        <span class="st">"burden"</span><span class="op">=</span><span class="cn">T</span>,
                        <span class="st">"TCGA Comparison"</span><span class="op">=</span><span class="va">tcgaComparePlot</span><span class="op">$</span><span class="va">tcga_compare_plot</span>,

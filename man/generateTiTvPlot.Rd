@@ -33,7 +33,7 @@ generateTiTvPlot(
 \item{axisTextSize}{text size x and y tick labels. Default 10 (in pts).}
 }
 \value{
-List of objects consisting of different TiTv plots. If 'save_name' is provided, a PDF is created at the given path.
+List of objects consisting of different TiTv plots.
 }
 \description{
 This function plot the frequency of Transitions and Transversions of gene mutations

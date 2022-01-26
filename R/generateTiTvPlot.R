@@ -14,7 +14,8 @@ utils::globalVariables(c("value","variable","V1"))
 #' @param axisTextSize text size x and y tick labels. Default 10 (in pts).
 # @param save_name The name and path of the output file. Default NULL.
 #' @export
-#' @return List of objects consisting of different TiTv plots. If 'save_name' is provided, a PDF is created at the given path.
+#' @return List of objects consisting of different TiTv plots.
+# If 'save_name' is provided, a PDF is created at the given path.
 #'
 #' @examples
 #' library(MAFDash)
