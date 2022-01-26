@@ -12,7 +12,7 @@ output:
     toc: true
     #number_sections: true  ## if you want number sections at each table header
     #theme: united  # many options for theme, this one is my favorite.
-fig_width: 10
+fig_width: 8
 fig_height: 5 
 vignette: >
   %\VignetteIndexEntry{MAFDash}
@@ -98,7 +98,7 @@ The oncoplot shows the number and types of mutations in a set of genes across th
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-generateOncoPlot(read.maf(maf))
+generateOncoPlot(read.maf(maf,verbose = FALSE))
 ```
 
 ##Burden Plot
@@ -108,8 +108,8 @@ The burdenplot compares the total number of mutations between the samples using 
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-generateBurdenPlot(read.maf(maf), plotType="Dotplot")
-generateBurdenPlot(read.maf(maf), plotType="Barplot")
+generateBurdenPlot(read.maf(maf,verbose = FALSE), plotType="Dotplot")
+generateBurdenPlot(read.maf(maf,verbose = FALSE), plotType="Barplot")
 ```
 
 ##Mutation Type plot
@@ -119,7 +119,7 @@ This function generates silent and non-silent mutation plot using the MAF data.
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-generateMutationTypePlot(read.maf(maf))
+generateMutationTypePlot(read.maf(maf,verbose = FALSE))
 ```
 
 ##TiTv plot
@@ -130,8 +130,8 @@ library(MAFDash)
 library(maftools)
 library(plotly)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-plots<-generateTiTvPlot(read.maf(maf))
-#plotly::subplot(plotly::subplot(plots$tiTvPatterns,plots$TiTv, nrows = 1, widths = c(1, 0.5)),plots$barplot,nrows = 2)
+plots<-generateTiTvPlot(read.maf(maf,verbose = FALSE))
+plotly::subplot(plotly::subplot(plots$tiTvPatterns,plots$TiTv, nrows = 1, widths = c(0.5, 0.25)),plots$barplot,nrows = 2)
 ```
 
 ##TCGA Compare plot
@@ -141,7 +141,7 @@ This function plot the comparison of the mutation load against TCGA cohorts
 library(MAFDash)
 library(maftools)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
-maf <- read.maf(maf = maf)
+maf <- read.maf(maf = maf,verbose = FALSE)
 l<-generateTCGAComparePlot(maf = maf, cohortName = "test")
 l$tcga_compare_plot
 ```
@@ -234,8 +234,10 @@ maf_files <- getMAFdataTCGA(tcga_code,variant_caller = caller)
 ```{r eval=TRUE}
 # tcga_clinical <- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
 # tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
+defaultW <- getOption("warn")
+options(warn = -1)
 tcga_clinical<-getTCGAClinicalAnnotation(cancerCodes = tcga_code)
-
+options(warn = defaultW)
 ```
 
 ## Make a customized oncoplot
@@ -252,7 +254,7 @@ The easiest way to add clinical annotations to the oncoplot is to add clinical d
 MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.
 
 ```{r eval=TRUE}
-filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical$annodata)
+filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical$annodata,verbose = FALSE)
 annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$annodata$age_at_diagnosis, na.rm=T))
 ```
 
@@ -266,6 +268,7 @@ The `add_clinical_annotations` argument can be:
 custom_onco <- generateOncoPlot(filtered_maf, 
                                 add_clinical_annotations = names(annotation_colors), 
                                 clin_data_colors = annotation_colors)
+custom_onco
 ```
 
 
@@ -275,14 +278,15 @@ A lot of `maftools`'s plots are base graphics, so they're drawn to a device and 
 
 ```{r eval=TRUE}
 tcgaComparePlot<-generateTCGAComparePlot(maf = filtered_maf, cohortName = "test")
+tcgaComparePlot$tcga_compare_plot
 ```
 
 ### Chord Diagram of mutation co-occurrence
 This function is built on top of `maftools`'s `somaticInteractions()` function. It's just a different way of visualizing co-occurence or mutual exclusivity between genes.
 
-```{r eval=FALSE}
-ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
-generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)
+```{r eval=TRUE}
+#ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
+generateRibbonPlot(filtered_maf,save_name = NULL)
 ```
 
 ## Render the dashboard
