@@ -1,7 +1,7 @@
 ---
 title: "MAFDash: R package to easily create an HTML dashboard to summarize and visualize data from Mutation Annotation Format (MAF) file"
 author: |
-    | Mayank Tandon, Ashish Jain
+    | Ashish Jain, Mayank Tandon
     | Frederick National Laboratory For Cancer Research
     | Frederick, Maryland
     | 
@@ -12,7 +12,7 @@ output:
     toc: true
     #number_sections: true  ## if you want number sections at each table header
     #theme: united  # many options for theme, this one is my favorite.
-fig_width: 8 
+fig_width: 10
 fig_height: 5 
 vignette: >
   %\VignetteIndexEntry{MAFDash}
@@ -20,16 +20,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<!-- ``` -->
-<!-- #{r setup, include = FALSE} -->
-<!-- knitr::opts_chunk$set( -->
-<!--   collapse = TRUE, -->
-<!--   comment = "#>", -->
-<!--   echo = TRUE, -->
-<!--   message = FALSE, -->
-<!--   warning = FALSE -->
-<!-- ) -->
-<!-- ``` -->
+```{r setup1, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```
 
 # MAFDash
 #### View examples on [github.io](https://mtandon09.github.io/MAFDash/)
@@ -43,12 +41,14 @@ Please post all the questions or queries related to MAFDash package on **Github 
 
 ## Installation from CRAN
 
-`install.packages("MAFDash")`
+```{r eval=FALSE}
+install.packages("MAFDash")
+```
 
 ## Installation from Github
 
 ```{r eval=FALSE}
-install.packages(c("dplyr","ensurer","ggplot2","tidyr","DT","rmarkdown","knitr","flexdashboard","htmltools","data.table","ggbeeswarm","RColorBrewer","plotly","circlize","canvasXpress","crosstalk","bsplus","BiocManager","maftools","ComplexHeatmap"))
+install.packages(c("dplyr","ensurer","ggplot2","tidyr","DT","rmarkdown","knitr","flexdashboard","htmltools","data.table","ggbeeswarm","plotly","circlize","canvasXpress","crosstalk","bsplus","BiocManager","maftools","ComplexHeatmap"))
 BiocManager::install(c("TCGAbiolinks"))
 install.packages(devtools)
 library(devtools)
@@ -72,6 +72,7 @@ library(MAFDash)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 getMAFDashboard(maf, outputFileName="output", outputFileTitle=paste0("MAF Dashboard - Test"),outputFilePath = tempdir())
 ```
+
 ## Example
 Here are some example dashboards created using TCGA data:
 - [TCGA-UVM](https://mtandon09.github.io/MAFDash/output/TCGA-UVM.MAFDash.html)
@@ -123,6 +124,7 @@ generateMutationTypePlot(read.maf(maf))
 
 ##TiTv plot
 This function plot the frequency of Transitions and Transversions of gene mutations
+
 ```{r eval=TRUE}
 library(MAFDash)
 library(maftools)
@@ -134,6 +136,7 @@ plots<-generateTiTvPlot(read.maf(maf))
 
 ##TCGA Compare plot
 This function plot the comparison of the mutation load against TCGA cohorts
+
 ```{r eval=TRUE}
 library(MAFDash)
 library(maftools)
@@ -155,6 +158,7 @@ Elements of the list can be:
 This functionality can be used with or without providing a MAF file.  When MAF data is not provided, the "Variant Table" tab of the dashboard is automatically omitted.
 
 ## Toy example with `iris` data
+
 ```{r eval=FALSE}
 library(ggplot2)
 library(plotly)
@@ -212,6 +216,7 @@ The output can be seen [here](https://mtandon09.github.io/MAFDashRPackage/exampl
 
 ### Download MAF file using `TCGABiolinks`
 MAFDash provides a wrapper function that tries to simplify retrieving data using `TCGABiolinks`.  Valid project codes can be viewed by running `TCGABiolinks::getGDCprojects()` and checking the "tumor" column.
+
 ```{r eval=TRUE}
 library(MAFDash)
 library(TCGAbiolinks)
@@ -225,6 +230,7 @@ maf_files <- getMAFdataTCGA(tcga_code,variant_caller = caller)
 ```
 
 ### Download clinical data using `TCGABiolinks`
+
 ```{r eval=TRUE}
 # tcga_clinical <- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
 # tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
@@ -235,6 +241,7 @@ tcga_clinical<-getTCGAClinicalAnnotation(cancerCodes = tcga_code)
 ## Make a customized oncoplot
 ### Filter data
 The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
+
 ```{r eval=TRUE}
 filtered_mafdata <- do.call("rbind",lapply(maf_files, function(maf_file){filter_maf_chunked(maf_file)}))
 ```
@@ -254,6 +261,7 @@ The `add_clinical_annotations` argument can be:
 
 - A boolean indicating whether or not to add annotations built from the `clinical.data` slot of the `MAF` object.  Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of `clinical.data`)
 - A character vector of column names provided as clinical data
+
 ```{r eval=TRUE}
 custom_onco <- generateOncoPlot(filtered_maf, 
                                 add_clinical_annotations = names(annotation_colors), 
@@ -264,18 +272,21 @@ custom_onco <- generateOncoPlot(filtered_maf,
 ## Make some other figures
 ### TCGA Comparison
 A lot of `maftools`'s plots are base graphics, so they're drawn to a device and not returned.  But we can simply save them to a file and provide the file path.
+
 ```{r eval=TRUE}
 tcgaComparePlot<-generateTCGAComparePlot(maf = filtered_maf, cohortName = "test")
 ```
 
 ### Chord Diagram of mutation co-occurrence
 This function is built on top of `maftools`'s `somaticInteractions()` function. It's just a different way of visualizing co-occurence or mutual exclusivity between genes.
+
 ```{r eval=FALSE}
 ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
 generateRibbonPlot(filtered_maf,save_name = ribbonplot_file)
 ```
 
 ## Render the dashboard
+
 ```{r eval=FALSE}
 customplotlist <- list("summary_plot"=T,
                        "burden"=T,
