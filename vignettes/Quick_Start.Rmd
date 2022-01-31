@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 ## Getting started
 ### Installation from Github
-```
+```{r eval=FALSE}
 # install.packages(devtools)  ## Install devtools if necessary
 devtools::install_github("mtandon09/MAFDashRPackage")
 ```
@@ -36,20 +36,23 @@ devtools::install_github("mtandon09/MAFDashRPackage")
 ### Get some mutation data in MAF format
 You can run `TCGAbiolinks::getGDCprojects()` to get a data frame of available datasets. The last column (`tumor`) contains valid TCGA project codes for download.
 
-```
+```{r eval=FALSE}
+library(MAFDash)
+library(maftools)
 # Let's use the example MAF provided by maftools
 laml.maf <- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")
 ```
 
 ### Make it into a dashboard
-```
+
+```{r eval=FALSE}
 ## Text to display as the header in the output file
 title_text <- paste0("Example Dashboard")  
 
 ## Location for the output file
 html_filename <- "LAML.mafdash.html"
 
-getMAFDashboard(MAFfilePath = laml.maf,
+getMAFDashboard(maf = laml.maf,
                 outputFileName = html_filename,
                 outputFileTitle=title_text)
 ```

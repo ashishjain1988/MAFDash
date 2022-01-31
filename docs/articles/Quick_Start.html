@@ -104,28 +104,33 @@
 <div id="installation-from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-from-github" class="anchor"></a>Installation from Github</h3>
-<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html"># install.packages(devtools)  ## Install devtools if necessary
-devtools::install_github("mtandon09/MAFDashRPackage")</a></code></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages(devtools)  ## Install devtools if necessary</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"mtandon09/MAFDashRPackage"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-some-mutation-data-in-maf-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get-some-mutation-data-in-maf-format" class="anchor"></a>Get some mutation data in MAF format</h3>
 <p>You can run <code><a href="https://rdrr.io/pkg/TCGAbiolinks/man/getGDCprojects.html">TCGAbiolinks::getGDCprojects()</a></code> to get a data frame of available datasets. The last column (<code>tumor</code>) contains valid TCGA project codes for download.</p>
-<pre><code># Let's use the example MAF provided by maftools
-laml.maf &lt;- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/">MAFDash</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools">maftools</a></span><span class="op">)</span>
+<span class="co"># Let's use the example MAF provided by maftools</span>
+<span class="va">laml.maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"tcga_laml.maf.gz"</span>, package <span class="op">=</span> <span class="st">"maftools"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="make-it-into-a-dashboard" class="section level3">
 <h3 class="hasAnchor">
 <a href="#make-it-into-a-dashboard" class="anchor"></a>Make it into a dashboard</h3>
-<pre><code>## Text to display as the header in the output file
-title_text &lt;- paste0("Example Dashboard")  
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Text to display as the header in the output file</span>
+<span class="va">title_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Example Dashboard"</span><span class="op">)</span>  
 
-## Location for the output file
-html_filename &lt;- "LAML.mafdash.html"
+<span class="co">## Location for the output file</span>
+<span class="va">html_filename</span> <span class="op">&lt;-</span> <span class="st">"LAML.mafdash.html"</span>
 
-getMAFDashboard(MAFfilePath = laml.maf,
-                outputFileName = html_filename,
-                outputFileTitle=title_text)</code></pre>
+<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">laml.maf</span>,
+                outputFileName <span class="op">=</span> <span class="va">html_filename</span>,
+                outputFileTitle<span class="op">=</span><span class="va">title_text</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="output" class="section level2">
