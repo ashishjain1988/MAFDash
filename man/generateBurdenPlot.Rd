@@ -6,7 +6,7 @@
 \usage{
 generateBurdenPlot(
   mymaf,
-  plotType = NULL,
+  plotType = "Dotplot",
   mb_covered = NULL,
   save_data_to_file = NULL
 )

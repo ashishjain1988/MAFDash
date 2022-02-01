@@ -26,7 +26,21 @@ utils::globalVariables(c(".", "mut_burden", "classification",
 #' @import ggplot2
 #' @importFrom ggbeeswarm geom_quasirandom
 #'
-generateBurdenPlot<-function(mymaf, plotType=NULL, mb_covered=NULL, save_data_to_file=NULL){
+generateBurdenPlot<-function(mymaf, plotType="Dotplot", mb_covered=NULL, save_data_to_file=NULL){
+
+  ### Add checks for the conditions
+  mymaf <- ensurer::ensure_that(mymaf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  plotType <- ensurer::ensure_that(plotType,
+                                     (class(.) == "character") && (. == "Dotplot" || . == "Barplot"),
+                                     err_desc = "Please enter the correct plot type.")
+  mb_covered <- ensurer::ensure_that(mb_covered,
+                                   is.null(.) || (class(.) == "numeric"),
+                                   err_desc = "Please enter correct value of mb covered.")
+  save_data_to_file <- ensurer::ensure_that(save_data_to_file,
+                                    is.null(.) || (class(.) == "character"),
+                                    err_desc = "Please enter correct filename.")
 
   num_var_data <- mymaf@variants.per.sample
   colnames(num_var_data) <- c("Tumor_Sample_Barcode","Variants_filtered")

@@ -27,6 +27,9 @@ generateMutationTypePlot<-function(mymaf, savename=NULL, returndata=FALSE){
   mymaf <- ensurer::ensure_that(mymaf,
                                 !is.null(.) && (class(.) == "MAF"),
                                 err_desc = "Please enter correct MAF object")
+  savename <- ensurer::ensure_that(savename,
+                                            is.null(.) || (class(.) == "character"),
+                                            err_desc = "Please enter correct filename.")
   returndata <- ensurer::ensure_that(returndata,
                                     !is.null(.) && (class(.) == "logical"),
                                     err_desc = "Please enter the returndata flag in correct format.")

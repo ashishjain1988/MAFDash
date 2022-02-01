@@ -24,8 +24,8 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns","tempdir","heat.
 getMAFdataTCGA<-function(cancerCodes=c("ACC"),outputFolder=tempdir(),variant_caller="mutect2"){
 
   cancerCodes <- ensurer::ensure_that(cancerCodes,
-                                   !is.null(.) && (class(.) == "character"),
-                                   err_desc = "Please enter the Cancer Code in correct format.")
+                                   !is.null(.) && (class(.) == "character") && all(. %in% TCGAbiolinks::getGDCprojects()$tumor),
+                                   err_desc = "Please enter the correct TCGA cancer code. See TCGAbiolinks::getGDCprojects().")
   variant_caller <- ensurer::ensure_that(variant_caller,
                                      !is.null(.) && (class(.) == "character"),
                                      err_desc = "Please enter the variant caller type in correct format.")
@@ -81,8 +81,8 @@ getMAFdataTCGA<-function(cancerCodes=c("ACC"),outputFolder=tempdir(),variant_cal
 #' @importFrom TCGAbiolinks GDCquery_clinic
 getTCGAClinicalAnnotation <- function(cancerCodes="ACC",outputFolder=tempdir(), plotdata=NULL) {
   cancerCodes <- ensurer::ensure_that(cancerCodes,
-                                      !is.null(.) && (class(.) == "character"),
-                                      err_desc = "Please enter the Cancer Code in correct format.")
+                                      !is.null(.) && (class(.) == "character") && all(. %in% TCGAbiolinks::getGDCprojects()$tumor),
+                                      err_desc = "Please enter the correct TCGA cancer code. See TCGAbiolinks::getGDCprojects().")
   plotdata <- ensurer::ensure_that(plotdata,
                                    is.null(.) || (class(.) == "data.frame"),
                                    err_desc = "Please enter the data to be plotted in a correct format.")
@@ -154,7 +154,7 @@ getTCGAClinicalAnnotation <- function(cancerCodes="ACC",outputFolder=tempdir(), 
 #' Makes reasonable colors for some TCGA clinical annoations
 #' @description This will return a list of colors that can be used with TCGA clinical annotations
 #' @author Mayank Tandon, Ashish Jain
-#' @param ageRange The range of patient's age to generate color vector from RColorBrewer
+#' @param ageRange The range of patient's age to generate color vectors
 #' @export
 #' @return A list containing the TCGA clinical annotations
 #'

@@ -7,7 +7,7 @@
 getTCGAClinicalColors(ageRange = c(0, 100))
 }
 \arguments{
-\item{ageRange}{The range of patient's age to generate color vector from RColorBrewer}
+\item{ageRange}{The range of patient's age to generate color vectors}
 }
 \value{
 A list containing the TCGA clinical annotations

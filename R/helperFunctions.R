@@ -213,7 +213,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' variantTable<-generateVariantTable(read.maf(maf))
 generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
   ### Add checks for the conditions
-  maf.filter <- ensurer::ensure_that(maf,
+  maf <- ensurer::ensure_that(maf,
                               !is.null(.) && (class(.) == "MAF"),
                               err_desc = "Please enter correct MAF object")
   use_syn <- ensurer::ensure_that(use_syn,
@@ -334,8 +334,8 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 #' @description Function to the extact the Gene symbol from the input genes
 #' @author Mayank Tandon, Ashish Jain
 #' @param genes_arg genes_arg
-#' @export
 #' @return A character vector containing the list of genes with gene symbols
+#' @noRd
 #' @examples
 #' library(MAFDash)
 #' geneSelectParser()

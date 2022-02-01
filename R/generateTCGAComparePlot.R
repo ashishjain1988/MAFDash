@@ -38,6 +38,21 @@ utils::globalVariables(c(".", "boxplot.stats", ".N",
 
 generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size = 35.8, cohortName = NULL, tcga_cohorts = NULL, primarySite = FALSE, col = c('gray70', 'black'), medianCol = 'red', decreasing = FALSE, logscale = TRUE, rm_hyper = FALSE, rm_zero = TRUE){
 
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  capture_size <- ensurer::ensure_that(capture_size,
+                                             is.null(.) || (class(.) == "numeric"),
+                                             err_desc = "Please enter the input sample capture size in correct format.")
+  tcga_capture_size <- ensurer::ensure_that(tcga_capture_size,
+                                       is.null(.) || (class(.) == "numeric"),
+                                       err_desc = "Please enter the tcga_capture_size in correct format.")
+  cohortName <- ensurer::ensure_that(cohortName,
+                                            is.null(.) || (class(.) == "character"),
+                                            err_desc = "Please enter correct cohort name")
+
+
   tcga.cohort = system.file('extdata', 'tcga_cohort.txt.gz', package = 'maftools')
   tcga.cohort = data.table::fread(file = tcga.cohort, sep = '\t', stringsAsFactors = FALSE)
 

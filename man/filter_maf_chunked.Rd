@@ -36,7 +36,7 @@ information in the MAF format}
 
 \item{no_filter}{Flag to filter the MAF (Default no_filter=FALSE)}
 
-\item{grep_vcf_filter_col}{FILTER column}
+\item{grep_vcf_filter_col}{FILTER column (Default grep_vcf_filter_col="PASS")}
 
 \item{non_silent_only}{Flag to filter non slient SNVs only
 (Default non_silent_only=FALSE)}
@@ -53,7 +53,7 @@ information in the MAF format}
 
 \item{gnomAD_AF_max}{gnomAD_AF_max (Default gnomAD_AF_max=0.001)}
 
-\item{AF_max}{AF_max (Default AF_max=0.001)}
+\item{AF_max}{1000 genome data AF_max (Default AF_max=0.001)}
 
 \item{ExAC_AF_max}{ExAC_AF_max (Default ExAC_AF_max=0.01)}
 

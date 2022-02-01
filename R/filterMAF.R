@@ -183,7 +183,7 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
 #' @param chunk_lines The number of lines to be read at once
 #' @param save_name The name and path of the output file to save filtered MAFs
 #' @param no_filter Flag to filter the MAF (Default no_filter=FALSE)
-#' @param grep_vcf_filter_col FILTER column
+#' @param grep_vcf_filter_col FILTER column (Default grep_vcf_filter_col="PASS")
 #' @param n_alt_max Alt norm max (Default n_alt_max=1)
 #' @param non_silent_only Flag to filter non slient SNVs only
 #' (Default non_silent_only=FALSE)
@@ -192,7 +192,7 @@ filterMAF<-function(mafFilePath, flag_genes="default",save_name=NULL,no_filter=F
 #' @param tumor_freq_min Tumor Frequency Minimum (Default tumor_freq_min=0.05)
 #' @param norm_freq_max norm_freq_max (Default norm_freq_max=0.02)
 #' @param gnomAD_AF_max gnomAD_AF_max (Default gnomAD_AF_max=0.001)
-#' @param AF_max AF_max (Default AF_max=0.001)
+#' @param AF_max 1000 genome data AF_max (Default AF_max=0.001)
 #' @param ExAC_AF_max ExAC_AF_max (Default ExAC_AF_max=0.01)
 #' @param n_callers n_callers (Default n_callers=2)
 #' @param variant_caller variant_caller
@@ -215,14 +215,64 @@ filter_maf_chunked <- function(maf_file, chunk_lines=10000, flag_genes="default"
                                non_silent_only=FALSE,t_alt_min=2,t_depth_min=5,tumor_freq_min=0.01,n_alt_max=1,
                                norm_freq_max=0.01,gnomAD_AF_max=0.001,AF_max=0.001,ExAC_AF_max=0.001,n_callers=2,
                                variant_caller=NULL) {
+  ### Add checks for the conditions
+  maf_file <- ensurer::ensure_that(maf_file,
+                                      !is.null(.) && file.exists(.),
+                                      err_desc = "Please enter correct file path.")
+  flag_genes <- ensurer::ensure_that(flag_genes,
+                                     is.null(.) || (class(.) == "character"),
+                                     err_desc = "Please enter the gene list in correct format.")
+  save_name <- ensurer::ensure_that(save_name,
+                                     is.null(.) || (class(.) == "character"),
+                                     err_desc = "Please enter correct filename.")
+  no_filter <- ensurer::ensure_that(no_filter,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the no_filter flag in correct format.")
+  grep_vcf_filter_col <- ensurer::ensure_that(grep_vcf_filter_col,
+                                    (class(.) == "character"),
+                                    err_desc = "Please enter correct FILTER column pattern.")
+  non_silent_only <- ensurer::ensure_that(non_silent_only,
+                                    !is.null(.) && (class(.) == "logical"),
+                                    err_desc = "Please enter the non_silent_only flag in correct format.")
+  n_alt_max <- ensurer::ensure_that(n_alt_max,
+                                       !is.null(.) && (class(.) == "numeric"),
+                                       err_desc = "Please enter the norm_alt_max in correct format.")
+  t_alt_min <- ensurer::ensure_that(t_alt_min,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the t_alt_min in correct format.")
+  t_depth_min <- ensurer::ensure_that(t_depth_min,
+                                      !is.null(.) && (class(.) == "numeric"),
+                                      err_desc = "Please enter the t_depth_min in correct format.")
+  tumor_freq_min <- ensurer::ensure_that(tumor_freq_min,
+                                         !is.null(.) && (class(.) == "numeric"),
+                                         err_desc = "Please enter the tumor_freq_min in correct format.")
+  norm_freq_max <- ensurer::ensure_that(norm_freq_max,
+                                        !is.null(.) && (class(.) == "numeric"),
+                                        err_desc = "Please enter the norm_freq_max in correct format.")
+  gnomAD_AF_max <- ensurer::ensure_that(gnomAD_AF_max,
+                                        !is.null(.) && (class(.) == "numeric"),
+                                        err_desc = "Please enter the gnomAD_AF_max in correct format.")
+  AF_max <- ensurer::ensure_that(AF_max,
+                                 !is.null(.) && (class(.) == "numeric"),
+                                 err_desc = "Please enter the AF_max in correct format.")
+  ExAC_AF_max <- ensurer::ensure_that(ExAC_AF_max,
+                                      !is.null(.) && (class(.) == "numeric"),
+                                      err_desc = "Please enter the ExAC_AF_max in correct format.")
+  n_callers <- ensurer::ensure_that(n_callers,
+                                    !is.null(.) && (class(.) == "numeric"),
+                                    err_desc = "Please enter the n_callers in correct format.")
+  variant_caller <- ensurer::ensure_that(variant_caller,
+                                         is.null(.) || (class(.) == "character"),
+                                              err_desc = "Please enter list of variants callers in correct format.")
+
 
   filtered_df <- readr::read_tsv_chunked(maf_file,chunk_size = chunk_lines, col_types = readr::cols(CLIN_SIG = readr::col_character()),
-                                         callback = readr::DataFrameCallback$new(filter_maf_tbl(flag_genes="default",no_filter=FALSE,
-                                                                                                grep_vcf_filter_col="PASS",non_silent_only=FALSE,
-                                                                                                t_alt_min=2,t_depth_min=5,tumor_freq_min=0.01,
-                                                                                                n_alt_max=1,norm_freq_max=0.01,gnomAD_AF_max=0.001,
-                                                                                                AF_max=0.001,ExAC_AF_max=0.001,n_callers=2,
-                                                                                                variant_caller=NULL)), comment="#")
+                                         callback = readr::DataFrameCallback$new(filter_maf_tbl(flag_genes=flag_genes,no_filter=no_filter,
+                                                                                                grep_vcf_filter_col=grep_vcf_filter_col,non_silent_only=non_silent_only,
+                                                                                                t_alt_min=t_alt_min,t_depth_min=t_depth_min,tumor_freq_min=tumor_freq_min,
+                                                                                                n_alt_max=n_alt_max,norm_freq_max=norm_freq_max,gnomAD_AF_max=gnomAD_AF_max,
+                                                                                                AF_max=AF_max,ExAC_AF_max=ExAC_AF_max,n_callers=n_callers,
+                                                                                                variant_caller=variant_caller)), comment="#")
   if (!is.null(save_name)) {
     if (! dir.exists(dirname(save_name))) {
       dir.create(dirname(save_name))
