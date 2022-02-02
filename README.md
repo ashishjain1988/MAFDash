@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master)](https://www.travis-ci.com/ashishjain1988/MAFDash)
+[![Build Status](https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master)](https://app.travis-ci.com/github/ashishjain1988/MAFDash)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashishjain1988/MAFDash)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
 <!--![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)-->
