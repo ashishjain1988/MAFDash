@@ -47,7 +47,7 @@ if (!is.null(maf_file)) {
     maf_data <- rbind(maf_file@data, maf_file@maf.silent)
     clinical_data <- maf_file@clinical.data
   }
-  maf <- maftools::read.maf(maf_data, clinicalData = clinical_data)
+  maf <- maftools::read.maf(maf_data, clinicalData = clinical_data,verbose = FALSE)
 }
 
 ```

@@ -25,8 +25,7 @@ DT::datatable(summaryTable, style="bootstrap4", class=c("display"),
             "function(settings, json) {",
             "$(this.api().table().header()).css({'font-size': '120%', 'background-color': '#ace1fa', 'color': '#424242'});",
             "}")             
-          ),
-          autoHideNavigation=TRUE
+          )
           )  %>%
   DT::formatStyle(columns = 1:ncol(summaryTable), fontSize = '120%',fontWeight="bold") 
 

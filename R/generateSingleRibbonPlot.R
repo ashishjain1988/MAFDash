@@ -41,38 +41,39 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
                                 !is.null(.) && (class(.) == "MAF"),
                                 err_desc = "Please enter correct MAF object")
 
-  if (!is.null(save_name)) {
-    if (! dir.exists(dirname(save_name))) {
-      dir.create(dirname(save_name))
-    }
-    plot_file <- gsub(".pdf",".interactions.pdf",save_name)
-    pdf(file = plot_file,height=5,width=5)
-  } else {
-    if (!plot_type=="matrix") {
-      pdf(file = NULL)
-    }
-  }
+  # if (!is.null(save_name)) {
+  #   if (! dir.exists(dirname(save_name))) {
+  #     dir.create(dirname(save_name))
+  #   }
+  #   plot_file <- gsub(".pdf",".interactions.pdf",save_name)
+  #   pdf(file = plot_file,height=5,width=5)
+  # } else {
+  #   if (!plot_type=="matrix") {
+  #     #pdf(file = NULL)
+  #   }
+  # }
   # browser()
   # if (is.null(onco_genes)) {
   #   onco_genes = maf@gene.summary$Hugo_Symbol
   # }
 
-  som_int <- tryCatch(
-    {
-      somaticInteractions(maf = maf, genes=onco_genes, pvalue = c(pval_low, pval_high))
-    },
-    error=function(cond) {
-      message(paste("Error in the somaticInteractions function"))
-      message("Here's the original error message:")
-      message(cond)
-      return(NULL)
-    },
-    finally={
-      #message("somaticInteractions failed")
-    }
-  )
+  # som_int <- tryCatch(
+  #   {
+  #     somaticInteractions(maf = maf, genes=onco_genes, pvalue = c(pval_low, pval_high))
+  #   },
+  #   error=function(cond) {
+  #     message(paste("Error in the somaticInteractions function"))
+  #     message("Here's the original error message:")
+  #     message(cond)
+  #     return(NULL)
+  #   },
+  #   finally={
+  #     #message("somaticInteractions failed")
+  #   }
+  # )
+
   #print(som_int)
-  #som_int <-  somaticInteractions(maf = maf, genes=onco_genes, pvalue = c(pval_low, pval_high))
+  som_int <-  somaticInteractions(maf = maf, genes=onco_genes, pvalue = c(pval_low, pval_high))
   if (!plot_type=="matrix") {
     dev.off()
   } else {
@@ -133,7 +134,8 @@ generateRibbonPlot<-function(maf, onco_genes=NULL, save_name=NULL,
       if (! dir.exists(dirname(save_name))) {
         dir.create(dirname(save_name))
       }
-      pdf(file = save_name,height=7,width=7)
+      plot_file <- gsub(".pdf",".interactions.pdf",save_name)
+      pdf(file = plot_file,height=7,width=7)
     }
 
     circos.clear()

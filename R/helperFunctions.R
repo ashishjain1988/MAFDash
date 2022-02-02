@@ -23,6 +23,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @importFrom pheatmap pheatmap
 #' @importFrom plotly plot_ly ggplotly
 #' @importFrom dplyr mutate select all_of
+#' @importFrom reshape2 dcast
 
 detectMAFGenome<-function(maf){
   ### Add checks for the conditions
@@ -106,7 +107,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
     subMaf[, Hugo_Symbol := factor(x = Hugo_Symbol, levels = g)]
   }
 
-  oncomat = data.table::dcast(data = subMaf[,.(Hugo_Symbol, Variant_Classification, Tumor_Sample_Barcode)], formula = Hugo_Symbol ~ Tumor_Sample_Barcode,
+  oncomat = reshape2::dcast(data = subMaf[,.(Hugo_Symbol, Variant_Classification, Tumor_Sample_Barcode)], formula = Hugo_Symbol ~ Tumor_Sample_Barcode,
                               fun.aggregate = function(x){
                                 x = unique(as.character(x))
                                 xad = x[x %in% c('Amp', 'Del')]
@@ -279,7 +280,7 @@ generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
   output_cols <- colnames(output_data)[match(cols_for_table, colnames(output_data), nomatch=0)]
   not_output <- cols_for_table[!cols_for_table %in% output_cols]
   if (length(not_output) > 0) {
-    warning(paste0("Not outputting these columns: ", paste(not_output, collapse=", ")))
+    message(paste0("Not outputting these columns: ", paste(not_output, collapse=", ")))
   }
   variant_info <- as.data.frame(output_data)[,output_cols]
   colnames(variant_info) <- names(cols_for_table)[match(colnames(variant_info),cols_for_table)]

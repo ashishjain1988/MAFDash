@@ -73,12 +73,13 @@ getMAFdataTCGA<-function(cancerCodes=c("ACC"),outputFolder=tempdir(),variant_cal
 #' @export
 #' @return A list containing the TCGA clinical annotations
 #'
+#' @importFrom TCGAbiolinks GDCquery_clinic
+#'
 #' @examples
 #' library(MAFDash)
 #' cancerCodes <- "ACC"
 #' #clinicalData <- getTCGAClinicalAnnotation(cancerCodes = cancerCodes)
 #'
-#' @importFrom TCGAbiolinks GDCquery_clinic
 getTCGAClinicalAnnotation <- function(cancerCodes="ACC",outputFolder=tempdir(), plotdata=NULL) {
   cancerCodes <- ensurer::ensure_that(cancerCodes,
                                       !is.null(.) && (class(.) == "character") && all(. %in% TCGAbiolinks::getGDCprojects()$tumor),
