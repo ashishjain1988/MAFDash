@@ -12,7 +12,7 @@ dotplotly <- plotly::ggplotly(burden_plot,tooltip = "text", width=500, height=60
 
 plots<-generateTiTvPlot(maf)
 
-barplotly<-plotly::subplot(plotly::subplot(plotly::style(plots$tiTvPatterns,showlegend = F),plotly::style(plots$TiTv,showlegend = F), nrows = 1, widths = c(0.5, 0.25)),plotly::style(plots$barplot,showlegend = F),nrows = 2) %>% plotly::layout(title = 'Transitions and Transversions plots')
+barplotly<-plotly::subplot(plotly::subplot(plotly::style(plots$tiTvPatterns,showlegend = F),plotly::style(plots$TiTv,showlegend = F), nrows = 1, widths = c(0.5, 0.25)),plotly::style(plots$barplot,showlegend = F),nrows = 2) %>% plotly::layout(title = 'Transitions and Transversions plots',margin=list(l = 20,r = 20,b = 20,t = 70))
 
 ### Use CSS/javascript flex-wrap to contain the two plots
 div(
