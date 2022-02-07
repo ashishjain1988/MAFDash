@@ -6,15 +6,19 @@ burden_plot <- generateBurdenPlot(maf, plotType = "Dotplot")
 
 dotplotly <- plotly::ggplotly(burden_plot,tooltip = "text", width=500, height=600) %>% plotly::layout(yaxis=list(autorange = T,fixedrange= F))
 
-burden_plot <- generateBurdenPlot(maf, plotType = "Barplot")
+#burden_plot <- generateBurdenPlot(maf, plotType = "Barplot")
 
-barplotly <- plotly::ggplotly(burden_plot,tooltip = "text", width=800, height=600) %>% plotly::layout(yaxis=list(autorange = T,fixedrange= F))
+#barplotly <- plotly::ggplotly(burden_plot,tooltip = "text", width=800, height=600) %>% plotly::layout(yaxis=list(autorange = T,fixedrange= F))
+
+plots<-generateTiTvPlot(maf)
+
+barplotly<-plotly::subplot(plotly::subplot(plotly::style(plots$tiTvPatterns,showlegend = F),plotly::style(plots$TiTv,showlegend = F), nrows = 1, widths = c(0.5, 0.25)),plotly::style(plots$barplot,showlegend = F),nrows = 2) %>% plotly::layout(title = 'Transitions and Transversions plots')
 
 ### Use CSS/javascript flex-wrap to contain the two plots
 div(
   style = "display: flex; flex-wrap: wrap; justify-content: center",
-  div(dotplotly, style = "width: 40%; border: groove;"),
-  div(barplotly, style = "width: 60%; border: groove;"),
+  div(dotplotly, style = "width: 50%; border: groove;"),
+  div(barplotly, style = "width: 50%; border: groove;"),
 )
 
 ```

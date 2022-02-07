@@ -27,7 +27,7 @@ utils::globalVariables(c(".","tempdir"))
 #' \donttest{getMAFDashboard(maf = maf,outputFilePath=tempdir())}
 #' @importFrom rmarkdown render
 #' @importFrom knitr knit
-#' @importFrom plotly plot_ly ggplotly plotly layout
+#' @importFrom plotly plot_ly ggplotly plotly layout style
 #' @import maftools
 #' @import htmltools
 #' @import bsplus
