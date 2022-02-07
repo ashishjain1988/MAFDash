@@ -1,7 +1,7 @@
 Package: MAFDash
 Type: Package
 Title: Create an HTML Dashboard to Visualize Data from MAF File
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person("Ashish", "Jain", role = c("aut", "cre"), email = "jain.ashishjain1@gmail.com"),
     person("Mayank", "Tandon", role = c("aut"), email = "mtandon09@gmail.com"),
