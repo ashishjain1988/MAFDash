@@ -60,7 +60,7 @@ tcga_clinical<-getTCGAClinicalAnnotation(cancerCodes = tcga_code)
 The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
 
 ```{r eval=TRUE}
-filtered_mafdata <- do.call("rbind",lapply(maf_files, function(maf_file){filter_maf_chunked(maf_file)}))
+filtered_mafdata <- do.call("rbind",lapply(maf_files, function(maf_file){filterMAF(maf_file)}))
 ```
 
 ### Add clinical data
