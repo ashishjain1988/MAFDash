@@ -1,9 +1,13 @@
 [![Build Status](https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master)](https://app.travis-ci.com/github/ashishjain1988/MAFDash)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashishjain1988/MAFDash)
+[![CRAN status](https://www.r-pkg.org/badges/version/MAFDash)](https://cran.r-project.org/package=MAFDash)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4472978.svg)](https://doi.org/10.5281/zenodo.4472978)
 ![Downloads](https://cranlogs.r-pkg.org/badges/MAFDash)
+<!--
+[![Codecov test coverage](https://codecov.io/gh/ashishjain1988/MAFDash/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ashishjain1988/MAFDash?branch=main) 
 ![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MAFDash)
-<!--![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)-->
+![GitHub all releases](https://img.shields.io/github/downloads/ashishjain1988/MAFDash/total)
+[![R-CMD-check](https://github.com/ashishjain1988/MAFDash/workflows/R-CMD-check/badge.svg)](https://github.com/ashishjain1988/MAFDash/actions)-->
 
 MAFDash
 ------------------------------------------------------------
