@@ -1,5 +1,5 @@
 ## To Supress Note
-utils::globalVariables(c("as.dist","colorRamp","rgb","gpar"))
+utils::globalVariables(c("as.dist","colorRamp","rgb"))
 
 #' Computes and plot the cosine similarity of each individual signature is computed against each COSMIC signature
 #' from COMIC V3.2
@@ -30,6 +30,8 @@ utils::globalVariables(c("as.dist","colorRamp","rgb","gpar"))
 #' library(ComplexHeatmap)
 #' maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 #' \donttest{val<-generateCOSMICMutSigSimHeatmap(read.maf(maf));draw(val)}
+#'
+#' @importFrom grid gpar
 #'
 generateCOSMICMutSigSimHeatmap <- function(mymaf,use_silent_mutations=FALSE,
                                        full_output=FALSE,
@@ -203,7 +205,7 @@ generateCOSMICMutSigSimHeatmap <- function(mymaf,use_silent_mutations=FALSE,
                     # legend_height = unit(4, "cm"),
                     legend_direction = "horizontal"
                   ),
-                  show_row_names=T, #row_names_gp = gpar(fontsize = 5),
+                  show_row_names=T, row_names_gp = gpar(fontsize = 5),
                   show_column_names = add_sample_names)
 
   if ( ! is.null(savename) ) {
