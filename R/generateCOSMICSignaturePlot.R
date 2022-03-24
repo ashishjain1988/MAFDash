@@ -203,7 +203,7 @@ generateCOSMICMutSigSimHeatmap <- function(mymaf,use_silent_mutations=FALSE,
                     # legend_height = unit(4, "cm"),
                     legend_direction = "horizontal"
                   ),
-                  show_row_names=T, row_names_gp = gpar(fontsize = 5),
+                  show_row_names=T, #row_names_gp = gpar(fontsize = 5),
                   show_column_names = add_sample_names)
 
   if ( ! is.null(savename) ) {
