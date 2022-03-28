@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/MAFDash.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -70,7 +66,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ashishjain1988/MAFDash/">
+  <a href="https://github.com/ashishjain1988/MAFDash/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,22 +81,22 @@
 
       
 
-      </header><script src="Customizing_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Customizing</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ashishjain1988/MAFDash/blob/master/vignettes/Customizing.Rmd"><code>vignettes/Customizing.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ashishjain1988/MAFDash/blob/HEAD/vignettes/Customizing.Rmd" class="external-link"><code>vignettes/Customizing.Rmd</code></a></small>
       <div class="hidden name"><code>Customizing.Rmd</code></div>
 
     </div>
 
     
     
-<div id="adding-custom-plots" class="section level1">
-<h1 class="hasAnchor">
-<a href="#adding-custom-plots" class="anchor"></a>Adding Custom Plots</h1>
+<div class="section level2">
+<h2 id="adding-custom-plots">Adding Custom Plots<a class="anchor" aria-label="anchor" href="#adding-custom-plots"></a>
+</h2>
 <p>The <code><a href="../reference/getMAFDashboard.html">getMAFDashboard()</a></code> function will accept a named list for adding arbitrary objects to the dashboard. Each item in the list will be displayed in separate tabs, and the name of the element will be used as the title of the tab.</p>
 <p>Elements of the list can be:</p>
 <ul>
@@ -112,41 +108,41 @@
 <strong>An R plot object</strong>: ggplot, plotly, ComplexHeatmap</li>
 </ul>
 <p>This functionality can be used with or without providing a MAF file. When MAF data is not provided, the “Variant Table” tab of the dashboard is automatically omitted.</p>
-<div id="toy-example-with-iris-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#toy-example-with-iris-data" class="anchor"></a>Toy example with <code>iris</code> data</h2>
+<div class="section level3">
+<h3 id="toy-example-with-iris-data">Toy example with <code>iris</code> data<a class="anchor" aria-label="anchor" href="#toy-example-with-iris-data"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap">ComplexHeatmap</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com" class="external-link">plotly</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
 
 <span class="co">## Simple ggplot</span>
-<span class="va">myplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Sepal.Length</span>, y<span class="op">=</span><span class="va">Sepal.Width</span>, color<span class="op">=</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span>
+<span class="va">myplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Sepal.Length</span>, y<span class="op">=</span><span class="va">Sepal.Width</span>, color<span class="op">=</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">## Save as PNG (provide absolute file path)</span>
-<span class="va">mycustomimage_png</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.png"</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_png</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">mycustomimage_png</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.png"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_png</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
 <span class="co">## Save as PDF (provide absolute file path)</span>
-<span class="va">mycustomimage_pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.pdf"</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_pdf</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">mycustomimage_pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"custom_ggplot.pdf"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="va">mycustomimage_pdf</span>, plot<span class="op">=</span><span class="va">myplot</span>, width<span class="op">=</span><span class="fl">5</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
 <span class="co">## Convert ggplot to plotly</span>
-<span class="va">myplotly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">ggplotly</a></span><span class="op">(</span><span class="va">myplot</span><span class="op">)</span>
+<span class="va">myplotly</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">myplot</span><span class="op">)</span>
 
 <span class="co">## Make heatmap with ComplexHeatmap</span>
-<span class="va">hmdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="va">hmanno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html">HeatmapAnnotation</a></span><span class="op">(</span>df<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Species<span class="op">=</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="va">myhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html">Heatmap</a></span><span class="op">(</span><span class="va">hmdata</span>, bottom_annotation <span class="op">=</span> <span class="va">hmanno</span><span class="op">)</span>
+<span class="va">hmdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="va">hmanno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span>df<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Species<span class="op">=</span><span class="va">iris</span><span class="op">[</span>,<span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="va">myhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">hmdata</span>, bottom_annotation <span class="op">=</span> <span class="va">hmanno</span><span class="op">)</span>
 
 <span class="co">## Customizable plotly from https://github.com/mtandon09/Dynamic_Plotly</span>
-<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/mtandon09/Dynamic_Plotly/master/make_cutomizable_plotly.R"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/mtandon09/Dynamic_Plotly/master/make_cutomizable_plotly.R"</span><span class="op">)</span>
 <span class="va">custom_plotly</span> <span class="op">&lt;-</span> <span class="fu">make_customizable_plotly</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
 
 <span class="co">## Put together objects/filepaths into a list</span>
-<span class="va">toyplotlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"ggplot"</span><span class="op">=</span> <span class="va">myplot</span>,
+<span class="va">toyplotlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"ggplot"</span><span class="op">=</span> <span class="va">myplot</span>,
                    <span class="st">"plotly"</span><span class="op">=</span> <span class="va">myplotly</span>,
                    <span class="st">"PNG"</span><span class="op">=</span> <span class="va">mycustomimage_png</span>,
                    <span class="st">"PDF"</span><span class="op">=</span> <span class="va">mycustomimage_pdf</span>,
@@ -162,10 +158,10 @@
                 outputFileName <span class="op">=</span> <span class="va">html_filename</span>,
                 outputFileTitle <span class="op">=</span> <span class="st">"Iris"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#output" class="anchor"></a>Output</h2>
-<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html">here</a>.</p>
+<div class="section level3">
+<h3 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
+</h3>
+<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html" class="external-link">here</a>.</p>
 </div>
 </div>
   </div>
@@ -181,11 +177,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Ashish Jain, Mayank Tandon.</p>
+  <p></p>
+<p>Developed by Ashish Jain, Mayank Tandon.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -193,6 +191,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -22,6 +22,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -34,18 +36,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/MAFDash.html">Get started</a>
 </li>
@@ -53,7 +49,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ashishjain1988/MAFDash/">
+  <a href="https://github.com/ashishjain1988/MAFDash/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,52 +88,52 @@
   <div class="contents col-md-9">
 
 
-<div id="mafdash" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mafdash" class="anchor"></a>MAFDash</h2>
+<div class="section level2">
+<h2 id="mafdash">MAFDash<a class="anchor" aria-label="anchor" href="#mafdash"></a>
+</h2>
 <p><em>Once you call the variants, it’s a MAFDash to the finish line</em></p>
 <p><strong>An easy-to-use dashboard builder for mutation data</strong></p>
-<div id="installation-from-cran" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-from-cran" class="anchor"></a>Installation from CRAN</h3>
-<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("MAFDash")</a></code></pre>
+<div class="section level3">
+<h3 id="installation-from-cran">Installation from CRAN<a class="anchor" aria-label="anchor" href="#installation-from-cran"></a>
+</h3>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"MAFDash"</span><span class="op">)</span></code></pre>
 </div>
-<div id="installation-from-github" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-from-github" class="anchor"></a>Installation from Github</h3>
-<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html"># install.packages(devtools)  ## Install devtools if necessary
-devtools::install_github("ashishjain1988/MAFDash")</a></code></pre>
+<div class="section level3">
+<h3 id="installation-from-github">Installation from Github<a class="anchor" aria-label="anchor" href="#installation-from-github"></a>
+</h3>
+<pre><code><span class="co"># install.packages(devtools)  ## Install devtools if necessary</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ashishjain1988/MAFDash"</span><span class="op">)</span></code></pre>
 </div>
-<div id="description" class="section level3">
-<h3 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h3>
-<p><a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/">Mutation Annotation Format (MAF)</a> is a tabular data format used for storing genetic mutation data. For example, <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">The Cancer Genome Atlas (TCGA)</a> project has made MAF files from each project publicly available.</p>
+<div class="section level3">
+<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h3>
+<p><a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/" class="external-link">Mutation Annotation Format (MAF)</a> is a tabular data format used for storing genetic mutation data. For example, <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" class="external-link">The Cancer Genome Atlas (TCGA)</a> project has made MAF files from each project publicly available.</p>
 <p>MAFDash is an R package that helps to quickly create an HTML dashboard to summarize and visualize data from MAF files. The resulting HTML file serves as a self-contained report that can be used to explore and share the results.</p>
-<p>Currently, MAFDash produces mostly static plots powered by <a href="https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html">maftools</a>, <a href="https://github.com/jokergoo/ComplexHeatmap">ComplexHeatmap</a> and <a href="https://github.com/jokergoo/circlize">circlize</a>, as well as interactive visualizations using <a href="https://cran.r-project.org/package=canvasXpress">canvasXpress</a> and <a href="https://plotly.com/r/">plotly</a>. The report is generated with a parameterized <a href="https://rmarkdown.rstudio.com/">R Markdown</a> script that uses <a href="https://pkgs.rstudio.com/flexdashboard/">flexdashboard</a> to arrange all the information.</p>
+<p>Currently, MAFDash produces mostly static plots powered by <a href="https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/maftools.html" class="external-link">maftools</a>, <a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a> and <a href="https://github.com/jokergoo/circlize" class="external-link">circlize</a>, as well as interactive visualizations using <a href="https://cran.r-project.org/package=canvasXpress" class="external-link">canvasXpress</a> and <a href="https://plotly.com/r/" class="external-link">plotly</a>. The report is generated with a parameterized <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> script that uses <a href="https://pkgs.rstudio.com/flexdashboard/" class="external-link">flexdashboard</a> to arrange all the information.</p>
 </div>
-<div id="how-to-use" class="section level3">
-<h3 class="hasAnchor">
-<a href="#how-to-use" class="anchor"></a>How to use</h3>
+<div class="section level3">
+<h3 id="how-to-use">How to use<a class="anchor" aria-label="anchor" href="#how-to-use"></a>
+</h3>
 <ul>
-<li><a href="https://ashishjain1988.github.io/MAFDash/articles/Quick_Start.html">Quick Start</a></li>
-<li><a href="https://ashishjain1988.github.io/MAFDash//articles/Customizing.html">Customizing</a></li>
-<li><a href="https://ashishjain1988.github.io/MAFDash//articles/Advanced_Example.html">Real-world example</a></li>
+<li><a href="https://ashishjain1988.github.io/MAFDash/articles/Quick_Start.html" class="external-link">Quick Start</a></li>
+<li><a href="https://ashishjain1988.github.io/MAFDash//articles/Customizing.html" class="external-link">Customizing</a></li>
+<li><a href="https://ashishjain1988.github.io/MAFDash//articles/Advanced_Example.html" class="external-link">Real-world example</a></li>
 </ul>
 </div>
-<div id="example-dashboards-from-the-vignette" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-dashboards-from-the-vignette" class="anchor"></a>Example dashboards from the vignette</h3>
+<div class="section level3">
+<h3 id="example-dashboards-from-the-vignette">Example dashboards from the vignette<a class="anchor" aria-label="anchor" href="#example-dashboards-from-the-vignette"></a>
+</h3>
 <p>Here are some example dashboards created using TCGA data:</p>
 <ul>
-<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html">Default dashboard using TCGA-LAML</a></li>
-<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html">Customized dashboard using TCGA-UVM</a></li>
-<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html">Arbitrary plots using <code>iris</code> dataset</a></li>
+<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html" class="external-link">Default dashboard using TCGA-LAML</a></li>
+<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/TCGA-UVM.custom.mafdash.html.MAFDash.html" class="external-link">Customized dashboard using TCGA-UVM</a></li>
+<li><a href="https://mtandon09.github.io/MAFDashRPackage/examples/toy_dash.html.MAFDash.html" class="external-link">Arbitrary plots using <code>iris</code> dataset</a></li>
 </ul>
-<div id="other-notes" class="section level4">
-<h4 class="hasAnchor">
-<a href="#other-notes" class="anchor"></a>Other notes</h4>
+<div class="section level4">
+<h4 id="other-notes">Other notes<a class="anchor" aria-label="anchor" href="#other-notes"></a>
+</h4>
 <ul>
-<li>This repo was born out of a Shiny app, <a href="https://github.com/mtandon09/mafwiz">MAFWiz</a>. Instead of relying on a Shiny server, this dashboard was an attempt to try some of those things using client-side javascript functionality.</li>
+<li>This repo was born out of a Shiny app, <a href="https://github.com/mtandon09/mafwiz" class="external-link">MAFWiz</a>. Instead of relying on a Shiny server, this dashboard was an attempt to try some of those things using client-side javascript functionality.</li>
 </ul>
 </div>
 </div>
@@ -147,49 +143,58 @@ devtools::install_github("ashishjain1988/MAFDash")</a></code></pre>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=MAFDash">https://​cloud.r-project.org/​package=MAFDash</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/ashishjain1988/MAFDash/">https://​github.com/​ashishjain1988/​MAFDash/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/ashishjain1988/MAFDash/issues">https://​github.com/​ashishjain1988/​MAFDash/​issues</a>
-</li>
+<li><a href="https://github.com/ashishjain1988/MAFDash/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ashishjain1988/MAFDash/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Ashish Jain <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Mayank Tandon <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing MAFDash</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://app.travis-ci.com/github/ashishjain1988/MAFDash"><img src="https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=MAFDash"><img src="https://www.r-pkg.org/badges/version/MAFDash" alt="CRAN status"></a></li>
-<li><a href="https://doi.org/10.5281/zenodo.6195233"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6195233.svg" alt="DOI"></a></li>
+<li>Ashish Jain <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Mayank Tandon <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://app.travis-ci.com/github/ashishjain1988/MAFDash" class="external-link"><img src="https://travis-ci.com/ashishjain1988/MAFDash.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://cran.r-project.org/package=MAFDash" class="external-link"><img src="https://www.r-pkg.org/badges/version/MAFDash" alt="CRAN status"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.6195233" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6195233.svg" alt="DOI"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Ashish Jain, Mayank Tandon.</p>
+  <p></p>
+<p>Developed by Ashish Jain, Mayank Tandon.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -197,6 +202,8 @@ devtools::install_github("ashishjain1988/MAFDash")</a></code></pre>
 
   
 
+
+  
 
   </body>
 </html>
