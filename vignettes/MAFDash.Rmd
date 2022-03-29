@@ -293,6 +293,8 @@ generateRibbonPlot(filtered_maf,save_name = NULL)
 The function `generateCOSMICMutSigSimHeatmap` computes the cosine similarity of each individual signature against each COSMIC signature. The COSMIC signatures are also annotated using the etiologies behind the mutational signatures that were identified by analyzing thousands of whole-genome sequencing samples from TCGA. A crawler script was used to scrape the etiologies in the "Acceptance criteria" section of each signature page from COSMIC database v3.2.
 
 ```{r eval=TRUE}
+library(MAFDash)
+library(maftools)
 library(ComplexHeatmap)
 val<-generateCOSMICMutSigSimHeatmap(filtered_maf)
 draw(val)
