@@ -345,7 +345,7 @@ geneSelectParser <- function(genes_arg=NULL) {
   genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = FALSE)
 
   if (! is.null(genes_arg)) {
-    if (class(genes_arg)=="character") {
+    if (is.character(genes_arg)) {
       if (length(genes_arg)==1) {
         ## Then it's either a file name or a single gene
         if (file.exists(genes_arg)) {
@@ -361,7 +361,7 @@ geneSelectParser <- function(genes_arg=NULL) {
       } else {
         genes_for_oncoplot <- data.frame(Hugo_Symbol=genes_arg,Reason="Selected Genes", stringsAsFactors = FALSE)
       }
-    } else if (class(genes_arg)=="data.frame") {
+    } else if (is.data.frame(genes_arg)) {
       genes_for_oncoplot <- genes_arg
       if (! "Reason" %in% colnames(genes_for_oncoplot)) {
         genes_for_oncoplot$Reason <- "Selected Genes"

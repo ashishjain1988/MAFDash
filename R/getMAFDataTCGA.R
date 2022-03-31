@@ -16,7 +16,7 @@ utils::globalVariables(c(".", "..mycols","..tcga_pheno_columns","tempdir","heat.
 #' library(MAFDash)
 #' cancerCodes <- c("ACC","THCA")
 #' outputFolderPath <- tempdir()
-#' \donttest{maf <- getMAFdataTCGA(cancerCodes = cancerCodes,outputFolder = outputFolderPath)}
+#' #maf <- getMAFdataTCGA(cancerCodes = cancerCodes,outputFolder = outputFolderPath)
 #' @importFrom TCGAbiolinks GDCquery_Maf
 #' @importFrom ensurer ensure_that
 #' @importFrom dplyr mutate group_by

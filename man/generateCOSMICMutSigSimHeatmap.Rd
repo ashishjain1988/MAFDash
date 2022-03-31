@@ -55,4 +55,5 @@ library(ComplexHeatmap)
 maf <- system.file("extdata", "test.mutect2.maf.gz", package = "MAFDash")
 \donttest{val<-generateCOSMICMutSigSimHeatmap(read.maf(maf));draw(val)}
 
+
 }
