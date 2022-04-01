@@ -16,6 +16,8 @@ MAFDash
 
 **An easy-to-use dashboard builder for mutation data**
 
+*[View documentation on github.io](https://ashishjain1988.github.io/MAFDash/index.html)*
+
 ### Installation from Github
 ```
 # install.packages(devtools)  ## Install devtools if necessary
@@ -37,8 +39,8 @@ Currently, MAFDash produces mostly static plots powered by [maftools](https://bi
 ### How to use
 
 - [Quick Start](https://ashishjain1988.github.io/MAFDash/articles/Quick_Start.html)
-- [Customizing](https://ashishjain1988.github.io/MAFDash//articles/Customizing.html)
-- [Real-world example](https://ashishjain1988.github.io/MAFDash//articles/Advanced_Example.html)
+- [Customizing](https://ashishjain1988.github.io/MAFDash/articles/Customizing.html)
+- [Real-world example](https://ashishjain1988.github.io/MAFDash/articles/Advanced_Example.html)
 
 ### Example dashboards from the vignette
 Here are some example dashboards created using TCGA data:
