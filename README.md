@@ -24,10 +24,11 @@ MAFDash
 devtools::install_github("ashishjain1988/MAFDash")
 ```
 
-### Installation from CRAN
+<!--### Installation from CRAN
 ```
 install.packages("MAFDash")
 ```
+-->
 
 ### Description
 [Mutation Annotation Format (MAF)](https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format/) is a tabular data format used for storing genetic mutation data. For example, [The Cancer Genome Atlas (TCGA)](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga) project has made MAF files from each project publicly available.
