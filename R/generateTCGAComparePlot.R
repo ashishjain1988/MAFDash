@@ -38,6 +38,21 @@ utils::globalVariables(c(".", "boxplot.stats", ".N",
 
 generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size = 35.8, cohortName = NULL, tcga_cohorts = NULL, primarySite = FALSE, col = c('gray70', 'black'), medianCol = 'red', decreasing = FALSE, logscale = TRUE, rm_hyper = FALSE, rm_zero = TRUE){
 
+  ### Add checks for the conditions
+  maf <- ensurer::ensure_that(maf,
+                              !is.null(.) && (class(.) == "MAF"),
+                              err_desc = "Please enter correct MAF object")
+  capture_size <- ensurer::ensure_that(capture_size,
+                                             is.null(.) || (class(.) == "numeric"),
+                                             err_desc = "Please enter the input sample capture size in correct format.")
+  tcga_capture_size <- ensurer::ensure_that(tcga_capture_size,
+                                       is.null(.) || (class(.) == "numeric"),
+                                       err_desc = "Please enter the tcga_capture_size in correct format.")
+  cohortName <- ensurer::ensure_that(cohortName,
+                                            is.null(.) || (class(.) == "character"),
+                                            err_desc = "Please enter correct cohort name")
+
+
   tcga.cohort = system.file('extdata', 'tcga_cohort.txt.gz', package = 'maftools')
   tcga.cohort = data.table::fread(file = tcga.cohort, sep = '\t', stringsAsFactors = FALSE)
 
@@ -61,7 +76,10 @@ generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size 
   maf.mutload = lapply(maf, function(m){
     x = getSampleSummary(m)[,.(Tumor_Sample_Barcode, total)]
     if(rm_zero){
-      warning(paste0("Removed ", nrow(x[x$total == 0]), " samples with zero mutations."))
+      if(nrow(x[x$total == 0]) > 0)
+      {
+        warning(paste0("Removed ", nrow(x[x$total == 0]), " samples with zero mutations."))
+      }
       x = x[!total == 0]
     }
     x
@@ -107,7 +125,7 @@ generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size 
     pt.test.pval = as.data.frame(pt.test$p.value)
     data.table::setDT(x = pt.test.pval, keep.rownames = TRUE)
     colnames(pt.test.pval)[1] = 'Cohort'
-    message("Performing pairwise t-test for differences in mutation burden..")
+    #message("Performing pairwise t-test for differences in mutation burden..")
     pt.test.pval = data.table::melt(pt.test.pval, id.vars = "Cohort")
     colnames(pt.test.pval) = c("Cohort1", "Cohort2", "Pval")
     tcga.cohort$plot_total = tcga.cohort$total
@@ -118,7 +136,7 @@ generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size 
     maf.mutload[,total_perMB := total/capture_size]
     tcga.cohort[,total_perMB := total/tcga_capture_size]
     tcga.cohort = rbind(tcga.cohort, maf.mutload)
-    message("Performing pairwise t-test for differences in mutation burden (per MB)..")
+    #message("Performing pairwise t-test for differences in mutation burden (per MB)..")
     pt.test = pairwise.t.test(x = tcga.cohort$total_perMB, g = tcga.cohort$cohort, p.adjust.method = "fdr")
     pt.test.pval = as.data.frame(pt.test$p.value)
     data.table::setDT(x = pt.test.pval, keep.rownames = TRUE)
@@ -178,90 +196,12 @@ generateTCGAComparePlot <- function(maf, capture_size = NULL, tcga_capture_size 
     theme(axis.ticks.x = element_blank(),axis.text.x = element_blank())+
     geom_hline(data = tcga.cohort.med, aes(yintercept = Median_Mutations),color=medianCol) +
     #geom_rect(data = subset(tp,day == 'Fri'),aes(fill = day),xmin = -Inf,xmax = Inf,ymin = -Inf,ymax = Inf,alpha = 0.3) +
-    facet_wrap(~Cohort,nrow=1,scales="free_x", strip.position = "bottom")
+    facet_wrap(~Cohort,nrow=1,scales="free_x", strip.position = "bottom") +
+    theme(strip.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), strip.background = element_blank())
   if(logscale)
   {
     tcgaComparePlot<-tcgaComparePlot+scale_y_continuous(trans='log10')
   }
-  #logscale
-  #######################################################################################
-
-
-  #par(mar = c(4, 3, 2.5, 1.5))
-  # plot(NA, NA, xlim = c(0, length(plot.dat)), ylim = y_lims, axes = FALSE, xlab = NA, ylab = NA, frame.plot = TRUE)+
-  # rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4], col = grDevices::adjustcolor(col = "gray", alpha.f = 0.1)) +
-  # rect(xleft = seq(0, length(plot.dat)-1, 1), ybottom = min(y_lims), xright = seq(1, length(plot.dat), 1),
-  #      ytop = y_max, col = grDevices::adjustcolor(col = bg_col, alpha.f = 0.2),
-  #      border = NA)+
-  # #rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4], col = grDevices::adjustcolor(col = bg_col, alpha.f = 0.2))
-  #
-  # abline(h = pretty(y_lims), lty = 2, col = "gray70")
-  # #abline(v = seq(1, length(plot.dat)), lty = 1, col = "gray70")
-  # lapply(seq_len(length(plot.dat)), function(i){
-  #   x = plot.dat[[i]]
-  #   if(x[1, V3] == "Input"){
-  #     if(logscale){
-  #       points(x$V1, log10(x$V2), pch = 16, cex = 0.4, col = col[2])
-  #     }else{
-  #       points(x$V1, x$V2, pch = 16, cex = 0.4, col = col[2])
-  #     }
-  #   }else{
-  #     if(logscale){
-  #       points(x$V1, log10(x$V2), pch = 16, cex = 0.4, col = col[1])
-  #     }else{
-  #       points(x$V1, x$V2, pch = 16, cex = 0.4, col = col[1])
-  #     }
-  #   }
-  # })
-  #
-  # samp_sizes = lapply(plot.dat, nrow)
-  # axis(side = 1, at = seq(0.5, length(plot.dat)-0.5, 1), labels = names(plot.dat),
-  #      las = 2, tick = FALSE, line = -0.8, cex.axis = cohortFontSize)
-  # axis(side = 3, at = seq(0.5, length(plot.dat)-0.5, 1), labels = unlist(samp_sizes),
-  #      las = 2, tick = FALSE, line = -0.8, font = 3, cex.axis = cohortFontSize)
-  #
-  #
-  #
-  # if (decreasing) {
-  #   sidePos = 2
-  #   linePos = 2
-  # } else {
-  #   sidePos = 2 # 4 is bad
-  #   linePos = 2
-  # }
-  #
-  # if(logscale){
-  #   if(is.null(capture_size)){
-  #     axis(side = 2, at = y_at, las = 2, line = -0.6, tick = FALSE, labels = 10^(y_at), cex.axis = axisFontSize)
-  #     mtext(text = "TMB", side = sidePos, line = linePos)
-  #     #colnames(tcga.cohort.med) = c("Cohort", "Cohort_Size", "Median_Mutations", "Median_Mutations_perMB")
-  #   }else{
-  #     axis(side = 2, at = y_at, las = 2, line = -0.6, tick = FALSE, labels = 10^(y_at), cex.axis = axisFontSize)
-  #     mtext(text = "TMB (per MB)", side = sidePos, line = linePos)
-  #     #colnames(tcga.cohort.med) = c("Cohort", "Cohort_Size", "Median_Mutations_perMB", "Median_Mutations_perMB_log10")
-  #   }
-  # }else{
-  #   if(is.null(capture_size)){
-  #     axis(side = 2, at = y_at, las = 2, line = -0.6, tick = FALSE, cex.axis = axisFontSize)
-  #     mtext(text = "TMB", side = sidePos, line = linePos)
-  #     #colnames(tcga.cohort.med) = c("Cohort", "Cohort_Size", "Median_Mutations", "Median_Mutations_perMB")
-  #   }else{
-  #     axis(side = 2, at = y_at, las = 2, line = -0.6, tick = FALSE, cex.axis = axisFontSize)
-  #     mtext(text = "TMB (per MB)", side = sidePos, line = linePos)
-  #   }
-  # }
-  #
-  # if(logscale){
-  #   lapply(seq_len(nrow(tcga.cohort.med)), function(i){
-  #     segments(x0 = i-1, x1 = i, y0 = tcga.cohort.med[i, Median_Mutations_log10],
-  #              y1 = tcga.cohort.med[i, Median_Mutations_log10], col = medianCol)
-  #   })
-  # }else{
-  #   lapply(seq_len(nrow(tcga.cohort.med)), function(i){
-  #     segments(x0 = i-1, x1 = i, y0 = tcga.cohort.med[i, Median_Mutations],
-  #              y1 = tcga.cohort.med[i, Median_Mutations], col = medianCol)
-  #   })
-  # }
 
   tcga.cohort = data.table::rbindlist(l = tcga.cohort)
   tcga.cohort[, plot_total := NULL]

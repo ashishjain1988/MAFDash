@@ -13,7 +13,7 @@ generateOncoPlot(
   oncomat_only = FALSE,
   title_text = "",
   custom_column_order = NULL,
-  add_clinical_annotations = F,
+  add_clinical_annotations = FALSE,
   clin_data_colors = NULL
 )
 }

@@ -23,6 +23,7 @@ utils::globalVariables(c(".", ":=", "Tumor_Sample_Barcode",
 #' @importFrom pheatmap pheatmap
 #' @importFrom plotly plot_ly ggplotly
 #' @importFrom dplyr mutate select all_of
+#' @importFrom reshape2 dcast
 
 detectMAFGenome<-function(maf){
   ### Add checks for the conditions
@@ -106,7 +107,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
     subMaf[, Hugo_Symbol := factor(x = Hugo_Symbol, levels = g)]
   }
 
-  oncomat = data.table::dcast(data = subMaf[,.(Hugo_Symbol, Variant_Classification, Tumor_Sample_Barcode)], formula = Hugo_Symbol ~ Tumor_Sample_Barcode,
+  oncomat = reshape2::dcast(data = subMaf[,.(Hugo_Symbol, Variant_Classification, Tumor_Sample_Barcode)], formula = Hugo_Symbol ~ Tumor_Sample_Barcode,
                               fun.aggregate = function(x){
                                 x = unique(as.character(x))
                                 xad = x[x %in% c('Amp', 'Del')]
@@ -213,7 +214,7 @@ createOncoMatrix = function(maf, g = NULL, add_missing = FALSE){
 #' variantTable<-generateVariantTable(read.maf(maf))
 generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
   ### Add checks for the conditions
-  maf.filter <- ensurer::ensure_that(maf,
+  maf <- ensurer::ensure_that(maf,
                               !is.null(.) && (class(.) == "MAF"),
                               err_desc = "Please enter correct MAF object")
   use_syn <- ensurer::ensure_that(use_syn,
@@ -279,7 +280,7 @@ generateVariantTable <- function(maf, use_syn=FALSE, extra_cols=c()) {
   output_cols <- colnames(output_data)[match(cols_for_table, colnames(output_data), nomatch=0)]
   not_output <- cols_for_table[!cols_for_table %in% output_cols]
   if (length(not_output) > 0) {
-    warning(paste0("Not outputting these columns: ", paste(not_output, collapse=", ")))
+    message(paste0("Not outputting these columns: ", paste(not_output, collapse=", ")))
   }
   variant_info <- as.data.frame(output_data)[,output_cols]
   colnames(variant_info) <- names(cols_for_table)[match(colnames(variant_info),cols_for_table)]
@@ -334,8 +335,8 @@ compute_exome_coverage <- function(targets_bed_file, out_file=NULL) {
 #' @description Function to the extact the Gene symbol from the input genes
 #' @author Mayank Tandon, Ashish Jain
 #' @param genes_arg genes_arg
-#' @export
 #' @return A character vector containing the list of genes with gene symbols
+#' @noRd
 #' @examples
 #' library(MAFDash)
 #' geneSelectParser()
@@ -344,7 +345,7 @@ geneSelectParser <- function(genes_arg=NULL) {
   genes_for_oncoplot <- data.frame(Hugo_Symbol=c(), Reason=c(), stringsAsFactors = FALSE)
 
   if (! is.null(genes_arg)) {
-    if (class(genes_arg)=="character") {
+    if (is.character(genes_arg)) {
       if (length(genes_arg)==1) {
         ## Then it's either a file name or a single gene
         if (file.exists(genes_arg)) {
@@ -360,7 +361,7 @@ geneSelectParser <- function(genes_arg=NULL) {
       } else {
         genes_for_oncoplot <- data.frame(Hugo_Symbol=genes_arg,Reason="Selected Genes", stringsAsFactors = FALSE)
       }
-    } else if (class(genes_arg)=="data.frame") {
+    } else if (is.data.frame(genes_arg)) {
       genes_for_oncoplot <- genes_arg
       if (! "Reason" %in% colnames(genes_for_oncoplot)) {
         genes_for_oncoplot$Reason <- "Selected Genes"

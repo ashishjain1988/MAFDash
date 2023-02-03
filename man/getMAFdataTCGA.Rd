@@ -29,7 +29,7 @@ This function download and extract the mutation
 library(MAFDash)
 cancerCodes <- c("ACC","THCA")
 outputFolderPath <- tempdir()
-\donttest{maf <- getMAFdataTCGA(cancerCodes = cancerCodes,outputFolder = outputFolderPath)}
+#maf <- getMAFdataTCGA(cancerCodes = cancerCodes,outputFolder = outputFolderPath)
 }
 \author{
 Mayank Tandon, Ashish Jain

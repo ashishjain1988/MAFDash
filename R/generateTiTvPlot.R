@@ -12,9 +12,10 @@ utils::globalVariables(c("value","variable","V1"))
 #' @param textSize fontsize if showBarcodes is TRUE. Default 15 (in pts).
 #' @param baseFontSize font size of axis title. Default 15 (in pts).
 #' @param axisTextSize text size x and y tick labels. Default 10 (in pts).
-#' @param save_name The name and path of the output file. Default NULL.
+# @param save_name The name and path of the output file. Default NULL.
 #' @export
-#' @return List of objects consisting of different TiTv plots. If 'save_name' is provided, a PDF is created at the given path.
+#' @return List of objects consisting of different TiTv plots.
+# If 'save_name' is provided, a PDF is created at the given path.
 #'
 #' @examples
 #' library(MAFDash)
@@ -27,7 +28,7 @@ utils::globalVariables(c("value","variable","V1"))
 #'
 generateTiTvPlot<-function(maf,use_silent_mutations = FALSE, sampleOrder = NULL,
                            color = NULL, showBarcodes = FALSE, textSize = 15, baseFontSize = 15,
-                           axisTextSize = 10,save_name=NULL){
+                           axisTextSize = 10){#,save_name=NULL){
 
   maf <- ensurer::ensure_that(maf,!is.null(.) && (class(.) == "MAF"),
                               err_desc = "Please enter correct MAF object")
@@ -110,11 +111,11 @@ generateTiTvPlot<-function(maf,use_silent_mutations = FALSE, sampleOrder = NULL,
     ggplot2::theme(text=element_text(face = "bold"),axis.text = element_text(size = axisTextSize,colour = "black"),
                    axis.title = element_text(size = baseFontSize,face = "bold"),legend.background = element_rect(colour = "black"))
 
-  if(!is.null(save_name))
-  {
-    #combinePlot <- cowplot::plot_grid(cowplot::plot_grid(boxplot,boxplot1,ncol = 2,rel_widths = c(2,1)),barplot,nrow = 2)
-    combinePlot <- plotly::subplot(plotly::subplot(boxplot,boxplot1, nrows = 1, widths = c(1, 0.5)),barplot,nrows = 2)
-    ggsave(save_name,combinePlot)
-  }
+  # if(!is.null(save_name))
+  # {
+  #   #combinePlot <- cowplot::plot_grid(cowplot::plot_grid(boxplot,boxplot1,ncol = 2,rel_widths = c(2,1)),barplot,nrow = 2)
+  #   combinePlot <- plotly::subplot(plotly::subplot(boxplot,boxplot1, nrows = 1, widths = c(0.5, 0.25)),barplot,nrows = 2,show.legend=FALSE)
+  #   #ggsave(save_name,combinePlot)
+  # }
   return(list(tiTvPatterns=boxplot,TiTv = boxplot1,barplot=barplot))
 }

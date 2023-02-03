@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quick Start • MAFDash</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MAFDash</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/MAFDash.html">Get started</a>
 </li>
@@ -50,27 +46,27 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Quick_Start.html">Quick Start</a>
+      <a href="../articles/Advanced_Example.html">Advanced Example</a>
     </li>
     <li>
       <a href="../articles/Customizing.html">Customizing</a>
     </li>
     <li>
-      <a href="../articles/Advanced_Example.html">Advanced Example</a>
+      <a href="../articles/Quick_Start.html">Quick Start</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ashishjain1988/MAFDash/">
+  <a href="https://github.com/ashishjain1988/MAFDash/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,53 +81,58 @@
 
       
 
-      </header><script src="Quick_Start_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Start</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ashishjain1988/MAFDash/blob/master/vignettes/Quick_Start.Rmd"><code>vignettes/Quick_Start.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ashishjain1988/MAFDash/blob/HEAD/vignettes/Quick_Start.Rmd" class="external-link"><code>vignettes/Quick_Start.Rmd</code></a></small>
       <div class="hidden name"><code>Quick_Start.Rmd</code></div>
 
     </div>
 
     
     
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h2>
-<div id="installation-from-github" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-from-github" class="anchor"></a>Installation from Github</h3>
-<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html"># install.packages(devtools)  ## Install devtools if necessary
-devtools::install_github("mtandon09/MAFDashRPackage")</a></code></pre>
+<div class="section level2">
+<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
+<div class="section level3">
+<h3 id="installation-from-github">Installation from Github<a class="anchor" aria-label="anchor" href="#installation-from-github"></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages(devtools)  ## Install devtools if necessary</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mtandon09/MAFDashRPackage"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="get-some-mutation-data-in-maf-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#get-some-mutation-data-in-maf-format" class="anchor"></a>Get some mutation data in MAF format</h3>
-<p>You can run <code><a href="https://rdrr.io/pkg/TCGAbiolinks/man/getGDCprojects.html">TCGAbiolinks::getGDCprojects()</a></code> to get a data frame of available datasets. The last column (<code>tumor</code>) contains valid TCGA project codes for download.</p>
-<pre><code># Let's use the example MAF provided by maftools
-laml.maf &lt;- system.file("extdata", "tcga_laml.maf.gz", package = "maftools")</code></pre>
+<div class="section level3">
+<h3 id="get-some-mutation-data-in-maf-format">Get some mutation data in MAF format<a class="anchor" aria-label="anchor" href="#get-some-mutation-data-in-maf-format"></a>
+</h3>
+<p>You can run <code><a href="https://rdrr.io/pkg/TCGAbiolinks/man/getGDCprojects.html" class="external-link">TCGAbiolinks::getGDCprojects()</a></code> to get a data frame of available datasets. The last column (<code>tumor</code>) contains valid TCGA project codes for download.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ashishjain1988/MAFDash/" class="external-link">MAFDash</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PoisonAlien/maftools" class="external-link">maftools</a></span><span class="op">)</span>
+<span class="co"># Let's use the example MAF provided by maftools</span>
+<span class="va">laml.maf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"tcga_laml.maf.gz"</span>, package <span class="op">=</span> <span class="st">"maftools"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="make-it-into-a-dashboard" class="section level3">
-<h3 class="hasAnchor">
-<a href="#make-it-into-a-dashboard" class="anchor"></a>Make it into a dashboard</h3>
-<pre><code>## Text to display as the header in the output file
-title_text &lt;- paste0("Example Dashboard")  
+<div class="section level3">
+<h3 id="make-it-into-a-dashboard">Make it into a dashboard<a class="anchor" aria-label="anchor" href="#make-it-into-a-dashboard"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Text to display as the header in the output file</span>
+<span class="va">title_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Example Dashboard"</span><span class="op">)</span>  
 
-## Location for the output file
-html_filename &lt;- "LAML.mafdash.html"
+<span class="co">## Location for the output file</span>
+<span class="va">html_filename</span> <span class="op">&lt;-</span> <span class="st">"LAML.mafdash.html"</span>
 
-getMAFDashboard(MAFfilePath = laml.maf,
-                outputFileName = html_filename,
-                outputFileTitle=title_text)</code></pre>
+<span class="fu"><a href="../reference/getMAFDashboard.html">getMAFDashboard</a></span><span class="op">(</span>maf <span class="op">=</span> <span class="va">laml.maf</span>,
+                outputFileName <span class="op">=</span> <span class="va">html_filename</span>,
+                outputFileTitle<span class="op">=</span><span class="va">title_text</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#output" class="anchor"></a>Output</h2>
-<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html">here</a></p>
+<div class="section level2">
+<h2 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
+</h2>
+<p>The output can be seen <a href="https://mtandon09.github.io/MAFDashRPackage/examples/LAML.mafdash.html" class="external-link">here</a></p>
 </div>
   </div>
 
@@ -146,11 +147,13 @@ getMAFDashboard(MAFfilePath = laml.maf,
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/ashishjain1988">Ashish Jain</a>, <a href="https://github.com/mtandon09">Mayank Tandon</a>.</p>
+  <p></p>
+<p>Developed by Ashish Jain, Mayank Tandon.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -158,6 +161,8 @@ getMAFDashboard(MAFfilePath = laml.maf,
 
   
 
+
+  
 
   </body>
 </html>

@@ -10,4 +10,8 @@ generateRibbonPlot(maf,
                    pval_low = pval_low, pval_high = pval_high, 
                    gene_colors = "grey50",
                    shrink_factor=1.5)
+# if(!is.null(dev.list()))
+# {
+#   dev.off() 
+# }
 ```

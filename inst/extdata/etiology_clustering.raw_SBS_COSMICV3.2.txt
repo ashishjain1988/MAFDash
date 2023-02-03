@@ -1,0 +1,79 @@
+signature	etiology	etiologyBroad	associated_signatures_extracted	k_3	k_3top_words	k_2	k_2top_words
+SBS45	8-oxo-guanine introduced during sequencing	8-oxo-guanine introduced during sequencing		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS24	Aflatoxin exposure	Aflatoxin exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS5	Aging / Tobacco smoking / NER deficiency	Aging / Tobacco smoking / NER deficiency		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS84	AID activity	AID activity	SBS85	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS85	AID activity	AID activity	SBS84	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS2	APOBEC activity	APOBEC activity	SBS13;DBS11	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS13	APOBEC activity	APOBEC activity	SBS2;DBS11	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS22	Aristolochic acid exposure	Aristolochic acid exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS32	Azathioprine exposure	Azathioprine exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS30	BER deficiency	BER deficiency		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS36	BER deficiency	BER deficiency		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS88	Colibactin exposure	Colibactin exposure	ID18	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS17a	Damage by ROS	Damage by ROS	SBS17b	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS18	Damage by ROS	Damage by ROS		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS17b	Damage by ROS / 5FU chemotherapy	Damage by ROS	SBS17a	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS10c	Defective POLD1 proofreading	Defective POLD1 proofreading	ID1	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS10d	Defective POLD1 proofreading	Defective POLD1 proofreading	SBS10c;ID1	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS90	Duocarmycin exposure	Duocarmycin exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS54	Germline variants contamination	Germline variants contamination		3	as.matrix.dtm.clustering....x....	2	as.matrix.dtm.clustering....x....
+SBS42	Haloalkanes exposure	Haloalkanes exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS3	HR deficiency	HR deficiency	ID6	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS8	HR deficiency / NER deficiency	HR deficiency		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS6	MMR deficiency	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS15	MMR deficiency	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS21	MMR deficiency	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS26	MMR deficiency	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS44	MMR deficiency	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS20	MMR deficiency + POLD1 mutation	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS14	MMR deficiency + POLE mutation	MMR deficiency	ID1;ID2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS31	Platinum chemotherapy	Platinum chemotherapy	DBS5	2	chemotherapy, platinum, platinum_chemotherapy, thiopurine, thiopurine_chemotherapy	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS35	Platinum chemotherapy	Platinum chemotherapy	DBS5	2	chemotherapy, platinum, platinum_chemotherapy, thiopurine, thiopurine_chemotherapy	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS10a	POLE exonuclease domain mutation	POLE exonuclease domain mutation	SBS10b;SBS28;DBS3	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS10b	POLE exonuclease domain mutation	POLE exonuclease domain mutation	SBS10a;SBS28;DBS3	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS28	POLE exonuclease domain mutation	POLE exonuclease domain mutation	SBS10a;SBS10b	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS9	Polymerase eta somatic hypermutation	Polymerase eta somatic hypermutation		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS43	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS51	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS55	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS56	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS57	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS58	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS59	Possible sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS27	Sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS60	Sequencing artifact	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS47	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS48	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS49	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS50	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS52	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS53	Sequencing artifact (blacklisted cancer samples for poor quality)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS46	Sequencing artifact (early releases of TCGA)	Sequencing artifact		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS1	Spontaneous deamination of 5-methylcytosine	Spontaneous deamination of 5-methylcytosine	SBS5	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS11	Temozolomide chemotherapy / MMR deficiency + temozolomide	MMR deficiency		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS87	Thiopurine chemotherapy	Thiopurine chemotherapy	SBS86	2	chemotherapy, platinum, platinum_chemotherapy, thiopurine, thiopurine_chemotherapy	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS29	Tobacco chewing	Tobacco		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS4	Tobacco smoking	Tobacco	ID3;DBS2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS92	Tobacco smoking	Tobacco	SBS4;ID3;DBS2	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS12	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS16	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS19	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS23	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS33	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS34	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS37	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS39	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS40	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS41	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS89	Unknown	Unknown	DBS8	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS91	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS93	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS94	Unknown	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS25	Unknown chemotherapy	Unknown		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS86	Unknown chemotherapy	Unknown	SBS87	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS7a	UV light exposure	UV light exposure	SBS7b;SBS7c;SBS7d;DBS1;ID13	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS7b	UV light exposure	UV light exposure	SBS7a;SBS7c;SBS7d;DBS1;ID13	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS7c	UV light exposure	UV light exposure	SBS7a;SBS7b;SBS7d	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS7d	UV light exposure	UV light exposure	SBS7a;SBS7b;SBS7c	1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
+SBS38	UV light exposure (indirect effect)	UV light exposure		1	sequencing, artifact, sequencing_artifact, unknown, deficiency	1	sequencing, artifact, sequencing_artifact, unknown, deficiency
