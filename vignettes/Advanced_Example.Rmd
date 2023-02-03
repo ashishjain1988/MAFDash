@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 ### Download MAF file using `TCGABiolinks`
 MAFDash provides a wrapper function that tries to simplify retrieving data using `TCGAbiolinks`.  Valid project codes can be viewed by running `TCGAbiolinks::getGDCprojects()` and checking the "tumor" column.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 library(MAFDash)
 library(TCGAbiolinks)
 library(maftools)
@@ -46,7 +46,7 @@ maf_files <- getMAFdataTCGA(tcga_code,variant_caller = caller)
 
 ### Download clinical data using `TCGABiolinks`
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 # tcga_clinical <- getTCGAClinicalAnnotation#TCGAbiolinks::GDCquery_clinic(project = paste0("TCGA-",tcga_code), type = "clinical")
 # tcga_clinical$Tumor_Sample_Barcode <- tcga_clinical$submitter_id
 #defaultW <- getOption("warn")
@@ -59,7 +59,7 @@ tcga_clinical<-getTCGAClinicalAnnotation(cancerCodes = tcga_code)
 ### Filter data
 The `filterMAF` function can be used to filter the MAF data in various ways.  Importantly, by default, it will remove commonly occurring mutations that are often considered to be false position ( [FLAG genes](https://bmcmedgenomics.biomedcentral.com/articles/10.1186/s12920-014-0064-y) )
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 filtered_mafdata <- do.call("rbind",lapply(maf_files, function(maf_file){filterMAF(maf_file)}))
 ```
 
@@ -68,7 +68,7 @@ The easiest way to add clinical annotations to the oncoplot is to add clinical d
 
 MAFDash also provides a function that defines reasonable colors for some common clinical annotations provided with TCGA datasets.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 filtered_maf <- read.maf(filtered_mafdata, clinicalData = tcga_clinical$annodata,verbose = FALSE)
 annotation_colors <- getTCGAClinicalColors(ageRange = range(tcga_clinical$annodata$age_at_diagnosis, na.rm=T))
 ```
@@ -79,7 +79,7 @@ The `add_clinical_annotations` argument can be:
 - A boolean indicating whether or not to add annotations built from the `clinical.data` slot of the `MAF` object.  Columns with all missing values are ignored. Maximum number of annotations plotted is 10 (first 10 non-empty columns of `clinical.data`)
 - A character vector of column names provided as clinical data
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 custom_onco <- generateOncoPlot(filtered_maf, 
                                 add_clinical_annotations = names(annotation_colors), 
                                 clin_data_colors = annotation_colors)
@@ -91,7 +91,7 @@ custom_onco
 ### TCGA Comparison
 A lot of `maftools`'s plots are base graphics, so they're drawn to a device and not returned.  But we can simply save them to a file and provide the file path.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 tcgaComparePlot<-generateTCGAComparePlot(maf = filtered_maf, cohortName = "test")
 tcgaComparePlot$tcga_compare_plot
 ```
@@ -99,7 +99,7 @@ tcgaComparePlot$tcga_compare_plot
 ### Chord Diagram of mutation co-occurrence
 This function is built on top of `maftools`'s `somaticInteractions()` function. It's just a different way of visualizing co-occurence or mutual exclusivity between genes.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 #ribbonplot_file <- file.path(getwd(),"ribbon.pdf")
 generateRibbonPlot(filtered_maf,save_name = NULL)
 ```
@@ -107,7 +107,7 @@ generateRibbonPlot(filtered_maf,save_name = NULL)
 ###Plot similarity to COSMIC signatures
 The function `generateCOSMICMutSigSimHeatmap` computes the cosine similarity of each individual signature against each COSMIC signature. The COSMIC signatures are also annotated using the etiologies behind the mutational signatures that were identified by analyzing thousands of whole-genome sequencing samples from TCGA. A crawler script was used to scrape the etiologies in the "Acceptance criteria" section of each signature page from COSMIC database v3.2.
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 library(ComplexHeatmap)
 val<-generateCOSMICMutSigSimHeatmap(filtered_maf)
 draw(val)
